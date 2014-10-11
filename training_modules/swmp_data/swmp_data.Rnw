@@ -27,6 +27,12 @@
 \institute[USEPA NHEERL]{USEPA NHEERL Gulf Ecology Division, Gulf Breeze, FL\\
 Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}, Phone: 850 934 2480}
 
+% dependents
+<<swmpr, eval = T, echo = F, cache = T>>=
+source('M:/docs/SWMPr/R/swmpr_misc.r')
+# devtools::load_all('M:/docs/SWMPr')
+# library(SWMPr)
+@
 
 %%%%%%
 \begin{frame}
@@ -118,6 +124,13 @@ Data can be exported from CDMO \href{http://cdmo.baruch.sc.edu/get/landing.cfm}{
 \end{frame}
 
 %%%%%%
+\begin{frame}{Overview of SWMP and avialable data}
+You can also use the \href{https://github.com/fawda123/SWMPr}{SWMPr} package to retrieve data \\~\\
+Data retrieval functions connect to the CDMO \href{http://cdmo.baruch.sc.edu/webservices.cfm}{web services}, more about this later \\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{web_serv.png}}
+\end{frame}
+
+%%%%%%
 \begin{frame}{Overview of SWMP and available data}
 A wide range of data can be requested... a few records for one site to all records for multiple sites \\~\\
 Requests can return a lot of data so make sure you have clear objectives \\~\\
@@ -144,23 +157,16 @@ Available data: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cd
 
 %%%%%%
 \begin{frame}[t]{Overview of SWMP and available data}
-Metadata are also returned with any data request\\~\\
+Metadata are also returned with any data request...  a summary of availability\\~\\
 As `sampling\_stations.csv':\\~\\
-\centerline{\includegraphics[width = 0.8\textwidth]{samp_stat.png}}
+\centerline{\includegraphics[width = 0.7\textwidth]{samp_stat.png}}
 \end{frame}
 
 %%%%%%
 \begin{frame}[t]{Overview of SWMP and available data}
-Metadata are also returned with any data request\\~\\
+Metadata are also returned with any data request... a summary of availability\\~\\
 As Word document (e.g., `apanut01-12.03m.doc') :\\~\\
-\centerline{\includegraphics[width = 0.8\textwidth]{meta_doc.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Overview of SWMP and available data}
-The SWMP naming convention and terminology:\\~\\
-Stations are identified by a 7 or 8 character name
-
+\centerline{\includegraphics[width = 0.7\textwidth]{meta_doc.png}}
 \end{frame}
 
 %%%%%%
@@ -180,16 +186,104 @@ How to view available data:\\~\\
 
 %%%%%%
 \begin{frame}{Format and potential issues with output data}
-
+\onslide<+->
+To orient yourself, understand the NERRS/SWMP naming convention\\~\\
+\textbf{Site} (reserve), \textbf{station}, and \textbf{parameter type} are identified by a 7 or 8 character name \\~\\
+\onslide<+->
+E.g., elkcwmet \\~\\
+\onslide<+->
+\begin{itemize}
+\item elk: site, Elkhorn Slough \\~\\
+\item cw: station, Caspian Weather Station \\~\\
+\item met: parameter type (weather)
+\end{itemize}
 \end{frame}
 
 %%%%%%
-\begin{frame}
-
+\begin{frame}{Format and potential issues with output data}
+\onslide<+->
+The fundamental unit of data is the `station' defined by a parameter type \\~\\
+The parameters for a station are specific to the parameter type \\~\\
+\begin{columns}[t]
+\begin{column}{0.3\textwidth}
+\textbf{\emph{Nutrients}} \\~\\
+\Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$nut, invert = T, value = T), fixed = T), collapse = ', ')}
+\end{column}
+\begin{column}{0.3\textwidth}
+\textbf{\emph{Water quality}} \\~\\
+\Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$wq, invert = T, value = T), fixed = T), collapse = ', ')}
+\end{column}
+\begin{column}{0.3\textwidth}
+\textbf{\emph{Meteorology}} \\~\\
+\Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$met, invert = T, value = T), fixed = T), collapse = ', ')} \\~\\
+\end{column}
+\end{columns}
+\onslide<+->
+Note that these are lower case, same as the data you will work with in R but not the same as data from the CDMO
 \end{frame}
 
 %%%%%%
-\begin{frame}
+\begin{frame}{Format and potential issues with output data}
+Each parameter will also have a QAQC column, with the prefix `f\_' \\~\\
+E.g., `atemp' and `f\_atemp' \\~\\
+Values in these columns describe whether the data passed automated QAQC checks \\~\\
+\centerline{\includegraphics[width = 0.9\textwidth]{qaqc_flags.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Format and potential issues with output data}
+You will have to decide how to handle QAQC...\\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{qaqc_ex.png}} \\~\\
+CDMO has limited export options for dealing with bad QAQC flags \\~\\
+We will learn how to handle QAQC flags in R
+\end{frame}
+
+%%%%%%
+\begin{frame}{Format and potential issues with output data}
+The final piece of of the puzzle is the DateTimeStamp \\~\\
+Format is month/day/year hours:minutes, based on UTC offset and no daylight savings!\\~\\
+Time step also varies by station, parameter type, and when the data were obtained \\~\\
+\begin{columns}[t]
+\begin{column}{0.4\textwidth}
+\centerline{\includegraphics[width = 0.9\textwidth]{timestamp_ex1.png}}
+\end{column}
+\begin{column}{0.4\textwidth}
+\centerline{\includegraphics[width = 0.9\textwidth]{timestamp_ex2.png}}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Format and potential issues with output data}
+\onslide<+->
+What are the challenges for evaluating SWMP data?? \\~\\
+\onslide<+->
+\begin{itemize}
+\item Knowing what we want (I can't help with this) \\~\\
+\item Dealing with QAQC columns and removing `bad' observations \\~\\
+\item Comparing data of different parameter types \\~\\
+\item Comparing data with different time steps \\~\\
+\item Comparing data between stations \\~\\
+\item Data we don't want... extra columns or irrelevant parameters \\~\\
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Format and potential issues with output data}
+\onslide<+->
+Not to mention the inherent issues with time series... \\~\\
+\begin{itemize}
+\item Missing data \\~\\
+\item Noise vs signal \\~\\
+\item Drift or instrument malfunction \\~\\
+\item Others?\\~\\
+\end{itemize}
+\onslide<+->
+\centerline{\emph{We will learn how to handle most of these challenges!}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Overview of the SWMPr package}\
 
 \end{frame}
 
