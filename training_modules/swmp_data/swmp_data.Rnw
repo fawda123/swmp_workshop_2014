@@ -7,6 +7,7 @@
 \usepackage{booktabs}
 \usepackage{verbatim}
 \usepackage{tikz}
+\usepackage{lmodern}
 \usetikzlibrary{shadows,arrows,positioning}
 \definecolor{links}{HTML}{2A1B81}
 \hypersetup{colorlinks,linkcolor=links,urlcolor=links}
@@ -16,22 +17,33 @@
 
 \newcommand{\ShowSexpr}[1]{\texttt{{\char`\\}Sexpr\{#1\}}}
 
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
 \begin{document}
 
-\title[Overview of SWMP data]{SWMP data retrieval and preparation}
+\title[Overview of SWMP and retrieval]{SWMP data retrieval and preparation}
 
-\author[M. Beck]{Marcus W. Beck}
+\author[M. Beck, T. O'Brien]{Marcus W. Beck\inst{1} \and Todd D. O'Brien\inst{2}}
 
 \date{}
 
-\institute[USEPA NHEERL]{USEPA NHEERL Gulf Ecology Division, Gulf Breeze, FL\\
-Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}, Phone: 850 934 2480}
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS Copepod Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
 
-% dependents
-<<swmpr, eval = T, echo = F, cache = T>>=
-source('M:/docs/SWMPr/R/swmpr_misc.r')
-# devtools::load_all('M:/docs/SWMPr')
-# library(SWMPr)
+% knitr setup
+<<setup, include = F, cache = F>>=
+add_lib <- 'C:\\Users\\mbeck\\R\\library'
+if(file.exists(add_lib)) .libPaths(add_lib)
+rm('add_lib')
+library(knitr)
+
+# set global chunk options
+opts_chunk$set(fig.align='center', fig.show='hold',message=F,results='asis',dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F)
+options(replace.assign=TRUE,width=80,digits=1)
+@
+
+% load SWMPr from local
+<<swmpr, eval = T, echo = F, cache = F, message = F>>=
+devtools::load_all('M:/docs/SWMPr')
 @
 
 %%%%%%
@@ -51,7 +63,7 @@ source('M:/docs/SWMPr/R/swmpr_misc.r')
 \item Objectives \\~\\
 \begin{itemize}
 \item What are the various ways data are obtained from SWMP? \\~\\
-\item What needs to be done to the SWMP data to get it into a format to enter into a statistical program to conduct a time series analysis? \\~\\
+\item What are some issues that need to be addressed before importing into a statistical program to conduct a time series analysis? \\~\\
 \end{itemize}
 \onslide<+->
 \item Agenda \\~\\
@@ -174,10 +186,10 @@ As Word document (e.g., `apanut01-12.03m.doc') :\\~\\
 \onslide<+->
 How to view available data:\\~\\
 \begin{itemize}
-\item Trial-and-error (not recommended)
-\item View online: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cdmo.baruch.sc.edu/data/availableOne.cfm}
-\item View after request: `sampling_stations.csv'
-\item View after request: year and station specific .doc file
+\item Trial-and-error (not recommended) \\~\\
+\item View online: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cdmo.baruch.sc.edu/data/availableOne.cfm}  \\~\\
+\item View after request: `sampling_stations.csv'  \\~\\
+\item View after request: year and station specific .doc file  \\~\\
 \item Retrieve from within R (will cover later) \\~\\
 \end{itemize}
 \onslide<+->
@@ -188,7 +200,7 @@ How to view available data:\\~\\
 \begin{frame}{Format and potential issues with output data}
 \onslide<+->
 To orient yourself, understand the NERRS/SWMP naming convention\\~\\
-\textbf{Site} (reserve), \textbf{station}, and \textbf{parameter type} are identified by a 7 or 8 character name \\~\\
+\Bigtxt{Site} (reserve), \Bigtxt{station}, and \Bigtxt{parameter type} are identified by a 7 or 8 character name \\~\\
 \onslide<+->
 E.g., elkcwmet \\~\\
 \onslide<+->
@@ -204,17 +216,18 @@ E.g., elkcwmet \\~\\
 \onslide<+->
 The fundamental unit of data is the `station' defined by a parameter type \\~\\
 The parameters for a station are specific to the parameter type \\~\\
+\onslide<+->
 \begin{columns}[t]
 \begin{column}{0.3\textwidth}
-\textbf{\emph{Nutrients}} \\~\\
+\Bigtxt{Nutrients} \\~\\
 \Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$nut, invert = T, value = T), fixed = T), collapse = ', ')}
 \end{column}
 \begin{column}{0.3\textwidth}
-\textbf{\emph{Water quality}} \\~\\
+\Bigtxt{Water quality} \\~\\
 \Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$wq, invert = T, value = T), fixed = T), collapse = ', ')}
 \end{column}
 \begin{column}{0.3\textwidth}
-\textbf{\emph{Meteorology}} \\~\\
+\Bigtxt{Meteorology} \\~\\
 \Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$met, invert = T, value = T), fixed = T), collapse = ', ')} \\~\\
 \end{column}
 \end{columns}
@@ -233,7 +246,8 @@ Values in these columns describe whether the data passed automated QAQC checks \
 %%%%%%
 \begin{frame}{Format and potential issues with output data}
 You will have to decide how to handle QAQC...\\~\\
-\centerline{\includegraphics[width = 0.8\textwidth]{qaqc_ex.png}} \\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{qaqc_ex.png}}
+\vspace{0.2in}
 CDMO has limited export options for dealing with bad QAQC flags \\~\\
 We will learn how to handle QAQC flags in R
 \end{frame}
@@ -283,18 +297,168 @@ Not to mention the inherent issues with time series... \\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}{Overview of the SWMPr package}\
+\begin{frame}{Overview of the SWMPr package}
+\onslide<+->
+\textbf{\emph{What}}: An R package for retrieving, organizing and analyzing SWMP data \\~\\
+\onslide<+->
+\Bigtxt{Why}: There are many challenges for working with SWMP data... a toolkit for addressing these challenges using an open-source format will be useful (I hope!) \\~\\
+\onslide<+->
+\Bigtxt{How}: \\~\\
+\begin{itemize}
+\item Install R/RStudio on your computer (done already?) \\~\\
+\item Install the SWMPr package \\~\\
+\item Use the SWMPr functions to \Bigtxt{retrieve}, \Bigtxt{organize}, and \Bigtxt{analyze} SWMP data 
+\end{itemize}
+\end{frame}
 
+%%%%%%
+\begin{frame}{Overview of the SWMPr package}
+This is where SWMPr lives - \href{https://github.com/fawda123/SWMPr}{https://github.com/fawda123/SWMPr}\\~\\
+\centerline{\includegraphics[width = 0.9\textwidth]{swmpr_github.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Overview of the SWMPr package}
+Scroll down the page to view the \href{https://github.com/fawda123/SWMPr/blob/master/README.md}{README} file, all instructions here...\\~\\
+\centerline{\includegraphics[width = 0.9\textwidth]{swmpr_readme.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t, fragile]{Overview of the SWMPr package}
+Installation instructions are in the \href{https://github.com/fawda123/SWMPr/blob/master/README.md}{README} \\~\\
+Run these four lines to install the package
+<<test, eval = F, results='markup'>>=
+install.packages('devtools')
+library(devtools)
+install_github('fawda123/SWMPr')
+library(SWMPr)
+@
+What is it doing? \\~\\
+Packages can be installed from Github using the `install_github' function from the devtools package
+\end{frame}
+
+%%%%%%
+\begin{frame}[t, fragile]{Overview of the SWMPr package}
+Your R console should look like this...\\~\\
+\centerline{\includegraphics[width = 0.55\textwidth]{swmpr_install.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Overview of the SWMPr package}
+What is provided in the SWMPr package? \\~\\
+\begin{columns}[t]
+\begin{column}{0.3\textwidth}
+\Bigtxt{Retrieve}
+<<eval = F, results = 'markup'>>=
+all_params
+all_params_dtrng
+single_param
+import_local
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+\Bigtxt{Organize}
+<<eval = F, results = 'markup'>>=
+qaqc.swmpr
+subset.swmpr
+setstep.swmpr
+comb.swmpr
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+\Bigtxt{Analyze}
+<<eval = F, results = 'markup'>>=
+aggregate.swmpr
+smoother.swmpr
+na.approx.swmpr
+@
+\end{column}
+\end{columns}
+\vspace{0.15in}
+Built around the concept of \Bigtxt{object-oriented programming} - retrieval functions return a data type with specific methods to organize and analyze
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Overview of the SWMPr package}
+To view the help file for any function (including examples):
+<<eval = FALSE, results = 'markup'>>=
+?all_params
+@
+\centerline{\includegraphics[width = 0.8\textwidth]{help_ex.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Overview of the SWMPr package}
+Let's get some data into R!\\~\\
+The \Bigtxt{retrieval} functions do two things: \\~\\
+\begin{columns}[t]
+\begin{column}{0.4\textwidth}
+Import data directly from the CDMO:
+<<eval = F, results = 'markup'>>=
+all_params
+all_params_dtrng
+single_param
+@
+These functions require \href{http://cdmo.baruch.sc.edu/webservices.cfm}{registering your IP address}  with CDMO, data are also rate-limited
+\end{column}
+\begin{column}{0.4\textwidth}
+Import data from a local path:
+<<eval = F, results = 'markup'>>=
+import_local
+@
+Allows import of data obtained from the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Overview of the SWMPr package}
+After unzipping, data from \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} will have separate .csv files for each station and year\\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{zips_ex.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Overview of the SWMPr package}
+Use the following to import data into R:\\~\\
+<<eval = F, results = 'markup'>>=
+# get data for apacpwq, all years
+
+# location of data
+mypath <- 'C:/myfolder/swmp_data/'
+  
+# import and assign to 'dat'
+dat <- import_local(mypath, 'apacpwq', trace = T) 
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Overview of the SWMPr package}
+Your console should look like this:\\~\\
+\centerline{\includegraphics[width = 0.65\textwidth]{import_ex.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile, shrink]{Overview of the SWMPr package}
+Now we have data in our `workspace' that we can organize/analyze
+<<echo = F, message = F>>=
+mypath <- 'M:/docs/swmp_workshop_2014/training_modules/swmp_data/zip_ex'
+dat <- import_local(mypath, 'apacpwq') 
+@
+<<eval = T, echo = T, results = 'markup', size = 'scriptsize'>>=
+head(dat$station_data)
+@
 \end{frame}
 
 %%%%%%
 \begin{frame}
-
-\end{frame}
-
-%%%%%%
-\begin{frame}
-
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\vspace{0.5in}
+\Large
+\centerline{\Bigtxt{Questions??}}
 \end{frame}
 
 \end{document}
