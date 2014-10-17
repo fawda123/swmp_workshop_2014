@@ -117,8 +117,8 @@
 \begin{frame}{Interactive portion}
 You can follow along later in this module: \\~\\
 \begin{itemize}
-\item Dataset1 \\~\\
-\item Script1 \\~\\
+\item dataset1\\~\\
+\item script1 \\~\\
 \end{itemize}
 \Large
 \centerline{\emph{Interactive! Interrupt me!}}
@@ -131,34 +131,6 @@ SWMP - System Wide Monitoring Program, initiated in 1995 to provide continuous m
 \tiny
 \flushright
 \href{http://nerrs.noaa.gov/ReservesMap.aspx}{http://nerrs.noaa.gov/ReservesMap.aspx}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Overview of SWMP and available data}
-\onslide<1->
-The first challenge in analyzing time series is obtaining the data \\~\\
-SWMP data are available through the Centralized Data Management Office (\href{http://cdmo.baruch.sc.edu/}{CDMO})
-\begin{center}
-\begin{tikzpicture}[auto, >=stealth]
-  \onslide<2->{
-  \path
-  (2,2) ellipse (2.5 and 2.5) [draw]
-  (3.5,3.5) -- (4.5,4.5) -- (5,4.5) node[right]{NOAA} ;}
-  \onslide<3->{
-  \path
-  (2,2) ellipse (2 and 2) [draw]
-  (3.5,2.5) -- (5.5,3) -- (6,3) node[right]{NERRS} ;} 
-  \onslide<4->{
-  \path
-  (2,2) ellipse (1.5 and 1.5) [draw]
-  (3,1.5) -- (5.5,1.5) -- (6,1.5) node[right]{SWMP} ;} 
-  \onslide<5->{
-  \path
-  (2,2) ellipse (1 and 1) [draw]
-  (2,2) -- (4.5,0) -- (5,0) node[right]{CDMO} ;} 
-\end{tikzpicture}
-\end{center}
-
 \end{frame}
 
 %%%%%%
@@ -197,26 +169,6 @@ Check the \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{available data}
 \begin{frame}[t]{Overview of SWMP and available data}
 Available data: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cdmo.baruch.sc.edu/data/availableOne.cfm}\\~\\
 \centerline{\includegraphics[width = 0.9\textwidth]{avail_dat2.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}[t]{Overview of SWMP and available data}
-Available data: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cdmo.baruch.sc.edu/data/availableOne.cfm}\\~\\
-\centerline{\includegraphics[width = 0.6\textwidth]{avail_dat.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}[t]{Overview of SWMP and available data}
-Metadata are also returned with any data request...  a summary of availability\\~\\
-As `sampling\_stations.csv':\\~\\
-\centerline{\includegraphics[width = 0.7\textwidth]{samp_stat.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}[t]{Overview of SWMP and available data}
-Metadata are also returned with any data request... a summary of availability\\~\\
-As Word document (e.g., `apanut01-12.03m.doc') :\\~\\
-\centerline{\includegraphics[width = 0.7\textwidth]{meta_doc.png}}
 \end{frame}
 
 %%%%%%
@@ -269,8 +221,6 @@ temp, spcond, sal, do\_pct, do\_mgl, depth, cdepth, level, clevel, ph, turb, chl
 atemp, rh, bp, wspd, maxwspd, wdir, sdwdir, totpar, totprcp, cumprcp, totsorad \\~\\
 \end{column}
 \end{columns}
-\onslide<+->
-Note that these are lower case, same as the data you will work with in R but not the same as data from the CDMO
 \end{frame}
 
 %%%%%%
@@ -294,7 +244,7 @@ We will learn how to handle QAQC flags in R
 \begin{frame}{Format and potential issues with output data}
 The final piece of of the puzzle is the DateTimeStamp \\~\\
 Format is month/day/year hours:minutes, based on UTC offset and no daylight savings!\\~\\
-Time step also varies by station, parameter type, and when the data were obtained \\~\\
+Varies by station and parameter type \\~\\
 \begin{columns}[t]
 \begin{column}{0.4\textwidth}
 \centerline{\includegraphics[width = 0.9\textwidth]{timestamp_ex1.png}}
@@ -312,23 +262,13 @@ What are the challenges for evaluating SWMP data?? \\~\\
 \onslide<+->
 \begin{itemize}
 \item Knowing what we want (I can't help with this) \\~\\
-\item Dealing with QAQC columns and removing `bad' observations \\~\\
-\item Comparing data of different parameter types \\~\\
-\item Comparing data with different time steps \\~\\
-\item Comparing data between stations \\~\\
-\item Data we don't want... extra columns or irrelevant parameters \\~\\
-\end{itemize}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Format and potential issues with output data}
 \onslide<+->
-Not to mention the inherent issues with time series... \\~\\
-\begin{itemize}
-\item Missing data \\~\\
-\item Noise vs signal \\~\\
-\item Drift or instrument malfunction \\~\\
-\item Others?\\~\\
+\item Dealing with QAQC columns and removing `bad' observations \\~\\
+\onslide<+->
+\item Data we don't want... extra columns or irrelevant parameters \\~\\
+\onslide<+->
+\item Combining data for comparison
+\onslide<+-> Issues inherent with time series, e.g., missing data
 \end{itemize}
 \onslide<+->
 \centerline{\emph{We will learn how to handle most of these challenges!}}
@@ -376,7 +316,7 @@ Run these four lines to install the package
 \end{kframe}
 \end{knitrout}
 What is it doing? \\~\\
-Packages can be installed from Github using the `install_github' function from the devtools package
+Packages can be installed from Github using the `install\_github' function from the devtools package
 \end{frame}
 
 %%%%%%
@@ -423,6 +363,10 @@ What is provided in the SWMPr package? \\~\\
 \hlstd{aggregate.swmpr}
 \hlstd{smoother.swmpr}
 \hlstd{na.approx.swmpr}
+\hlstd{plot.swmpr}
+\hlstd{hist.swmpr}
+\hlstd{lines.swmpr}
+\hlstd{decomp.swmpr}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -492,7 +436,7 @@ Use the following to import data into R:\\~\\
 \hlcom{# get data for apacpwq, all years}
 
 \hlcom{# location of data}
-\hlstd{mypath} \hlkwb{<-} \hlstr{'C:/myfolder/swmp_data/'}
+\hlstd{mypath} \hlkwb{<-} \hlstr{'C:/data/dataset1'}
 
 \hlcom{# import and assign to 'dat'}
 \hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(mypath,} \hlstr{'apacpwq'}\hlstd{,} \hlkwc{trace} \hlstd{= T)}
@@ -514,7 +458,7 @@ Now we have data in our `workspace' that we can organize/analyze
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{head}\hlstd{(dat}\hlopt{$}\hlstd{station_data)}
+\hlkwd{head}\hlstd{(dat)}
 \end{alltt}
 \begin{verbatim}
 ##         datetimestamp temp f_temp spcond f_spcond sal f_sal do_pct f_do_pct

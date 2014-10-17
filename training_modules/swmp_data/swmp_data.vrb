@@ -4,7 +4,7 @@ Now we have data in our `workspace' that we can organize/analyze
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{head}\hlstd{(dat}\hlopt{$}\hlstd{station_data)}
+\hlkwd{head}\hlstd{(dat)}
 \end{alltt}
 \begin{verbatim}
 ##         datetimestamp temp f_temp spcond f_spcond sal f_sal do_pct f_do_pct
