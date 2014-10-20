@@ -230,7 +230,8 @@ What are the challenges for evaluating SWMP data?? \\~\\
 \item Data we don't want... extra columns or irrelevant parameters \\~\\
 \onslide<+->
 \item Combining data for comparison
-\onslide<+-> Issues inherent with time series, e.g., missing data
+\onslide<+-> 
+\item Issues inherent with time series, e.g., missing data
 \end{itemize}
 \onslide<+->
 \centerline{\emph{We will learn how to handle most of these challenges!}}
@@ -368,8 +369,9 @@ Use the following to import data into R:\\~\\
 # get data for apacpwq, all years
 
 # location of data
-mypath <- 'C:/data/dataset1'
-  
+# mypath <- 'C:/data/dataset1'
+mypath <- system.file('zip_ex', package = 'SWMPr')
+
 # import and assign to 'dat'
 dat <- import_local(mypath, 'apacpwq', trace = T) 
 @
@@ -377,8 +379,17 @@ dat <- import_local(mypath, 'apacpwq', trace = T)
 
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
-Your console should look like this:\\~\\
-\centerline{\includegraphics[width = 0.65\textwidth]{import_ex.png}}
+Your console should look something like this:\\~\\
+<<eval = T, echo = T, results = 'markup'>>=
+# get data for apacpwq, all years
+
+# location of data
+# mypath <- 'C:/data/dataset1'
+mypath <- system.file('zip_ex', package = 'SWMPr')
+
+# import and assign to 'dat'
+dat <- import_local(mypath, 'apacpwq', trace = T) 
+@
 \end{frame}
 
 %%%%%%

@@ -268,7 +268,8 @@ What are the challenges for evaluating SWMP data?? \\~\\
 \item Data we don't want... extra columns or irrelevant parameters \\~\\
 \onslide<+->
 \item Combining data for comparison
-\onslide<+-> Issues inherent with time series, e.g., missing data
+\onslide<+-> 
+\item Issues inherent with time series, e.g., missing data
 \end{itemize}
 \onslide<+->
 \centerline{\emph{We will learn how to handle most of these challenges!}}
@@ -436,7 +437,8 @@ Use the following to import data into R:\\~\\
 \hlcom{# get data for apacpwq, all years}
 
 \hlcom{# location of data}
-\hlstd{mypath} \hlkwb{<-} \hlstr{'C:/data/dataset1'}
+\hlcom{# mypath <- 'C:/data/dataset1'}
+\hlstd{mypath} \hlkwb{<-} \hlkwd{system.file}\hlstd{(}\hlstr{'zip_ex'}\hlstd{,} \hlkwc{package} \hlstd{=} \hlstr{'SWMPr'}\hlstd{)}
 
 \hlcom{# import and assign to 'dat'}
 \hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(mypath,} \hlstr{'apacpwq'}\hlstd{,} \hlkwc{trace} \hlstd{= T)}
@@ -447,8 +449,30 @@ Use the following to import data into R:\\~\\
 
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
-Your console should look like this:\\~\\
-\centerline{\includegraphics[width = 0.65\textwidth]{import_ex.png}}
+Your console should look something like this:\\~\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# get data for apacpwq, all years}
+
+\hlcom{# location of data}
+\hlcom{# mypath <- 'C:/data/dataset1'}
+\hlstd{mypath} \hlkwb{<-} \hlkwd{system.file}\hlstd{(}\hlstr{'zip_ex'}\hlstd{,} \hlkwc{package} \hlstd{=} \hlstr{'SWMPr'}\hlstd{)}
+
+\hlcom{# import and assign to 'dat'}
+\hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(mypath,} \hlstr{'apacpwq'}\hlstd{,} \hlkwc{trace} \hlstd{= T)}
+\end{alltt}
+\begin{verbatim}
+## Loading files...
+## 
+## apacpwq2011.csv 	apacpwq2012.csv 	apacpwq2013.csv 	
+## 
+## Combining data...
+## 
+## Data imported...
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 \end{frame}
 
 %%%%%%
