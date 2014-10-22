@@ -1,0 +1,525 @@
+\documentclass[xcolor=svgnames]{beamer}
+\usetheme{Boadilla}
+\usecolortheme[named=SeaGreen]{structure}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usetikzlibrary{shadows,arrows,positioning}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
+\usepackage{pgfpages}
+
+\tikzstyle{block} = [rectangle, draw, text width=9em, text centered, rounded corners, minimum height=3em, minimum width=7em, top color = white, bottom color=brown!30,  drop shadow]
+
+\newcommand{\ShowSexpr}[1]{\texttt{{\char`\\}Sexpr\{#1\}}}
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+% knitr setup
+<<setup, include = F, cache = F>>=
+# set global chunk options
+opts_chunk$set(fig.align='center', fig.show='hold',dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F)
+options(replace.assign=T,width=80,digits=1)
+@
+
+\begin{document}
+
+\title[Introduction to R]{Introduction to R}
+
+\author[M. Beck, T. O'Brien]{Marcus W. Beck\inst{1} \and Todd D. O'Brien\inst{2}}
+
+\date{}
+
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS Copepod Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\titlepage
+\end{frame}
+
+%%%%%%
+\begin{frame}{What you'll learn in this intro}
+\begin{itemize}
+\itemsep15pt
+\item Course expectations and pre-worskhop materials
+\item What is R?
+\item What's possible with R?
+\item R basics
+\begin{itemize}
+\item Installation
+\item Command-line interface
+\item Coding basics
+\item Functions and objects
+\item Data import and manipulation
+\end{itemize}
+\item Help!\\~\\
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Course expectations}
+The November 17$^{th}$ workshop will provide you with a set of tools for evaluating time series data from SWMP \\~\\
+Preparation for the workshop:
+\begin{itemize}
+\item Review pre-workshop toolkit materials
+\item Bring a computer with R version 3.0.0 or later
+\item Optionally, install RStudio in addition to R
+\item Have a basic proficiency using R, what this means:
+\begin{itemize}
+\item You do not have to be an expert!
+\item Understand the basics of a command-line interface
+\item Know how to open R, load a script, execute functions
+\item Know how to save your work 
+\end{itemize}
+\item Install the `SWMPr' package after installing R
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Course expectations}
+This is not an R training workshop... \\~\\
+...but we will be using R exclusively to handle SWMP data\\~\\
+You will receive an overview of the theory behind time series analysis \\~\\
+We will use an R package developed to work with SWMP data \\~\\
+A package is a collection of functions written by others that can be installed within R\\~\\
+This package can automatically handle common problems working with SWMP data and time series, it is designed to make your life easier! \\~\\
+\end{frame}
+
+%%%%%%
+\begin{frame}{Course expectations}
+The pre-workshop toolkit includes:
+\begin{itemize}
+\item R installation instructions - \textit{R\_install\_guide.pdf}
+\item Intro to R (current document) - \textit{intro\_to\_R.pdf}
+\item Basics of data analysis with R - \textit{r\_for\_data\_analysis.pdf}
+\item Installing and working with the SWMPr package - \textit{intro\_to\_swmpr.pdf}\\~\\
+\end{itemize}
+The final item is optional as we will cover the content in the workshop, but you should have the SWMPr package installed prior to the 17th\\~\\
+Please note that webinar attendees will have limited interaction with the instructors, although we will have moderators handling questions.
+\end{frame}
+
+%%%%%%
+\begin{frame}{Course expectations}
+Copies of all instructional materials will be made available on the course website: \href{http://copepod.org/nerrs-swmp-workshop/}{copepod.org/nerrs-swmp-workshop/}\\~\\
+Physical attendees will also receive a flashdrive with the course materials \\~\\
+The instructors can also be contacted with questions prior to the workshop:\\~\\
+\begin{itemize}
+\item For R questions including toolkit and installation - Marcus Beck, \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}
+\item For time series analysis questions - Todd O'Brien, \href{mailto:todd.obrien@noaa.gov}{todd.obrien@noaa.gov}
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Course expectations}
+Finally, the presentation materials combine content with R code and R output\\~\\
+R code that can be executed will look like this:
+<<eval = F>>=
+# here's some R code
+rnorm(10)
+@
+The output will look similar to this in R (without `\#\#'):
+<<echo = F>>=
+rnorm(10)
+@
+When applicable, R scripts are provided that contain only the executable code within each training module.  You can use these in R as you read each presentation.
+\end{frame}
+
+%%%%%%
+\begin{frame}{What is \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+R is a computer language that allows the user to program algorithms and use tools that have been programmed by others\\~\\
+Different from other statistics software because it provides both tools for analysis and it is also a programming language...\\~\\
+You do not have to be a progammer to use R!
+\end{frame}
+
+%%%%%%
+\begin{frame}{What is \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{scope}
+
+    % The transparency:
+    \begin{scope}[fill opacity=0.5]
+      \fill[blue] (-2,0) circle (2.5);
+      \fill[green] (2,0) circle (2.5);
+    \end{scope}
+    
+    % letterings and missing pieces:
+    \draw[align=center] (-2,0) circle (2.5) node[scale=1.2] {Programming};
+    \draw[align=center] (2,0) circle (2.5) node[scale=1.2] {Statistics};
+ 		\draw (0,0) node[scale=2] {R};
+ 		
+  \end{scope}
+\end{tikzpicture}\\~\\
+R is both... this creates a steep learning curve.
+\end{center}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{What is \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+\vspace{-0.1in}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+R is becoming the statistical software of choice\\~\\
+Plot of Google scholar hits over time for different software packages
+[\href{http://r4stats.com/articles/popularity/}{r4stats.com}]
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=1.1\textwidth]{r_google.png}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{What is \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+\vspace{-0.1in}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+R is becoming the statistical software of choice\\~\\
+Exponential growth in number of contributed packages
+[\href{http://r4stats.com/articles/popularity/}{r4stats.com}]
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=1.1\textwidth]{r_package.png}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+R is incredibly flexible, if you want something done, someone else has written the code...\\~\\
+R is open-source software, which mean it's free and is supported by a large network of contributors - the Comprehensive R Network [\href{http://cran.us.r-project.org/}{CRAN}]\\~\\
+CRAN is a collection of sites which carry identical material, consisting of the R distribution(s), the contributed extensions, documentation for R, and binaries [\href{http://cran.us.r-project.org/faqs.html}{R FAQ}]\\~\\
+Basically a repository of R utilities that others have written as well as the source files for R - the \href{http://cran.r-project.org/web/views/}{CRAN task views} contain descriptions of contributed packages by category
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+\href{http://cran.r-project.org/web/views/}{CRAN task views}
+\begin{center}
+\includegraphics[width = 0.8\textwidth]{cran_view1.png}
+\end{center}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+\href{https://github.com/}{Github} has also been increasingly used to store packages online  - like an informal CRAN:
+\begin{center}
+\includegraphics[width = 0.8\textwidth]{git.png}
+\end{center}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+R comes with a base package that is included in installation, others are downloaded as needed, e.g.,\\~\\
+<<eval=F>>=
+# download from CRAN
+install.packages('ggplot2')
+@
+\vspace{0.2in}
+The base package will be sufficient for most of your needs - includes arithmetic, input/output, basic programming support, graphics, etc.\\~\\
+Once a package is installed, it must be loaded to use its functions:
+<<eval = F>>=
+# load ggplot2
+library(ggplot2)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+Or you can download packages from Github, which requires using the devtools package:
+<<eval = F>>=
+# download devtools from CRAN
+install.package('devtools')
+
+# load devtools
+library(devtools)
+
+# install SWMPr from Github, load
+install_github('fawda123/SWMPr')
+library(SWMPr)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+Each package may also come with a demonstration\\~\\
+This provides a neat way to see what an R package has to offer\\~\\
+To see a list of packages with demonstrations, run this code:
+<<eval=F, echo=T>>=
+# view packages with demos
+demo(package = .packages(all.available = TRUE))
+@
+To view a demonstration of basic graphic capabilities in R:
+<<eval = F>>=
+# view a demo for the graphics package
+demo(graphics)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
+Each package comes with extensive help documentation\\~\\
+Help files for a package:
+<<eval = F>>=
+# view help files for a package
+help(package = 'ggplot2')
+@
+Or for an individual function in a package:
+<<eval = F>>=
+# get help file
+help(mean, package = 'base')
+
+# or do this
+?mean
+@
+\end{frame}
+
+
+\section{Basics}
+%%%%%%
+\begin{frame}[t]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Following the instructions in our installation guide for step-by-step directions \\~\\
+Or visit \href{http://cran.us.r-project.org/}{r-project.org} and follow directions
+\centerline{\includegraphics[width = 0.8\textwidth]{download.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+\href{http://www.rstudio.com/}{RStudio} is also recommended but not required\\~\\
+\centerline{\includegraphics[width=0.65\textwidth]{Rstudio.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+How is R different from Excel? R is a command-line interface\\~\\
+\centerline{\includegraphics[width=0.7\textwidth]{command_line.png}}
+\centerline{\emph{What next??}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Lines of code are executed by R at the prompt (\textit{\texttt{>}})\\~\\
+Enter the code and press enter, the output is returned
+<<echo=T>>=
+print('hello world!')
+2 + 2
+(2 + 2) / 4
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+A disadvantage of code is that everything entered must be 100 \% correct
+<<>>=
+2 + a
+a
+@
+\vspace{0.2in}
+But this provides an explicit documentation of your workflow...\\~\\
+...your code is a living document of your analyses.
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Assigning data to R objects is critical for analysis\\~\\
+Assignment is possible using \textit{\texttt{<-}} or \textit{\texttt{=}}
+<<eval=T,echo=T>>=
+a <- 1
+2 + a
+a = 1
+2 + a
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+More complex assignments are possible\\~\\
+<<eval=T,echo=T>>=
+a <- c(1, 2, 3 , 4)
+a
+a <- seq(1, 4)
+a
+a <- c('a', 'b', 'c')
+a
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Anatomy of a function - functions perform tasks for you, much like in Excel
+\begin{center}
+\Large
+function(arguments)
+\end{center}
+<<eval=T,echo=T>>=
+c(1, 2) # concatenate function to combine value
+mean(c(1, 2)) # mean function
+seq(1, 4) # create a sequence of values
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Understanding classes of R \href{http://cran.r-project.org/doc/manuals/r-release/R-lang.html#Vector-objects}{objects} is necessary for analysis \\~\\
+An object is a variable of interest that will always have a class\\~\\
+Most common are `numeric' or `character' classes \\~\\
+<<echo=T,eval=T>>=
+class(1)
+class('1')
+@
+`Factors' are also common, define categorical variables
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Different types of methods are assigned to different class types\\~\\
+The class also imposes limits on how it interacts with other class \\~\\
+For example, we cannot add add two objects with different classes:\\~\\
+<<echo=T,eval=T>>=
+# this does not work
+'1' + 1
+@
+There is no `addition' method for character objects...
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Objects (and their classes) are stored in the computer's memory in different ways - aka the workspace for your R session\\~\\
+The most common structures are `vectors' and `data.frames'\\~\\
+Vectors are a collection of objects of the same class, whereas a data frame is analogous to a table with rows and columns (e.g., collection of vectors)
+\vspace{-0.2in}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+<<echo=T,eval=T>>=
+a <- c(1,2) # numeric vector
+a
+b <- c('a', 'b') # character
+b
+@
+\end{column}
+\begin{column}{0.5\textwidth}
+<<>>=
+# data frame with both
+c <- data.frame(a,b)
+c
+@
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+How are data imported into R?\\~\\
+R needs to know where the data are located on your computer:\\~\\
+<<echo=T,eval=F>>=
+# the location where you want to work
+setwd('C:/Projects/my_data/')
+@
+\vspace{0.2in}
+This establishes a `working directory' for data import/export\\~\\
+R can import almost any type of data but `spreadsheet' or text-based files are most common
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+How are data imported into R?\\~\\
+The easiest approach is to save an Excel file as .csv or .txt file\\~\\
+\begin{columns}
+\begin{column}{0.43\textwidth}
+\begin{center}
+\includegraphics[width = 0.8\textwidth]{my_dat.png}
+\end{center}
+\end{column}
+\begin{column}{0.66\textwidth}
+\begin{center}
+\includegraphics[width = 0.8\textwidth]{save_as.png}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+How are data imported into R?\\~\\
+Use the read.table or read.csv functions to import the data, must be in your working directory
+<<echo = T,eval = T>>=
+# use read.csv if .csv
+dat <- read.csv('my_data.csv', header = T)
+
+# use read.table if .txt
+dat <- read.table('my_data.txt', sep = ',', header = T)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile, shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Imported data can be viewed several ways, view the whole object or parts \\~\\
+Rows or columns can be obtained by indexing with brackets separated by a comma: data[row, column]
+\vspace{-0.3in}
+\begin{columns}[t]
+\begin{column}{0.45\textwidth}
+<<echo=T>>=
+dat
+@
+\end{column}
+
+\begin{column}{0.45\textwidth}
+<<>>=
+dat[1, ] # row 1
+dat[, 2] # column 2
+dat[4, 1] # row 4, column 1
+@
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Imported data can be viewed several ways, view the whole object or parts \\~\\
+Access using column names or the attach function
+\begin{columns}[t]
+\begin{column}{0.49\textwidth}
+<<echo=T>>=
+dat$Value
+dat[, 'Value']
+@
+\end{column}
+\begin{column}{0.49\textwidth}
+<<>>=
+attach(dat)
+Value
+@
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Where to go for help?\\~\\
+\begin{itemize}
+\addtolength{\itemsep}{0.08in}
+\item A user-friendly \href{http://www.statmethods.net/}{intro to R} 
+\item Several good introductory texts are available - Zuur et al. 2009. A Beginner's Guide to R. Springer. 
+\item \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{R cheatsheet}
+\item Google is your friend
+\item Help files for each function using `?function' - may or may not be helpful
+\item An \href{http://cran.r-project.org/doc/manuals/R-intro.html}{intro to R} - very detailed
+\item Ask us!
+\end{itemize}
+\end{frame}
+
+\end{document}

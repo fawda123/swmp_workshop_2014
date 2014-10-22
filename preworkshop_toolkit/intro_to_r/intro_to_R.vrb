@@ -1,0 +1,12 @@
+\frametitle{\includegraphics [width=0.07\textwidth ]{Rlogo.jpg} \hspace {0.01in} basics}
+Where to go for help?\\~\\
+\begin{itemize}
+\addtolength{\itemsep}{0.08in}
+\item A user-friendly \href{http://www.statmethods.net/}{intro to R}
+\item Several good introductory texts are available - Zuur et al. 2009. A Beginner's Guide to R. Springer.
+\item \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{R cheatsheet}
+\item Google is your friend
+\item Help files for each function using `?function' - may or may not be helpful
+\item An \href{http://cran.r-project.org/doc/manuals/R-intro.html}{intro to R} - very detailed
+\item Ask us!
+\end{itemize}
