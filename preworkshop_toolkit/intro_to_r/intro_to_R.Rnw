@@ -22,7 +22,7 @@
 % knitr setup
 <<setup, include = F, cache = F>>=
 # set global chunk options
-opts_chunk$set(fig.align='center', fig.show='hold',dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F)
+opts_chunk$set(fig.align='center', fig.show='hold',dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F, size = 'scriptsize')
 options(replace.assign=T,width=80,digits=1)
 @
 
@@ -103,7 +103,7 @@ The pre-workshop toolkit includes:
 \item Basics of data analysis with R - \textit{r\_for\_data\_analysis.pdf}
 \item Installing and working with the SWMPr package - \textit{intro\_to\_swmpr.pdf}\\~\\
 \end{itemize}
-The final item is optional as we will cover the content in the workshop, but you should have the SWMPr package installed prior to the 17th\\~\\
+The final pdf is optional as we will cover the content in the workshop, \alert{but you should have the SWMPr package installed prior to the 17th}\\~\\
 Please note that webinar attendees will have limited interaction with the instructors, although we will have moderators handling questions.
 \end{frame}
 
@@ -288,8 +288,6 @@ help(mean, package = 'base')
 @
 \end{frame}
 
-
-\section{Basics}
 %%%%%%
 \begin{frame}[t]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 Following the instructions in our installation guide for step-by-step directions \\~\\
@@ -323,20 +321,58 @@ print('hello world!')
 
 %%%%%%
 \begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
-A disadvantage of code is that everything entered must be 100 \% correct
+The best way to run code on the command prompt is to have a script file that contains all your code -- this can be saved and opened later\\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{openscript.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The best way to run code on the command prompt is to have a script file that contains all your code \\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{openscript2.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The script is a text file with a .r extension \\~\\
+Lines that are preceded by `\#' are comments that are ignored when executed in the console \\~\\
+You can copy and paste lines from the script direct to the console - but this is inefficient \\~\\
+An easier way is to run code line-by-line using `Ctrl + r' -- this runs a line and advances the cursor\\~\\
+Or you can run the whole script -- `Ctrl + a' followed by `Ctrl + r' -- don't do this unless you know what the script is going to do.
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The R console is ready to accept a command when you see this: $>$ \\~\\
+If you see a plus sign when you are running code, the console is expecting more input before the command is executed -- either your code is incorrect or you have not run the entire command \\~\\
+After a command is executed, output will be returned on the console \\~\\
+It is common to see bracketed numbers preceding returned values, for example:
 <<>>=
-2 + a
-a
+seq(1, 30) # create a sequence of numbers from 1 to 30
 @
-\vspace{0.2in}
-But this provides an explicit documentation of your workflow...\\~\\
-...your code is a living document of your analyses.
+These numbers specify the index number of the value returned at the start of each new row
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+All code that is entered must be 100 \% correct
+<<>>=
+# getting an error
+2 + a
+@
+In this example, we get an error because there is no object named `a'\\~\\
+Note the distinction here:
+<<>>=
+# note the difference
+2 + 'a'
+@
+We cannot add a numeric and character value
 \end{frame}
 
 %%%%%%
 \begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
-Assigning data to R objects is critical for analysis\\~\\
-Assignment is possible using \textit{\texttt{<-}} or \textit{\texttt{=}}
+Assigning data to R objects is essential for analysis\\~\\
+Assignment is possible using \textit{\texttt{<-}} or \textit{\texttt{=}}\\~\\
+This saves data in your `workspace' that you can call later
 <<eval=T,echo=T>>=
 a <- 1
 2 + a
@@ -427,7 +463,7 @@ How are data imported into R?\\~\\
 R needs to know where the data are located on your computer:\\~\\
 <<echo=T,eval=F>>=
 # the location where you want to work
-setwd('C:/Projects/my_data/')
+setwd('C:/my_directory') 
 @
 \vspace{0.2in}
 This establishes a `working directory' for data import/export\\~\\
@@ -466,7 +502,7 @@ dat <- read.table('my_data.txt', sep = ',', header = T)
 \end{frame}
 
 %%%%%%
-\begin{frame}[t,fragile, shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+\begin{frame}[t,fragile,shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 Imported data can be viewed several ways, view the whole object or parts \\~\\
 Rows or columns can be obtained by indexing with brackets separated by a comma: data[row, column]
 \vspace{-0.3in}
@@ -505,6 +541,61 @@ Value
 @
 \end{column}
 \end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Imported data can be viewed several ways, view the whole object or parts \\~\\
+The View function can also be used
+<<>>=
+# use View to see the data
+View(dat)
+@
+This opens a separate spreadsheet-style window\\~\\
+It will be limited to 1000 rows for large datasets
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+How can we save our work?\\~\\
+The easiest way is to save your workspace - i.e., the objects in your current R session\\~\\
+\centerline{\includegraphics[width = 0.75\textwidth]{savework.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile,shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Saving your workspace creates a `.RData' file of all the objects in your current workspace - to see what they are, use ls()
+<<>>=
+# view the objects in your workspace
+ls()
+@
+You can reload your workspace by double-clicking the .RData file or opening it from within R (File/Load Workspace)\\~\\
+You can also save individual objects as .RData files
+<<eval = F>>=
+# save only the dat object
+save(dat, file = 'my_data.RData')
+
+# load .RData file of dat
+load(file = 'my_data.RData')
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The .RData file is a binary format that can only be read by R\\~\\
+You can save your data in a more general format 
+<<eval = F>>=
+# save as a csv file
+write.csv(dat, 'my_data.csv')
+
+# the defaults for write.csv can be changed
+write.csv(dat, 'my_data.csv', quote = F, row.names = F)
+
+# save as a txt file, comma separated
+write.table(dat, 'my_data.txt', sep = ',', quote = F, 
+  row.names = F)
+@
+Once saved, the file can be imported as before (e.g., read.csv, read.table)
 \end{frame}
 
 %%%%%%

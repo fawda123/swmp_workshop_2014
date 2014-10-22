@@ -1,0 +1,25 @@
+\frametitle{Data exploration}
+We can test these differences more formally using a standard statistical test
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# a t-test, evaluates the null that the difference in means is zero}
+\hlkwd{t.test}\hlstd{(dat_orig, dat_remove)}
+\end{alltt}
+\begin{verbatim}
+##
+##  Welch Two Sample t-test
+##
+## data:  dat_orig and dat_remove
+## t = -0.05, df = 5081, p-value = 0.9602
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.05128  0.04873
+## sample estimates:
+## mean of x mean of y
+##     10.15     10.15
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+There is a 96.02\% probability that the difference in means between the datasets is equal to zero, due to random chance\\~\\
+We should leave the outliers in the dataset...

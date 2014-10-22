@@ -149,7 +149,7 @@ The pre-workshop toolkit includes:
 \item Basics of data analysis with R - \textit{r\_for\_data\_analysis.pdf}
 \item Installing and working with the SWMPr package - \textit{intro\_to\_swmpr.pdf}\\~\\
 \end{itemize}
-The final item is optional as we will cover the content in the workshop, but you should have the SWMPr package installed prior to the 17th\\~\\
+The final pdf is optional as we will cover the content in the workshop, \alert{but you should have the SWMPr package installed prior to the 17th}\\~\\
 Please note that webinar attendees will have limited interaction with the instructors, although we will have moderators handling questions.
 \end{frame}
 
@@ -168,7 +168,7 @@ The instructors can also be contacted with questions prior to the workshop:\\~\\
 \begin{frame}[containsverbatim]{Course expectations}
 Finally, the presentation materials combine content with R code and R output\\~\\
 R code that can be executed will look like this:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# here's some R code}
@@ -177,10 +177,10 @@ R code that can be executed will look like this:
 \end{kframe}
 \end{knitrout}
 The output will look similar to this in R (without `\#\#'):
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-##  [1]  0.5  1.6 -0.4 -0.9  0.5  0.8  1.5  0.7 -0.4  1.3
+##  [1] -1.49  0.29 -0.09 -0.67  1.17  1.55 -1.25 -0.11 -1.78 -0.68
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -279,7 +279,7 @@ Basically a repository of R utilities that others have written as well as the so
 %%%%%%
 \begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
 R comes with a base package that is included in installation, others are downloaded as needed, e.g.,\\~\\
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# download from CRAN}
@@ -290,7 +290,7 @@ R comes with a base package that is included in installation, others are downloa
 \vspace{0.2in}
 The base package will be sufficient for most of your needs - includes arithmetic, input/output, basic programming support, graphics, etc.\\~\\
 Once a package is installed, it must be loaded to use its functions:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# load ggplot2}
@@ -303,7 +303,7 @@ Once a package is installed, it must be loaded to use its functions:
 %%%%%%
 \begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
 Or you can download packages from Github, which requires using the devtools package:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# download devtools from CRAN}
@@ -325,7 +325,7 @@ Or you can download packages from Github, which requires using the devtools pack
 Each package may also come with a demonstration\\~\\
 This provides a neat way to see what an R package has to offer\\~\\
 To see a list of packages with demonstrations, run this code:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# view packages with demos}
@@ -334,7 +334,7 @@ To see a list of packages with demonstrations, run this code:
 \end{kframe}
 \end{knitrout}
 To view a demonstration of basic graphic capabilities in R:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# view a demo for the graphics package}
@@ -348,7 +348,7 @@ To view a demonstration of basic graphic capabilities in R:
 \begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
 Each package comes with extensive help documentation\\~\\
 Help files for a package:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# view help files for a package}
@@ -357,7 +357,7 @@ Help files for a package:
 \end{kframe}
 \end{knitrout}
 Or for an individual function in a package:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# get help file}
@@ -370,8 +370,6 @@ Or for an individual function in a package:
 \end{knitrout}
 \end{frame}
 
-
-\section{Basics}
 %%%%%%
 \begin{frame}[t]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 Following the instructions in our installation guide for step-by-step directions \\~\\
@@ -396,7 +394,7 @@ How is R different from Excel? R is a command-line interface\\~\\
 \begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 Lines of code are executed by R at the prompt (\textit{\texttt{>}})\\~\\
 Enter the code and press enter, the output is returned
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{print}\hlstd{(}\hlstr{'hello world!'}\hlstd{)}
@@ -422,31 +420,79 @@ Enter the code and press enter, the output is returned
 
 %%%%%%
 \begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
-A disadvantage of code is that everything entered must be 100 \% correct
-\begin{knitrout}
+The best way to run code on the command prompt is to have a script file that contains all your code -- this can be saved and opened later\\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{openscript.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The best way to run code on the command prompt is to have a script file that contains all your code \\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{openscript2.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The script is a text file with a .r extension \\~\\
+Lines that are preceded by `\#' are comments that are ignored when executed in the console \\~\\
+You can copy and paste lines from the script direct to the console - but this is inefficient \\~\\
+An easier way is to run code line-by-line using `Ctrl + r' -- this runs a line and advances the cursor\\~\\
+Or you can run the whole script -- `Ctrl + a' followed by `Ctrl + r' -- don't do this unless you know what the script is going to do.
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The R console is ready to accept a command when you see this: $>$ \\~\\
+If you see a plus sign when you are running code, the console is expecting more input before the command is executed -- either your code is incorrect or you have not run the entire command \\~\\
+After a command is executed, output will be returned on the console \\~\\
+It is common to see bracketed numbers preceding returned values, for example:
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlnum{2} \hlopt{+} \hlstd{a}
+\hlkwd{seq}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{30}\hlstd{)} \hlcom{# create a sequence of numbers from 1 to 30}
 \end{alltt}
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+## [26] 26 27 28 29 30
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+These numbers specify the index number of the value returned at the start of each new row
+\end{frame}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'a' not found}}\begin{alltt}
-\hlstd{a}
+%%%%%%
+\begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+All code that is entered must be 100 \% correct
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# getting an error}
+\hlnum{2} \hlopt{+} \hlstd{a}
 \end{alltt}
 
 
 {\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'a' not found}}\end{kframe}
 \end{knitrout}
-\vspace{0.2in}
-But this provides an explicit documentation of your workflow...\\~\\
-...your code is a living document of your analyses.
+In this example, we get an error because there is no object named `a'\\~\\
+Note the distinction here:
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# note the difference}
+\hlnum{2} \hlopt{+} \hlstr{'a'}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: non-numeric argument to binary operator}}\end{kframe}
+\end{knitrout}
+We cannot add a numeric and character value
 \end{frame}
 
 %%%%%%
 \begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
-Assigning data to R objects is critical for analysis\\~\\
-Assignment is possible using \textit{\texttt{<-}} or \textit{\texttt{=}}
-\begin{knitrout}
+Assigning data to R objects is essential for analysis\\~\\
+Assignment is possible using \textit{\texttt{<-}} or \textit{\texttt{=}}\\~\\
+This saves data in your `workspace' that you can call later
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{a} \hlkwb{<-} \hlnum{1}
@@ -469,7 +515,7 @@ Assignment is possible using \textit{\texttt{<-}} or \textit{\texttt{=}}
 %%%%%%
 \begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 More complex assignments are possible\\~\\
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{a} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{3} \hlstd{,} \hlnum{4}\hlstd{)}
@@ -503,7 +549,7 @@ Anatomy of a function - functions perform tasks for you, much like in Excel
 \Large
 function(arguments)
 \end{center}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{)} \hlcom{# concatenate function to combine value}
@@ -532,7 +578,7 @@ function(arguments)
 Understanding classes of R \href{http://cran.r-project.org/doc/manuals/r-release/R-lang.html#Vector-objects}{objects} is necessary for analysis \\~\\
 An object is a variable of interest that will always have a class\\~\\
 Most common are `numeric' or `character' classes \\~\\
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{class}\hlstd{(}\hlnum{1}\hlstd{)}
@@ -556,7 +602,7 @@ Most common are `numeric' or `character' classes \\~\\
 Different types of methods are assigned to different class types\\~\\
 The class also imposes limits on how it interacts with other class \\~\\
 For example, we cannot add add two objects with different classes:\\~\\
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# this does not work}
@@ -577,7 +623,7 @@ Vectors are a collection of objects of the same class, whereas a data frame is a
 \vspace{-0.2in}
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{a} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{)} \hlcom{# numeric vector}
@@ -597,7 +643,7 @@ Vectors are a collection of objects of the same class, whereas a data frame is a
 \end{knitrout}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# data frame with both}
@@ -619,11 +665,11 @@ Vectors are a collection of objects of the same class, whereas a data frame is a
 \begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 How are data imported into R?\\~\\
 R needs to know where the data are located on your computer:\\~\\
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# the location where you want to work}
-\hlkwd{setwd}\hlstd{(}\hlstr{'C:/Projects/my_data/'}\hlstd{)}
+\hlkwd{setwd}\hlstd{(}\hlstr{'C:/my_directory'}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -654,7 +700,7 @@ The easiest approach is to save an Excel file as .csv or .txt file\\~\\
 \begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 How are data imported into R?\\~\\
 Use the read.table or read.csv functions to import the data, must be in your working directory
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# use read.csv if .csv}
@@ -668,13 +714,13 @@ Use the read.table or read.csv functions to import the data, must be in your wor
 \end{frame}
 
 %%%%%%
-\begin{frame}[t,fragile, shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+\begin{frame}[t,fragile,shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 Imported data can be viewed several ways, view the whole object or parts \\~\\
 Rows or columns can be obtained by indexing with brackets separated by a comma: data[row, column]
 \vspace{-0.3in}
 \begin{columns}[t]
 \begin{column}{0.45\textwidth}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{dat}
@@ -693,7 +739,7 @@ Rows or columns can be obtained by indexing with brackets separated by a comma: 
 \end{column}
 
 \begin{column}{0.45\textwidth}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{dat[}\hlnum{1}\hlstd{, ]} \hlcom{# row 1}
@@ -727,7 +773,7 @@ Imported data can be viewed several ways, view the whole object or parts \\~\\
 Access using column names or the attach function
 \begin{columns}[t]
 \begin{column}{0.49\textwidth}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{dat}\hlopt{$}\hlstd{Value}
@@ -745,7 +791,7 @@ Access using column names or the attach function
 \end{knitrout}
 \end{column}
 \begin{column}{0.49\textwidth}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{attach}\hlstd{(dat)}
@@ -758,6 +804,80 @@ Access using column names or the attach function
 \end{knitrout}
 \end{column}
 \end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Imported data can be viewed several ways, view the whole object or parts \\~\\
+The View function can also be used
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# use View to see the data}
+\hlkwd{View}\hlstd{(dat)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+This opens a separate spreadsheet-style window\\~\\
+It will be limited to 1000 rows for large datasets
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+How can we save our work?\\~\\
+The easiest way is to save your workspace - i.e., the objects in your current R session\\~\\
+\centerline{\includegraphics[width = 0.75\textwidth]{savework.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile,shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Saving your workspace creates a `.RData' file of all the objects in your current workspace - to see what they are, use ls()
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# view the objects in your workspace}
+\hlkwd{ls}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+## [1] "a"   "b"   "c"   "dat"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+You can reload your workspace by double-clicking the .RData file or opening it from within R (File/Load Workspace)\\~\\
+You can also save individual objects as .RData files
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# save only the dat object}
+\hlkwd{save}\hlstd{(dat,} \hlkwc{file} \hlstd{=} \hlstr{'my_data.RData'}\hlstd{)}
+
+\hlcom{# load .RData file of dat}
+\hlkwd{load}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'my_data.RData'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+The .RData file is a binary format that can only be read by R\\~\\
+You can save your data in a more general format 
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# save as a csv file}
+\hlkwd{write.csv}\hlstd{(dat,} \hlstr{'my_data.csv'}\hlstd{)}
+
+\hlcom{# the defaults for write.csv can be changed}
+\hlkwd{write.csv}\hlstd{(dat,} \hlstr{'my_data.csv'}\hlstd{,} \hlkwc{quote} \hlstd{= F,} \hlkwc{row.names} \hlstd{= F)}
+
+\hlcom{# save as a txt file, comma separated}
+\hlkwd{write.table}\hlstd{(dat,} \hlstr{'my_data.txt'}\hlstd{,} \hlkwc{sep} \hlstd{=} \hlstr{','}\hlstd{,} \hlkwc{quote} \hlstd{= F,}
+  \hlkwc{row.names} \hlstd{= F)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Once saved, the file can be imported as before (e.g., read.csv, read.table)
 \end{frame}
 
 %%%%%%
