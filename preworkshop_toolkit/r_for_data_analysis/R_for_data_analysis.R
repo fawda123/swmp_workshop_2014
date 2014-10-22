@@ -1,11 +1,5 @@
 
 
-# set global chunk options
-opts_chunk$set(fig.align='center', fig.show='hold',dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size= 'scriptsize')
-options(replace.assign=T,width=80)
-
-
-
 # create variable as a numeric vector
 a <- c(1, 2)
 
