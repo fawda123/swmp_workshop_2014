@@ -2,20 +2,42 @@
 title: "Overview of materials in the preworkshop toolkit, NERRS 2014 time series analysis workshop"
 output: 
   pdf_document:
-author: Marcus W. Beck beck.marcus@epa.gov, Todd D. O'Brien todd.obrien@noaa.gov
+author: Marcus W. Beck (beck.marcus@epa.gov), Todd D. O'Brien (todd.obrien@noaa.gov)
 ---
 
-The objective of the preworkshop toolkit is to set course expectations and provide an introduction to the use of R statistical software.  This workshop will not be an R introduction, although the course content will depend exclusivley on a software package developed for R.  Accordingly, we expect basic proficiency using R prior to attending this workshop.  We also expect that all attendees will bring a computer to the workshop with R installed (v3.0.0 or later).  Those attending via webinar should also have the software installed.  We strongly encourage that RStudio be installed, although this is not a requirement.  Using R without RStudio is like driving a car without a steering wheel (an exaggeration but you get the point).  Finally, please install the SWMPr package prior to the workshop.  This package contains most of the functions that we will be describing in the workshop.  These functions are designed specifically for the SWMP data and they will make your life easier!
+Workshop Website:   http://copepod.org/nerrs-swmp-workshop/ 
 
-Below is a summary of the content and what we expect prior to the workshop.  We strongly encourage that you contact the instructors with questions or issues using these materials.  Specifically, please let us know if you there any issues installing and using the software.  
+The objective of the preworkshop toolkit is to set course expectations and provide an introduction to the use of R statistical software.  This workshop will not be an R introduction, although the course content will depend exclusively on a software package developed for R.  Accordingly, we expect basic proficiency using R prior to attending this workshop.  You do not have to be an expert but you should be comfortable with the topics in this toolkit.  All preworkshop materials should be reviewed prior to November 17th (an exception is the SWMPr package tutorial).  We also expect that attendees will bring a computer to the workshop with R installed (v3.0.0 or later).  Those attending via webinar should also have the software installed.  We strongly encourage that RStudio be installed, although this is not a requirement.  Finally, please install the SWMPr package after installing R.  This package contains most of the functions that we will be describing in the workshop.  These functions are designed specifically for the SWMP data and they will make your life easier!  Instructions for all preworkshop installations are provided in the toolkit.
+
+Below is a summary of the content.  Please contact the instructors with any questions or issues using these materials.  Specifically, please let us know if you have problems installing or using the software.  
+
+* SWMPtimeseriesworkshopagenda2014.docx
+    + Workshop agenda
 
 * R_install_guide.pdf
-    + Installation guide for installing R and optionally RStudio
+    + Installation guide for installing R and optionally RStudio, make sure at least R is installed on the computer you will use during the workshop.
 
-* intro_to_r.pdf
-    + Introduction to R and the basics of data import
+* intro_to_R.pdf
+    + Introduction to R and the basics of data import, saving your work
     
-* 
+* intro_to_R.r
+    + Accompanying script for the pdf, duplicate R code that can be opened  directly in R
+    
+* R_for_data_analysis.pdf
+    + An overview of some common R methods for exploratory data analysis
+    
+* R_for_data_analysis.r
+    + Accompanying script for the pdf, duplicate R code that can be opened  directly in R
+    
+* swmpr_tutorial.pdf
+    + A tutorial describing the SWMPr package including installation and overview of functions.  This is not required to complete before the workshop but you should begin familiarizing yourself with the content.  An installation of the package is required prior to the workshop.
+    
+What to bring to the workshop:
+
+* A laptop with power chord
+* An installation of R v3.0.0 or later on the laptop
+* Package installation of SWMPr
+* Optional RStudio installation
 
 
 
