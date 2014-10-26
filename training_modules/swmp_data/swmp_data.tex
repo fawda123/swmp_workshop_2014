@@ -267,9 +267,9 @@ What are the challenges for evaluating SWMP data?? \\~\\
 \onslide<+->
 \item Data we don't want... extra columns or irrelevant parameters \\~\\
 \onslide<+->
-\item Combining data for comparison
+\item Combining data for comparison\\~\\
 \onslide<+-> 
-\item Issues inherent with time series, e.g., missing data
+\item Issues inherent with time series, e.g., missing data \\~\\
 \end{itemize}
 \onslide<+->
 \centerline{\emph{We will learn how to handle most of these challenges!}}
@@ -306,7 +306,7 @@ Scroll down the page to view the \href{https://github.com/fawda123/SWMPr/blob/ma
 \begin{frame}[t, fragile]{Overview of the SWMPr package}
 Installation instructions are in the \href{https://github.com/fawda123/SWMPr/blob/master/README.md}{README} \\~\\
 Run these four lines to install the package
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{install.packages}\hlstd{(}\hlstr{'devtools'}\hlstd{)}
@@ -332,7 +332,7 @@ What is provided in the SWMPr package? \\~\\
 \begin{columns}[t]
 \begin{column}{0.3\textwidth}
 \Bigtxt{Retrieve}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{all_params}
@@ -345,7 +345,7 @@ What is provided in the SWMPr package? \\~\\
 \end{column}
 \begin{column}{0.3\textwidth}
 \Bigtxt{Organize}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{qaqc.swmpr}
@@ -358,7 +358,7 @@ What is provided in the SWMPr package? \\~\\
 \end{column}
 \begin{column}{0.3\textwidth}
 \Bigtxt{Analyze}
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{aggregate.swmpr}
@@ -380,7 +380,7 @@ Built around the concept of \Bigtxt{object-oriented programming} - retrieval fun
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
 To view the help file for any function (including examples):
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlopt{?}\hlstd{all_params}
@@ -397,7 +397,7 @@ The \Bigtxt{retrieval} functions do two things: \\~\\
 \begin{columns}[t]
 \begin{column}{0.4\textwidth}
 Import data directly from the CDMO:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{all_params}
@@ -410,14 +410,14 @@ These functions require \href{http://cdmo.baruch.sc.edu/webservices.cfm}{registe
 \end{column}
 \begin{column}{0.4\textwidth}
 Import data from a local path:
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{import_local}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Allows import of data obtained from the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature
+Allows import of data obtained from (and only from) the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature
 \end{column}
 \end{columns}
 \end{frame}
@@ -430,8 +430,8 @@ After unzipping, data from \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip dow
 
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
-Use the following to import data into R:\\~\\
-\begin{knitrout}
+Use the following to import some data into R... these files are included with the package, otherwise specify the path manually with the commented line for your own data\\~\\
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# get data for apacpwq, all years}
@@ -450,7 +450,7 @@ Use the following to import data into R:\\~\\
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
 Your console should look something like this:\\~\\
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# get data for apacpwq, all years}
@@ -466,8 +466,6 @@ Your console should look something like this:\\~\\
 ## Loading files...
 ## 
 ## apacpwq2011.csv 	apacpwq2012.csv 	apacpwq2013.csv 	
-## 
-## Combining data...
 ## 
 ## Data imported...
 \end{verbatim}

@@ -1,0 +1,269 @@
+\documentclass[xcolor=svgnames]{beamer}
+\usetheme{Boadilla}
+\usecolortheme[named=SeaGreen]{structure}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usetikzlibrary{shadows,arrows,positioning}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
+\usepackage{pgfpages}
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+\begin{document}
+
+\title[Intro to EDA]{Introduction to exploratory data analysis}
+
+\author[M. Beck, T. O'Brien]{Marcus W. Beck\inst{1} \and Todd D. O'Brien\inst{2}}
+
+\date{}
+
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS Copepod Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
+
+% knitr setup
+<<setup, include = F, cache = F>>=
+add_lib <- 'C:\\Users\\mbeck\\R\\library'
+if(file.exists(add_lib)) .libPaths(add_lib)
+rm('add_lib')
+library(knitr)
+
+# set global chunk options
+opts_chunk$set(fig.align='center', fig.show='hold',message=F,dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size= 'scriptsize')
+options(replace.assign=TRUE,width=80,digits=1)
+@
+
+% load SWMPr from local
+<<swmpr, eval = T, echo = F, cache = F, message = F>>=
+devtools::load_all('M:/docs/SWMPr')
+@
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\titlepage
+\end{frame}
+
+%%%%%%
+\begin{frame}{Objectives and agenda}
+\begin{itemize}
+\onslide<+->
+\item Objectives \\~\\
+\begin{itemize}
+\item What are some tools for pre-processing/organizing the SWMP data? \\~\\
+\item What is the purpose of exploratory data analysis (EDA)? \\~\\
+\item What are some common techniques and tools for EDA? \\~\\
+\end{itemize}
+\onslide<+->
+\item Agenda \\~\\
+\begin{itemize}
+\item Organizing tools in SWMPr \\~\\
+\item Purpose and overview of EDA \\~\\
+\item Generic EDA tools in R, tools in SWMPr\\~\\
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Interactive portion}
+You can follow along in this module: \\~\\
+\begin{itemize}
+\item dataset2 \\~\\
+\item script2 \\~\\
+\end{itemize}
+\Large
+\centerline{\emph{Interactive! Interrupt me!}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Import SWMP data and organize}
+We learned how to import SWMP data in the previous session \\~\\
+To review, the easiest approach is to download the data outside of R, then import using the `import_local' function \\~\\
+Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature from CDMO - the `import_local' functions works best with these data \\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{adv_query.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{Import SWMP data and organize}
+It's best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
+\centerline{\includegraphics[width = \textwidth]{zip_eda.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{Import SWMP data and organize}
+It's best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
+\centerline{\includegraphics[width = 0.5\textwidth]{zip_eda2.png}}
+Here we've made a request for all stations at Apalachicola Bay (water quality, nutrients, weather) and all available years (1995--2014) \\~\\
+This request will take several minutes to be delivered to your email - an abbreviated version of these data are provided with the workshop materials for this training module
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Import SWMP data and organize}
+Let's import some data for Apalachicola Bay
+<<cache = T, echo = F>>=
+# import data
+path <- 'M:/docs/swmp_workshop_2014/training_modules/data/dataset2'
+wq_dat <- import_local(path, 'apacpwq')
+nut_dat <- import_local(path, 'apacpnut')
+met_dat <- import_local(path, 'apaebmet')
+@
+<<impdat, cache = T, eval = F>>=
+# reload the SWMPr package just in case
+library(SWMPr)
+
+# import data
+# change this path for the flash drive
+path <- 'C:/data/dataset2'
+wq_dat <- import_local(path, 'apacpwq')
+nut_dat <- import_local(path, 'apacpnut')
+met_dat <- import_local(path, 'apaebmet')
+@
+We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, apaebmet) and saved them in our workspace as three separate objects (wq_dat, nut_dat, met_dat)
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Import SWMP data and organize}
+But don't take my word for it, take a look at the data!
+<<>>=
+# what are the dimenions of the water quality data?
+dim(wq_dat)
+# what are the dimenions of the nutrient data?
+dim(nut_dat)
+# what are the dimenions of the weather data?
+dim(met_dat)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+View the first six rows
+<<>>=
+# View the first six rows of the wq data
+head(wq_dat)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+View the last six rows
+<<>>=
+# View the last six rows of the wq data
+tail(wq_dat)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+What class is the data?
+<<>>=
+# class of the data
+class(wq_dat)
+@
+This tells us that the imported data are two different classes - `swmpr' and `data.frame'\\~\\
+The class of an object is important because it defines the types of methods (i.e., functions) that apply\\~\\
+For example, `head' and `tail' functions apply to a `data.frame'
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+The swmpr object class was developed to make your life easier working with SWMP data, i.e., functions in the SWMPr package organize and analyze raw SWMP data\\~\\
+The \href{https://github.com/fawda123/SWMPr}{online documentation} describes the functions that work with the swmpr object class, also...
+<<>>=
+# what functions/methods work with swmpr objects?
+methods(class = 'swmpr')
+@
+Documentation of each function can be viewed as follows (although currently not complete):
+<<eval = F>>=
+# see help for a swmpr function
+?aggregate.swmpr
+
+# or...
+help('aggregate.swmpr')
+@
+\end{frame}
+
+%%%%%
+\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+A useful feature of R is that a defined class will have both \Bigtxt{data} and \Bigtxt{attributes}\\~\\
+For the swmpr object class, the \Bigtxt{data} are the raw swmpr data as a data.frame \\~\\
+The \Bigtxt{attributes} are a list of metadata for the imported data
+<<>>=
+# what attributes are available for a swmpr object
+names(attributes(wq_dat))
+
+# view the parameters
+attr(wq_dat, 'parameters')
+@
+\end{frame}
+
+%%%%%
+\begin{frame}[fragile]{Import SWMP data and organize}
+You can also view all the attributes as follows:
+<<eval = F>>=
+# view all attributes
+attributes(wq_dat)
+@
+This is not recommended since they are quite long, e.g., an attribute of the `data.frame' class is the row names (\Sexpr{nrow(wq_dat)} rows for`wq\_dat') \\~\\
+Individual attributes are useful for getting a feel for the dataset - what is the date range? what parameters are included? are QAQC columns present? \\~\\
+However, the intended use of attributes is behind the scenes with swmpr functions - they will be used to process the data and updated automatically
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+Now that we have a feel for the data, what needs to be done before we can start analyzing the information? \\~\\
+Last module: \\~\\
+\begin{itemize}
+\item How do we handle QAQC data or `bad' observations?
+\item How do we deal with data we don't want?  
+\item How do we combine data for comparison?
+\item How do we handle issues inherent with time series? \\~\\
+\end{itemize}
+Several of these problems are context-dependent - driven by the question or analysis \\~\\
+Others are common to any analysis...
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Import SWMP data and organize}
+Perhaps the first organizational tool you want to use is `qaqc.swmpr'\\~\\
+This function does two things:\\~\\
+\begin{itemize}
+\item Remove observations with a specified QAQC flag value
+\item Remove extraneous QAQC columns \\~\\
+\end{itemize}
+\centerline{\includegraphics[width = 0.8\textwidth]{qaqc_flags.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Import SWMP data and organize}
+You will have to decide which values to keep - be conservative and only keep those that passed QAQC (best option?) or keep all the data (worst option?) \\~\\
+To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data\\~\\
+<<>>=
+# use qaqcchk to view distributin of qaqc flags
+myqaqc <- qaqcchk(wq_dat)
+
+# view first six rows
+head(myqaqc)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\vspace{0.5in}
+\Large
+\centerline{\Bigtxt{Questions??}}
+\end{frame}
+
+\end{document}

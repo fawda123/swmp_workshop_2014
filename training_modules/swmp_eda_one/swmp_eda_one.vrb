@@ -1,0 +1,30 @@
+\frametitle{Import SWMP data and organize}
+You will have to decide which values to keep - be conservative and only keep those that passed QAQC (best option?) or keep all the data (worst option?) \\~\\
+To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data\\~\\
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# use qaqcchk to view distributin of qaqc flags}
+\hlstd{myqaqc} \hlkwb{<-} \hlkwd{qaqcchk}\hlstd{(wq_dat)}
+
+\hlcom{# view first six rows}
+\hlkwd{head}\hlstd{(myqaqc)}
+\end{alltt}
+\begin{verbatim}
+##        piece f_cdepth f_chlfluor f_depth f_do_mgl f_do_pct f_level f_ph f_sal
+## 1                 288         NA      NA       NA       NA      NA   NA    NA
+## 2      <-1>        NA     132035      NA       NA       NA  132035   NA    NA
+## 3 <-1> [GCU]        9         NA      NA       NA       NA      NA   NA    NA
+## 4      <-2>        NA         NA      90       90       90      NA   90    90
+## 5 <-2> (CSM)       NA         NA      51       51       51      NA   51    51
+## 6 <-2> [GCM]     1353         NA      NA       NA       NA      NA   NA    NA
+##   f_spcond f_temp f_turb
+## 1       NA     NA     NA
+## 2       NA     NA     NA
+## 3       NA     NA     NA
+## 4       90     90     90
+## 5       51     51     51
+## 6       NA     NA     NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}

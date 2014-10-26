@@ -37,7 +37,7 @@ rm('add_lib')
 library(knitr)
 
 # set global chunk options
-opts_chunk$set(fig.align='center', fig.show='hold',message=F,results='asis',dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F)
+opts_chunk$set(fig.align='center', fig.show='hold',message=F,dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size = 'scriptsize')
 options(replace.assign=TRUE,width=80,digits=1)
 @
 
@@ -229,9 +229,9 @@ What are the challenges for evaluating SWMP data?? \\~\\
 \onslide<+->
 \item Data we don't want... extra columns or irrelevant parameters \\~\\
 \onslide<+->
-\item Combining data for comparison
+\item Combining data for comparison\\~\\
 \onslide<+-> 
-\item Issues inherent with time series, e.g., missing data
+\item Issues inherent with time series, e.g., missing data \\~\\
 \end{itemize}
 \onslide<+->
 \centerline{\emph{We will learn how to handle most of these challenges!}}
@@ -351,7 +351,7 @@ Import data from a local path:
 <<eval = F, results = 'markup'>>=
 import_local
 @
-Allows import of data obtained from the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature
+Allows import of data obtained from (and only from) the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature
 \end{column}
 \end{columns}
 \end{frame}
@@ -364,7 +364,7 @@ After unzipping, data from \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip dow
 
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
-Use the following to import data into R:\\~\\
+Use the following to import some data into R... these files are included with the package, otherwise specify the path manually with the commented line for your own data\\~\\
 <<eval = F, results = 'markup'>>=
 # get data for apacpwq, all years
 

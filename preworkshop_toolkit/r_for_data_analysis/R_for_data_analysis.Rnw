@@ -84,7 +84,7 @@ ls()
 
 %%%%%%
 \begin{frame}[fragile]{Data organization}
-Here's a workflow for importing data from Excel:}\\~\\
+Here's a workflow for importing data from Excel:\\~\\
 \begin{center}
 \begin{tikzpicture}[node distance=2.5cm, auto, >=stealth]
 	\node[block] (a) {1. Open data in Excel and clean};
