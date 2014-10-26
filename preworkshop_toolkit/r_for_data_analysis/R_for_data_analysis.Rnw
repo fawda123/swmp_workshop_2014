@@ -84,43 +84,37 @@ ls()
 
 %%%%%%
 \begin{frame}[fragile]{Data organization}
-\onslide<+->{Here's a workflow for importing data from Excel:}\\~\\
+Here's a workflow for importing data from Excel:}\\~\\
 \begin{center}
 \begin{tikzpicture}[node distance=2.5cm, auto, >=stealth]
-	\onslide<2->{
-	\node[block] (a) {1. Open data in Excel and clean};}
-	\onslide<3->{
+	\node[block] (a) {1. Open data in Excel and clean};
 	\node[block] (b)  [right of=a, node distance=4.2cm] {2. Save data in `.csv' format};
- 	\draw[->] (a) -- (b);}
- 	\onslide<4->{
+ 	\draw[->] (a) -- (b);
  	\node[block] (c)  [right of=b, node distance=4.2cm]  {3. Import in R using 'read.csv'};
- 	\draw[->] (b) -- (c);}
+ 	\draw[->] (b) -- (c);
 \end{tikzpicture}
 \end{center}
 \begin{columns}[t]
-\onslide<2->{
 \begin{column}{0.33\textwidth}
 \begin{itemize}
 \item Column names should be simple
 \item Ensure all data will be easy to read
 \end{itemize}
-\end{column}}
-\onslide<3->{
+\end{column}
 \begin{column}{0.33\textwidth}
 \begin{itemize}
 \item File, Save as .csv
 \item Creates a comma separated file that looks like a spreadsheet
 \item One spreadsheet at a time
 \end{itemize}
-\end{column}}
-\onslide<4->{
+\end{column}
 \begin{column}{0.33\textwidth}
 \begin{itemize}
 \item header = T
 \item See ?read.csv for list of function options
 \item Remember to assign a name
 \end{itemize}
-\end{column}}
+\end{column}
 \end{columns}
 \end{frame}
 
@@ -142,7 +136,6 @@ If the data you want to import are a text file... open it, how are the columns s
 \item space... \verb!sep = ''!
 \item arbitrary character\\~\\
 \end{itemize}
-\pause
 Use the read.table function and identify the column delimiter :
 <<echo=T>>=
 # data not loaded, only 'a' from before
@@ -186,7 +179,6 @@ The data contain \Sexpr{nrow(dat)} rows and \Sexpr{ncol(dat)} columns, is this c
 %%%%%%
 \begin{frame}[fragile]{Data exploration}
 Can we get a summary of the data frame?
-\pause
 <<>>=
 summary(dat)
 @

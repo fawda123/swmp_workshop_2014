@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  22 OCT 2014 14:01
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  26 OCT 2014 13:30
 entering extended mode
 **R_for_data_analysis.tex
 
@@ -1555,40 +1555,23 @@ LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <8> not available
 ]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
 analysis.vrb
-Overfull \hbox (2.9568pt too wide) in paragraph at lines 13--14
+! Extra }, or forgotten \endgroup.
+l.2 ... a workflow for importing data from Excel:}
+                                                  \\~\\
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+
+Overfull \hbox (2.9568pt too wide) in paragraph at lines 10--11
  [] 
  []
 
 ) [4
 
-]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb
-Overfull \hbox (2.9568pt too wide) in paragraph at lines 13--14
- [] 
- []
-
-) [5
-
-]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb
-Overfull \hbox (2.9568pt too wide) in paragraph at lines 13--14
- [] 
- []
-
-) [6
-
-]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb
-Overfull \hbox (2.9568pt too wide) in paragraph at lines 13--14
- [] 
- []
-
-) [7
-
-] [8
+] [5
 
 ]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
@@ -1599,39 +1582,26 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ))
 
 Class beamer Warning: Frame text is shrunk by a factor of 6.8222 percent instea
-d of 0 percent on input line 221.
+d of 0 percent on input line 214.
 
-[9
-
-]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb)
-
-Class beamer Warning: Frame text is shrunk by a factor of 6.8222 percent instea
-d of 0 percent on input line 221.
-
-[10
+[6
 
 ]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
 analysis.vrb)
 
 Class beamer Warning: Frame text is shrunk by a factor of 11.67145 percent inst
-ead of 0 percent on input line 260.
+ead of 0 percent on input line 253.
 
-[11
-
-]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb) [12
+[7
 
 ]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb) [13
+analysis.vrb) [8
 
 ]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb) [14
+analysis.vrb) [9
 
 ]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
@@ -1640,9 +1610,54 @@ LaTeX Font Info:    Try loading font information for TS1+lmss on input line 16.
 
  ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmss.fd"
 File: ts1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)) [15
+)) [10
 
 ]
+(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
+analysis.vrb) [11
+
+]
+(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
+analysis.vrb) [12
+
+]
+(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
+analysis.vrb <figure/histdo.pdf, id=372, 289.08pt x 361.35pt>
+File: figure/histdo.pdf Graphic file (type pdf)
+
+<use figure/histdo.pdf>
+Package pdftex.def Info: figure/histdo.pdf used on input line 12.
+(pdftex.def)             Requested size: 143.76485pt x 179.70413pt.
+) [13
+
+ <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/his
+tdo.pdf>]
+(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
+analysis.vrb <figure/histbox.pdf, id=408, 289.08pt x 361.35pt>
+File: figure/histbox.pdf Graphic file (type pdf)
+
+<use figure/histbox.pdf>
+Package pdftex.def Info: figure/histbox.pdf used on input line 12.
+(pdftex.def)             Requested size: 143.76485pt x 179.70413pt.
+) [14
+
+ <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/his
+tbox.pdf>]
+(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
+analysis.vrb <figure/histbox2.pdf, id=440, 289.08pt x 361.35pt>
+File: figure/histbox2.pdf Graphic file (type pdf)
+
+<use figure/histbox2.pdf>
+Package pdftex.def Info: figure/histbox2.pdf used on input line 16.
+(pdftex.def)             Requested size: 119.80544pt x 149.75345pt.
+)
+Overfull \vbox (3.86897pt too high) detected at line 488
+ []
+
+[15
+
+ <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/his
+tbox2.pdf>]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
 analysis.vrb) [16
 
@@ -1652,52 +1667,7 @@ analysis.vrb) [17
 
 ]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb <figure/histdo.pdf, id=503, 289.08pt x 361.35pt>
-File: figure/histdo.pdf Graphic file (type pdf)
-
-<use figure/histdo.pdf>
-Package pdftex.def Info: figure/histdo.pdf used on input line 12.
-(pdftex.def)             Requested size: 143.76485pt x 179.70413pt.
-) [18
-
- <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/his
-tdo.pdf>]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb <figure/histbox.pdf, id=538, 289.08pt x 361.35pt>
-File: figure/histbox.pdf Graphic file (type pdf)
-
-<use figure/histbox.pdf>
-Package pdftex.def Info: figure/histbox.pdf used on input line 12.
-(pdftex.def)             Requested size: 143.76485pt x 179.70413pt.
-) [19
-
- <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/his
-tbox.pdf>]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb <figure/histbox2.pdf, id=571, 289.08pt x 361.35pt>
-File: figure/histbox2.pdf Graphic file (type pdf)
-
-<use figure/histbox2.pdf>
-Package pdftex.def Info: figure/histbox2.pdf used on input line 16.
-(pdftex.def)             Requested size: 119.80544pt x 149.75345pt.
-)
-Overfull \vbox (3.86897pt too high) detected at line 496
- []
-
-[20
-
- <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/his
-tbox2.pdf>]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb) [21
-
-]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb) [22
-
-]
-(M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb <figure/doseries.pdf, id=656, 578.16pt x 289.08pt>
+analysis.vrb <figure/doseries.pdf, id=525, 578.16pt x 289.08pt>
 File: figure/doseries.pdf Graphic file (type pdf)
 
 <use figure/doseries.pdf>
@@ -1706,14 +1676,14 @@ Package pdftex.def Info: figure/doseries.pdf used on input line 14.
 )
 
 Class beamer Warning: Frame text is shrunk by a factor of 6.0852 percent instea
-d of 0 percent on input line 590.
+d of 0 percent on input line 582.
 
-[23
+[18
 
  <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/dos
 eries.pdf>]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb <figure/doseries2.pdf, id=688, 578.16pt x 289.08pt>
+analysis.vrb <figure/doseries2.pdf, id=557, 578.16pt x 289.08pt>
 File: figure/doseries2.pdf Graphic file (type pdf)
 
 <use figure/doseries2.pdf>
@@ -1722,14 +1692,14 @@ Package pdftex.def Info: figure/doseries2.pdf used on input line 16.
 )
 
 Class beamer Warning: Frame text is shrunk by a factor of 12.64496 percent inst
-ead of 0 percent on input line 615.
+ead of 0 percent on input line 607.
 
-[24
+[19
 
  <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/dos
 eries2.pdf>]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb <figure/datcomp.pdf, id=720, 289.08pt x 289.08pt>
+analysis.vrb <figure/datcomp.pdf, id=590, 289.08pt x 289.08pt>
 File: figure/datcomp.pdf Graphic file (type pdf)
 
 <use figure/datcomp.pdf>
@@ -1738,40 +1708,40 @@ Package pdftex.def Info: figure/datcomp.pdf used on input line 18.
 )
 
 Class beamer Warning: Frame text is shrunk by a factor of 4.95758 percent inste
-ad of 0 percent on input line 642.
+ad of 0 percent on input line 634.
 
-[25
+[20
 
  <M:/docs/swmp_workshop_2014/preworkshop_toolkit/r_for_data_analysis/figure/dat
 comp.pdf>]
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
-analysis.vrb) [26
+analysis.vrb) [21
 
-] [27
+] [22
 
 ]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 681.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 681.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 673.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 673.
 
 (M:\docs\swmp_workshop_2014\preworkshop_toolkit\r_for_data_analysis\R_for_data_
 analysis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 681.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 681.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 673.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 673.
 Package rerunfilecheck Info: File `R_for_data_analysis.out' has not changed.
 (rerunfilecheck)             Checksum: 45C9EA8C9E9F01D6F8475973875B0A03;53.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 681.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 673.
  ) 
 Here is how much of TeX's memory you used:
- 25292 strings out of 493921
- 486979 string characters out of 3147282
- 556042 words of memory out of 3000000
- 27867 multiletter control sequences out of 15000+200000
+ 25268 strings out of 493921
+ 485885 string characters out of 3147282
+ 553776 words of memory out of 3000000
+ 27863 multiletter control sequences out of 15000+200000
  42260 words of font info for 55 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 56i,16n,69p,491b,890s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,16n,69p,491b,848s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Fil
 es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Program Files/MiKTeX 2.9/fonts/
 enc/dvips/lm/lm-rmtt.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.
@@ -1784,9 +1754,9 @@ TeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/public/lm/lmtt8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtti
 10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam7.p
 fb>
-Output written on R_for_data_analysis.pdf (27 pages, 552189 bytes).
+Output written on R_for_data_analysis.pdf (22 pages, 518276 bytes).
 PDF statistics:
- 860 PDF objects out of 1000 (max. 8388607)
- 56 named destinations out of 1000 (max. 500000)
+ 727 PDF objects out of 1000 (max. 8388607)
+ 46 named destinations out of 1000 (max. 500000)
  199 words of extra memory for PDF output out of 10000 (max. 10000000)
 

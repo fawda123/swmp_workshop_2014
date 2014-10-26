@@ -216,7 +216,7 @@ Basically a repository of R utilities that others have written as well as the so
 
 %%%%%%
 \begin{frame}[t]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
-\href{https://github.com/}{Github} has also been increasingly used to store packages online  - like an informal CRAN:
+\href{https://github.com/}{GitHub} has also been increasingly used to store packages online  - like an informal CRAN:
 \begin{center}
 \includegraphics[width = 0.8\textwidth]{git.png}
 \end{center}
@@ -240,7 +240,7 @@ library(ggplot2)
 
 %%%%%%
 \begin{frame}[t,fragile]{What's possible with \includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.2em}? }
-Or you can download packages from Github, which requires using the devtools package:
+Or you can download packages from GitHub, which requires using the devtools package:
 <<eval = F>>=
 # download devtools from CRAN
 install.package('devtools')
@@ -248,7 +248,7 @@ install.package('devtools')
 # load devtools
 library(devtools)
 
-# install SWMPr from Github, load
+# install SWMPr from GitHub, load
 install_github('fawda123/SWMPr')
 library(SWMPr)
 @
@@ -333,11 +333,19 @@ The best way to run code on the command prompt is to have a script file that con
 
 %%%%%%
 \begin{frame}[fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Opening a new script in RStudio is similar \\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{rstudio_script.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
 The script is a text file with a .r extension \\~\\
 Lines that are preceded by `\#' are comments that are ignored when executed in the console \\~\\
 You can copy and paste lines from the script direct to the console - but this is inefficient \\~\\
 An easier way is to run code line-by-line using `Ctrl + r' -- this runs a line and advances the cursor\\~\\
-Or you can run the whole script -- `Ctrl + a' followed by `Ctrl + r' -- don't do this unless you know what the script is going to do.
+Or you can run the whole script -- `Ctrl + a' followed by `Ctrl + r' -- don't do this unless you know what the script is going to do.\\~\\
+RStudio has buttons on the top for sending code to the console, but it's easier using keyboard shortcuts (`Ctrl + r')\\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{rstudio_run.png}}
 \end{frame}
 
 %%%%%%
@@ -563,8 +571,15 @@ The easiest way is to save your workspace - i.e., the objects in your current R 
 \end{frame}
 
 %%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Saving your work in RStudio is easier - this is done automatically on close\\~\\
+Opening RStudio will automatically restore your previous workspace \\~\\
+\centerline{\includegraphics[width = 0.6\textwidth]{rstudio_options.png}}
+\end{frame}
+
+%%%%%%
 \begin{frame}[t,fragile,shrink]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
-Saving your workspace creates a `.RData' file of all the objects in your current workspace - to see what they are, use ls()
+Saving your workspace creates a `.RData' file of all the objects in your current working directory - to see the objects in your current workspace, use ls()
 <<>>=
 # view the objects in your workspace
 ls()
@@ -596,6 +611,15 @@ write.table(dat, 'my_data.txt', sep = ',', quote = F,
   row.names = F)
 @
 Once saved, the file can be imported as before (e.g., read.csv, read.table)
+\end{frame}
+
+%%%%%%
+\begin{frame}[t,fragile]{\includegraphics[width=0.07\textwidth]{Rlogo.jpg} \hspace{0.01in} basics}
+Finally, you'll want to save your R script (.r) file so you can use it next time \\~\\
+The R script is critical because it provides a working document of your code, whereas your workspace contains the data (in R format)\\~\\
+It's never a good idea to run commands using only the command prompt/console - write the code in a script first, then send it to the console when you're ready (ctrl + r) \\~\\
+Saving a script is simple - i.e., File, save \\~\\
+It's a good idea to keep your raw data, .RData workspace file, and scripts in the same directory - this will be the working directory you set earlier
 \end{frame}
 
 %%%%%%
