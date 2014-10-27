@@ -103,6 +103,7 @@
 \onslide<+->
 \item Agenda \\~\\
 \begin{itemize}
+\item Review of data retrieval and import \\~\\
 \item Organizing tools in SWMPr \\~\\
 \item Purpose and overview of EDA \\~\\
 \item Generic EDA tools in R, tools in SWMPr\\~\\
@@ -122,7 +123,7 @@ You can follow along in this module: \\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}{Import SWMP data and organize}
+\begin{frame}{Retrieve SWMP data}
 We learned how to import SWMP data in the previous session \\~\\
 To review, the easiest approach is to download the data outside of R, then import using the `import_local' function \\~\\
 Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature from CDMO - the `import_local' functions works best with these data \\~\\
@@ -130,27 +131,28 @@ Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip 
 \end{frame}
 
 %%%%%%
-\begin{frame}[t]{Import SWMP data and organize}
-It's best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
+\begin{frame}[t]{Retrieve SWMP data}
+We have provided data for use with the workshop\\~\\
+For future access, it may be best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
 \centerline{\includegraphics[width = \textwidth]{zip_eda.png}}
 \end{frame}
 
 %%%%%%
-\begin{frame}[t]{Import SWMP data and organize}
-It's best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
+\begin{frame}[t]{Retrieve SWMP data}
+It may be best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
 \centerline{\includegraphics[width = 0.5\textwidth]{zip_eda2.png}}
 Here we've made a request for all stations at Apalachicola Bay (water quality, nutrients, weather) and all available years (1995--2014) \\~\\
-This request will take several minutes to be delivered to your email - an abbreviated version of these data are provided with the workshop materials for this training module
+This request will take several minutes to be delivered to your email - the files in `dataset2' are an abbreviate version of these data for this training module
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
 Let's import some data for Apalachicola Bay
 
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# reload the SWMPr package just in case}
+\hlcom{# reload the SWMPr package if you started a new session}
 \hlkwd{library}\hlstd{(SWMPr)}
 
 \hlcom{# import data}
@@ -162,11 +164,11 @@ Let's import some data for Apalachicola Bay
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, apaebmet) and saved them in our workspace as three separate objects (wq_dat, nut_dat, met_dat)
+We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, apaebmet) and saved them in our workspace as three separate objects (wq\_dat, nut\_dat, met\_dat)
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
 But don't take my word for it, take a look at the data!
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -196,99 +198,100 @@ But don't take my word for it, take a look at the data!
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
 View the first six rows
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# View the first six rows of the wq data}
-\hlkwd{head}\hlstd{(wq_dat)}
+\hlkwd{head}\hlstd{(met_dat)}
 \end{alltt}
 \begin{verbatim}
-##         datetimestamp temp f_temp spcond f_spcond sal f_sal do_pct f_do_pct
-## 1 2011-01-01 00:00:00   11   <0>      44     <0>   28  <0>      68     <0> 
-## 2 2011-01-01 00:15:00   11   <0>      44     <0>   28  <0>      68     <0> 
-## 3 2011-01-01 00:30:00   11   <0>      44     <0>   28  <0>      68     <0> 
-## 4 2011-01-01 00:45:00   11   <0>      44     <0>   28  <0>      68     <0> 
-## 5 2011-01-01 01:00:00   11   <0>      44     <0>   29  <0>      68     <0> 
-## 6 2011-01-01 01:15:00   11   <0>      44     <0>   29  <0>      67     <0> 
-##   do_mgl f_do_mgl depth f_depth cdepth f_cdepth level f_level clevel f_clevel
-## 1      6     <0>      2    <0>       2     <3>     NA   <-1>      NA       NA
-## 2      6     <0>      2    <0>       2     <3>     NA   <-1>      NA       NA
-## 3      6     <0>      2    <0>       2     <3>     NA   <-1>      NA       NA
-## 4      6     <0>      2    <0>       2     <3>     NA   <-1>      NA       NA
-## 5      6     <0>      2    <0>       2     <3>     NA   <-1>      NA       NA
-## 6      6     <0>      2    <0>       2     <3>     NA   <-1>      NA       NA
-##   ph f_ph turb f_turb chlfluor f_chlfluor
-## 1  8 <0>     3   <0>        NA      <-1> 
-## 2  8 <0>     3   <0>        NA      <-1> 
-## 3  8 <0>     2   <0>        NA      <-1> 
-## 4  8 <0>     1   <0>        NA      <-1> 
-## 5  8 <0>     2   <0>        NA      <-1> 
-## 6  8 <0>     1   <0>        NA      <-1>
+##         datetimestamp atemp f_atemp rh f_rh   bp f_bp wspd f_wspd maxwspd
+## 1 2011-01-01 00:00:00    15    <0>  94 <0>  1019 <0>     3   <0>        3
+## 2 2011-01-01 00:15:00    15    <0>  95 <0>  1019 <0>     3   <0>        4
+## 3 2011-01-01 00:30:00    15    <0>  95 <0>  1019 <0>     3   <0>        4
+## 4 2011-01-01 00:45:00    15    <0>  95 <0>  1019 <0>     3   <0>        4
+## 5 2011-01-01 01:00:00    15    <0>  95 <0>  1018 <0>     3   <0>        4
+## 6 2011-01-01 01:15:00    15    <0>  95 <0>  1018 <0>     4   <0>        5
+##   f_maxwspd wdir f_wdir sdwdir f_sdwdir totpar  f_totpar totprcp f_totprcp
+## 1      <0>   145   <0>       8     <0>     0.8 <1> (CSM)       0      <0> 
+## 2      <0>   146   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+## 3      <0>   139   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+## 4      <0>   140   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+## 5      <0>   144   <0>       6     <0>     0.8 <1> (CSM)       0      <0> 
+## 6      <0>   141   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+##   cumprcp f_cumprcp totsorad f_totsorad
+## 1       0      <0>        NA      <-1> 
+## 2       0      <0>        NA      <-1> 
+## 3       0      <0>        NA      <-1> 
+## 4       0      <0>        NA      <-1> 
+## 5       0      <0>        NA      <-1> 
+## 6       0      <0>        NA      <-1>
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
 View the last six rows
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# View the last six rows of the wq data}
-\hlkwd{tail}\hlstd{(wq_dat)}
+\hlkwd{tail}\hlstd{(met_dat)}
 \end{alltt}
 \begin{verbatim}
-##              datetimestamp temp f_temp spcond f_spcond sal f_sal do_pct
-## 132030 2014-10-07 07:45:00   24   <0>      41     <0>   26  <0>      90
-## 132031 2014-10-07 08:00:00   24   <0>      41     <0>   26  <0>      91
-## 132032 2014-10-07 08:15:00   23   <0>      39     <0>   25  <0>      95
-## 132033 2014-10-07 08:30:00   23   <0>      39     <0>   25  <0>      95
-## 132034 2014-10-07 08:45:00   24   <0>      38     <0>   24  <0>      95
-## 132035 2014-10-07 09:00:00   24   <0>      38     <0>   24  <0>      96
-##        f_do_pct do_mgl f_do_mgl depth f_depth cdepth f_cdepth level f_level
-## 132030     <0>       7     <0>      2    <0>       2     <3>     NA   <-1> 
-## 132031     <0>       7     <0>      2    <0>       2     <3>     NA   <-1> 
-## 132032     <0>       7     <0>      2    <0>       2     <3>     NA   <-1> 
-## 132033     <0>       7     <0>      2    <0>       2     <3>     NA   <-1> 
-## 132034     <0>       7     <0>      2    <0>       2     <3>     NA   <-1> 
-## 132035     <0>       7     <0>      2    <0>       2     <3>     NA   <-1> 
-##        clevel f_clevel ph f_ph turb f_turb chlfluor f_chlfluor
-## 132030     NA       NA  8 <0>    10   <0>        NA      <-1> 
-## 132031     NA       NA  8 <0>     8   <0>        NA      <-1> 
-## 132032     NA       NA  8 <0>     7   <0>        NA      <-1> 
-## 132033     NA       NA  8 <0>     7   <0>        NA      <-1> 
-## 132034     NA       NA  8 <0>     7   <0>        NA      <-1> 
-## 132035     NA       NA  8 <0>     5   <0>        NA      <-1>
+##              datetimestamp atemp f_atemp rh f_rh   bp f_bp wspd f_wspd maxwspd
+## 133543 2014-10-23 01:30:00    14    <0>  72 <0>  1017 <0>     3   <0>        5
+## 133544 2014-10-23 01:45:00    14    <0>  72 <0>  1016 <0>     3   <0>        5
+## 133545 2014-10-23 02:00:00    14    <0>  74 <0>  1016 <0>     3   <0>        4
+## 133546 2014-10-23 02:15:00    14    <0>  74 <0>  1016 <0>     3   <0>        4
+## 133547 2014-10-23 02:30:00    14    <0>  75 <0>  1016 <0>     3   <0>        4
+## 133548 2014-10-23 02:45:00    14    <0>  76 <0>  1016 <0>     2   <0>        4
+##        f_maxwspd wdir f_wdir sdwdir f_sdwdir totpar f_totpar totprcp f_totprcp
+## 133543      <0>    33   <0>       9     <0>       0     <0>        0      <0> 
+## 133544      <0>    34   <0>      11     <0>       0     <0>        0      <0> 
+## 133545      <0>    36   <0>      10     <0>       0     <0>        0      <0> 
+## 133546      <0>    43   <0>      11     <0>       0     <0>        0      <0> 
+## 133547      <0>    41   <0>      10     <0>       0     <0>        0      <0> 
+## 133548      <0>    42   <0>      10     <0>       0     <0>        0      <0> 
+##        cumprcp f_cumprcp totsorad f_totsorad
+## 133543      NA     <-2>        NA      <-1> 
+## 133544      NA     <-2>        NA      <-1> 
+## 133545      NA     <-2>        NA      <-1> 
+## 133546      NA     <-2>        NA      <-1> 
+## 133547      NA     <-2>        NA      <-1> 
+## 133548      NA     <-2>        NA      <-1>
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+We'll first work with the water quality records\\~\\
 What class is the data?
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# class of the data}
-\hlkwd{class}\hlstd{(wq_dat)}
+\hlkwd{class}\hlstd{(met_dat)}
 \end{alltt}
 \begin{verbatim}
 ## [1] "swmpr"      "data.frame"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-This tells us that the imported data are two different classes - `swmpr' and `data.frame'\\~\\
+This tells us that the data are two different classes - `swmpr' and `data.frame'\\~\\
 The class of an object is important because it defines the types of methods (i.e., functions) that apply\\~\\
-For example, `head' and `tail' functions apply to a `data.frame'
+For example, `head' and `tail' functions work for a `data.frame'
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
-The swmpr object class was developed to make your life easier working with SWMP data, i.e., functions in the SWMPr package organize and analyze raw SWMP data\\~\\
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+The swmpr object class was developed to make your life easier working with SWMP data\\~\\
 The \href{https://github.com/fawda123/SWMPr}{online documentation} describes the functions that work with the swmpr object class, also...
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -317,16 +320,48 @@ Documentation of each function can be viewed as follows (although currently not 
 \end{knitrout}
 \end{frame}
 
+%%%%%%
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+A side note about R syntax... the convention `function.class' means that a function applies to a specific class \\~\\
+The `function' is generic, whereas the `function.class' is a method for a class that applies to the generic
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# view the methods that apply to the generic aggregate}
+\hlkwd{methods}\hlstd{(}\hlstr{'aggregate'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] aggregate.data.frame aggregate.default*   aggregate.formula*  
+## [4] aggregate.swmpr      aggregate.ts         aggregate.zoo*      
+## 
+##    Non-visible functions are asterisked
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+A function with a class method can be executed using shorthand...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# shorthand for executing aggregate on a swmpr object}
+\hlkwd{aggregate}\hlstd{(met_dat,} \hlkwc{by} \hlstd{=} \hlstr{'quarters'}\hlstd{)}
+
+\hlcom{# long also works}
+\hlkwd{aggregate.swmpr}\hlstd{(met_dat,} \hlkwc{by} \hlstd{=} \hlstr{'quarters'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
 %%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
-A useful feature of R is that a defined class will have both \Bigtxt{data} and \Bigtxt{attributes}\\~\\
-For the swmpr object class, the \Bigtxt{data} are the raw swmpr data as a data.frame \\~\\
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+A useful feature of R is that a class will have both \Bigtxt{data} and \Bigtxt{attributes}\\~\\
+For the swmpr class, the \Bigtxt{data} are the raw swmpr data as a data.frame \\~\\
 The \Bigtxt{attributes} are a list of metadata for the imported data
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# what attributes are available for a swmpr object}
-\hlkwd{names}\hlstd{(}\hlkwd{attributes}\hlstd{(wq_dat))}
+\hlkwd{names}\hlstd{(}\hlkwd{attributes}\hlstd{(met_dat))}
 \end{alltt}
 \begin{verbatim}
 ## [1] "names"       "row.names"   "class"       "station"     "parameters" 
@@ -334,24 +369,24 @@ The \Bigtxt{attributes} are a list of metadata for the imported data
 \end{verbatim}
 \begin{alltt}
 \hlcom{# view the parameters}
-\hlkwd{attr}\hlstd{(wq_dat,} \hlstr{'parameters'}\hlstd{)}
+\hlkwd{attr}\hlstd{(met_dat,} \hlstr{'parameters'}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##  [1] "temp"     "spcond"   "sal"      "do_pct"   "do_mgl"   "depth"   
-##  [7] "cdepth"   "level"    "clevel"   "ph"       "turb"     "chlfluor"
+##  [1] "atemp"    "rh"       "bp"       "wspd"     "maxwspd"  "wdir"    
+##  [7] "sdwdir"   "totpar"   "totprcp"  "cumprcp"  "totsorad"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{frame}
 
 %%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
 You can also view all the attributes as follows:
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# view all attributes}
-\hlkwd{attributes}\hlstd{(wq_dat)}
+\hlkwd{attributes}\hlstd{(met_dat)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -361,7 +396,18 @@ However, the intended use of attributes is behind the scenes with swmpr function
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
+A summary of the swmpr object class:\\~\\
+\begin{itemize}
+\item Throughout `SWMPr' refers to the \Bigtxt{package}, `swmpr' refers to the object \Bigtxt{class}
+\item \Bigtxt{Methods} aka functions in the SWMPr package are specific for swmpr objects - see the help documentation (`?aggregate.swmpr')
+\item The swmpr object has both \Bigtxt{data} and \Bigtxt{attributes} - the data are in the `data.frame' format, the attributes are in a `list'\\~\\
+\end{itemize}
+These are basic concepts that are fundamental to how the R language works -- you should have a general understanding of their meaning
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim,shrink]{Organize SWMP data}
 Now that we have a feel for the data, what needs to be done before we can start analyzing the information? \\~\\
 Last module: \\~\\
 \begin{itemize}
@@ -375,7 +421,7 @@ Others are common to any analysis...
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Organize SWMP data}
 Perhaps the first organizational tool you want to use is `qaqc.swmpr'\\~\\
 This function does two things:\\~\\
 \begin{itemize}
@@ -386,37 +432,295 @@ This function does two things:\\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
-You will have to decide which values to keep - be conservative and only keep those that passed QAQC (best option?) or keep all the data (worst option?) \\~\\
-To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data\\~\\
+\begin{frame}[containsverbatim]{Organize SWMP data}
+You will have to decide which \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{values} to keep - be conservative and only keep those that passed QAQC or keep all the data \\~\\
+To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# use qaqcchk to view distributin of qaqc flags}
-\hlstd{myqaqc} \hlkwb{<-} \hlkwd{qaqcchk}\hlstd{(wq_dat)}
+\hlcom{# use qaqcchk to view distribution of qaqc flags}
+\hlstd{myqaqc} \hlkwb{<-} \hlkwd{qaqcchk}\hlstd{(met_dat)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+This function returns a data.frame\\~\\
+\begin{itemize}
+\item The first column shows all the QAQC codes in the data
+\item The remaining columns show the counts for each parameter of the observations assigned to each QAQC code
+\end{itemize}
+\end{frame}
 
-\hlcom{# view first six rows}
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# a subset of results from the qaqcchk function}
 \hlkwd{head}\hlstd{(myqaqc)}
 \end{alltt}
 \begin{verbatim}
-##        piece f_cdepth f_chlfluor f_depth f_do_mgl f_do_pct f_level f_ph f_sal
-## 1                 288         NA      NA       NA       NA      NA   NA    NA
-## 2      <-1>        NA     132035      NA       NA       NA  132035   NA    NA
-## 3 <-1> [GCU]        9         NA      NA       NA       NA      NA   NA    NA
-## 4      <-2>        NA         NA      90       90       90      NA   90    90
-## 5 <-2> (CSM)       NA         NA      51       51       51      NA   51    51
-## 6 <-2> [GCM]     1353         NA      NA       NA       NA      NA   NA    NA
-##   f_spcond f_temp f_turb
-## 1       NA     NA     NA
-## 2       NA     NA     NA
-## 3       NA     NA     NA
-## 4       90     90     90
-## 5       51     51     51
-## 6       NA     NA     NA
+##              piece f_atemp f_bp f_cumprcp f_maxwspd f_rh f_sdwdir f_totpar
+## 1       <-2> [GPD]       2    2         2         2    2        2        2
+## 2       <-3> [GMT]       5   13        70        16    5       16       18
+## 3       <-3> [GPD]      15   16        16        16   15       16       16
+## 4       <-3> [GPR]      14   14        14        14   14       14       13
+## 5       <-3> [SMT]       2   NA       121         3    2        3        2
+## 6 <-3> [SQR] (CSM)       3   NA        NA        NA    3       NA     4023
+##   f_totprcp f_totsorad f_wdir f_wspd
+## 1         2         NA      2      2
+## 2        13         NA     16     16
+## 3        16         NA     16     16
+## 4        14         NA     14     14
+## 5        14         NA      3      3
+## 6        NA         NA     NA     NA
+\end{verbatim}
+\begin{alltt}
+\hlcom{# or view all in a separate window}
+\hlkwd{View}\hlstd{(myqaqc)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{Link} to QAQC codes
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A plot of the data can be useful to view QAQC flags, but this is tedious
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# select values that did not pass qaqc}
+\hlstd{nopass} \hlkwb{<-} \hlkwd{grep}\hlstd{(}\hlstr{'0'}\hlstd{, met_dat}\hlopt{$}\hlstd{f_totpar,} \hlkwc{invert} \hlstd{= T)}
+\hlstd{nopass} \hlkwb{<-} \hlstd{met_dat[nopass, ]}
+
+\hlcom{# plot totpar from met_dat}
+\hlkwd{plot}\hlstd{(totpar} \hlopt{~} \hlstd{datetimestamp, met_dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
+
+\hlcom{# add  points that did not pass qaqc}
+\hlkwd{points}\hlstd{(nopass}\hlopt{$}\hlstd{datetimestamp, nopass}\hlopt{$}\hlstd{totpar,} \hlkwc{col} \hlstd{=} \hlstr{'red'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A plot of the data can be useful to view QAQC flags, but this is tedious
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/qaqc_ex} 
+
+}
+
+
+
+\end{knitrout}
+Does this plot make sense??
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+You should have an idea of how you want to handle QAQC values after viewing the output from qaqcchk - or you already knew \\~\\
+Next, use the qaqc function...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# filter observations by qaqc flags, remove qaqc columns}
+\hlstd{met_qaqc} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(met_dat)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+The default behavior for this function is to keep only observations with a `0' QAQC flag - data that passed initial checks\\~\\
+See the help documentation for the function
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# view help file}
+\hlopt{?}\hlstd{qaqc}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+View the data after keeping only values that passed QAQC (`0' flag)
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# data after qaqc processing}
+\hlkwd{head}\hlstd{(met_qaqc)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp atemp rh   bp wspd maxwspd wdir sdwdir totpar totprcp
+## 1 2011-01-01 00:00:00    15 94 1019    3       3  145      8     NA       0
+## 2 2011-01-01 00:15:00    15 95 1019    3       4  146      7     NA       0
+## 3 2011-01-01 00:30:00    15 95 1019    3       4  139      7     NA       0
+## 4 2011-01-01 00:45:00    15 95 1019    3       4  140      7     NA       0
+## 5 2011-01-01 01:00:00    15 95 1018    3       4  144      6     NA       0
+## 6 2011-01-01 01:15:00    15 95 1018    4       5  141      7     NA       0
+##   cumprcp totsorad
+## 1       0       NA
+## 2       0       NA
+## 3       0       NA
+## 4       0       NA
+## 5       0       NA
+## 6       0       NA
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What if we want to keep all the values, regardless of flag?
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# keep all values}
+\hlstd{met_qaqc} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(met_dat,} \hlkwc{qaqc_keep} \hlstd{=} \hlkwa{NULL}\hlstd{)}
+
+\hlkwd{head}\hlstd{(met_qaqc)} \hlcom{# note the totpar column compared to the last example}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp atemp rh   bp wspd maxwspd wdir sdwdir totpar totprcp
+## 1 2011-01-01 00:00:00    15 94 1019    3       3  145      8    0.8       0
+## 2 2011-01-01 00:15:00    15 95 1019    3       4  146      7    0.8       0
+## 3 2011-01-01 00:30:00    15 95 1019    3       4  139      7    0.8       0
+## 4 2011-01-01 00:45:00    15 95 1019    3       4  140      7    0.8       0
+## 5 2011-01-01 01:00:00    15 95 1018    3       4  144      6    0.8       0
+## 6 2011-01-01 01:15:00    15 95 1018    4       5  141      7    0.8       0
+##   cumprcp totsorad
+## 1       0       NA
+## 2       0       NA
+## 3       0       NA
+## 4       0       NA
+## 5       0       NA
+## 6       0       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+If you're not convinced, try removing only the `0' flag
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# keep all values}
+\hlstd{to_keep} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{5}\hlstd{,} \hlopt{-}\hlnum{4}\hlstd{,} \hlopt{-}\hlnum{3}\hlstd{,} \hlopt{-}\hlnum{2}\hlstd{,} \hlopt{-}\hlnum{1}\hlstd{,} \hlnum{1}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{4}\hlstd{,} \hlnum{5}\hlstd{)}
+\hlstd{met_qaqc} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(met_dat,} \hlkwc{qaqc_keep} \hlstd{= to_keep)}
+
+\hlcom{# does this result make sense??}
+\hlkwd{head}\hlstd{(met_qaqc)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp atemp rh bp wspd maxwspd wdir sdwdir totpar totprcp
+## 1 2011-01-01 00:00:00    NA NA NA   NA      NA   NA     NA    0.8      NA
+## 2 2011-01-01 00:15:00    NA NA NA   NA      NA   NA     NA    0.8      NA
+## 3 2011-01-01 00:30:00    NA NA NA   NA      NA   NA     NA    0.8      NA
+## 4 2011-01-01 00:45:00    NA NA NA   NA      NA   NA     NA    0.8      NA
+## 5 2011-01-01 01:00:00    NA NA NA   NA      NA   NA     NA    0.8      NA
+## 6 2011-01-01 01:15:00    NA NA NA   NA      NA   NA     NA    0.8      NA
+##   cumprcp totsorad
+## 1      NA       NA
+## 2      NA       NA
+## 3      NA       NA
+## 4      NA       NA
+## 5      NA       NA
+## 6      NA       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+We'll continue by using values that passed the QAQC checks
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# continue with qaqc processed data}
+
+\hlcom{# water quality}
+\hlcom{# note the column number before/after qaqc processing}
+\hlkwd{dim}\hlstd{(wq_dat)}
+\end{alltt}
+\begin{verbatim}
+## [1] 132035     25
+\end{verbatim}
+\begin{alltt}
+\hlstd{wq_dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(wq_dat)}
+\hlkwd{dim}\hlstd{(wq_dat)}
+\end{alltt}
+\begin{verbatim}
+## [1] 132035     13
+\end{verbatim}
+\begin{alltt}
+\hlcom{# nutrients}
+\hlstd{nut_dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(nut_dat)}
+
+\hlcom{# weather}
+\hlstd{met_dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(met_dat)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What is the next logical step after dealing with QAQC values? \\~\\
+How would we further want to organize the data? \\~\\
+Maybe we want to subset the data... \\~\\
+For example, we don't want all the data columns or we only want to work with a specific date range \\~\\
+Use the subset function...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlopt{?}\hlstd{subset.swmpr}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Note that R has a generic subset function, subset.swmpr is a subset method for swmpr objects
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The subset.swmpr function has several arguments
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{formals}\hlstd{(subset.swmpr)}
+\end{alltt}
+\begin{verbatim}
+## $swmpr_in
+## 
+## 
+## $subset
+## NULL
+## 
+## $select
+## NULL
+## 
+## $operator
+## NULL
+## 
+## $rem_rows
+## F
+## 
+## $rem_cols
+## F
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+% %%%%%%
+% \begin{frame}[containsverbatim]{Organize SWMP data}
+% 
+% \end{frame}
 
 %%%%%%
 \begin{frame}

@@ -1,13 +1,8 @@
-\frametitle{Import SWMP data and organize}
-You will have to decide which values to keep - be conservative and only keep those that passed QAQC (best option?) or keep all the data (worst option?) \\~\\
-To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data\\~\\
+\frametitle{Organize SWMP data}
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# use qaqcchk to view distributin of qaqc flags}
-\hlstd{myqaqc} \hlkwb{<-} \hlkwd{qaqcchk}\hlstd{(wq_dat)}
-
-\hlcom{# view first six rows}
+\hlcom{# a subset of results from the qaqcchk function}
 \hlkwd{head}\hlstd{(myqaqc)}
 \end{alltt}
 \begin{verbatim}
@@ -26,5 +21,10 @@ To help you decide, it may be useful to get an idea of the distribution of QAQC 
 ## 5       51     51     51
 ## 6       NA     NA     NA
 \end{verbatim}
+\begin{alltt}
+\hlcom{# or view all in a separate window}
+\hlkwd{View}\hlstd{(myqaqc)}
+\end{alltt}
 \end{kframe}
 \end{knitrout}
+\href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{Link} to QAQC codes

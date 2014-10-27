@@ -65,6 +65,7 @@ devtools::load_all('M:/docs/SWMPr')
 \onslide<+->
 \item Agenda \\~\\
 \begin{itemize}
+\item Review of data retrieval and import \\~\\
 \item Organizing tools in SWMPr \\~\\
 \item Purpose and overview of EDA \\~\\
 \item Generic EDA tools in R, tools in SWMPr\\~\\
@@ -84,7 +85,7 @@ You can follow along in this module: \\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}{Import SWMP data and organize}
+\begin{frame}{Retrieve SWMP data}
 We learned how to import SWMP data in the previous session \\~\\
 To review, the easiest approach is to download the data outside of R, then import using the `import_local' function \\~\\
 Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature from CDMO - the `import_local' functions works best with these data \\~\\
@@ -92,21 +93,22 @@ Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip 
 \end{frame}
 
 %%%%%%
-\begin{frame}[t]{Import SWMP data and organize}
-It's best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
+\begin{frame}[t]{Retrieve SWMP data}
+We have provided data for use with the workshop\\~\\
+For future access, it may be best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
 \centerline{\includegraphics[width = \textwidth]{zip_eda.png}}
 \end{frame}
 
 %%%%%%
-\begin{frame}[t]{Import SWMP data and organize}
-It's best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
+\begin{frame}[t]{Retrieve SWMP data}
+It may be best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
 \centerline{\includegraphics[width = 0.5\textwidth]{zip_eda2.png}}
 Here we've made a request for all stations at Apalachicola Bay (water quality, nutrients, weather) and all available years (1995--2014) \\~\\
-This request will take several minutes to be delivered to your email - an abbreviated version of these data are provided with the workshop materials for this training module
+This request will take several minutes to be delivered to your email - the files in `dataset2' are an abbreviate version of these data for this training module
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
 Let's import some data for Apalachicola Bay
 <<cache = T, echo = F>>=
 # import data
@@ -116,7 +118,7 @@ nut_dat <- import_local(path, 'apacpnut')
 met_dat <- import_local(path, 'apaebmet')
 @
 <<impdat, cache = T, eval = F>>=
-# reload the SWMPr package just in case
+# reload the SWMPr package if you started a new session
 library(SWMPr)
 
 # import data
@@ -126,11 +128,11 @@ wq_dat <- import_local(path, 'apacpwq')
 nut_dat <- import_local(path, 'apacpnut')
 met_dat <- import_local(path, 'apaebmet')
 @
-We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, apaebmet) and saved them in our workspace as three separate objects (wq_dat, nut_dat, met_dat)
+We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, apaebmet) and saved them in our workspace as three separate objects (wq\_dat, nut\_dat, met\_dat)
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
 But don't take my word for it, take a look at the data!
 <<>>=
 # what are the dimenions of the water quality data?
@@ -143,38 +145,39 @@ dim(met_dat)
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
 View the first six rows
 <<>>=
 # View the first six rows of the wq data
-head(wq_dat)
+head(met_dat)
 @
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
 View the last six rows
 <<>>=
 # View the last six rows of the wq data
-tail(wq_dat)
+tail(met_dat)
 @
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+We'll first work with the water quality records\\~\\
 What class is the data?
 <<>>=
 # class of the data
-class(wq_dat)
+class(met_dat)
 @
-This tells us that the imported data are two different classes - `swmpr' and `data.frame'\\~\\
+This tells us that the data are two different classes - `swmpr' and `data.frame'\\~\\
 The class of an object is important because it defines the types of methods (i.e., functions) that apply\\~\\
-For example, `head' and `tail' functions apply to a `data.frame'
+For example, `head' and `tail' functions work for a `data.frame'
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
-The swmpr object class was developed to make your life easier working with SWMP data, i.e., functions in the SWMPr package organize and analyze raw SWMP data\\~\\
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+The swmpr object class was developed to make your life easier working with SWMP data\\~\\
 The \href{https://github.com/fawda123/SWMPr}{online documentation} describes the functions that work with the swmpr object class, also...
 <<>>=
 # what functions/methods work with swmpr objects?
@@ -190,26 +193,44 @@ help('aggregate.swmpr')
 @
 \end{frame}
 
-%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
-A useful feature of R is that a defined class will have both \Bigtxt{data} and \Bigtxt{attributes}\\~\\
-For the swmpr object class, the \Bigtxt{data} are the raw swmpr data as a data.frame \\~\\
-The \Bigtxt{attributes} are a list of metadata for the imported data
+%%%%%%
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+A side note about R syntax... the convention `function.class' means that a function applies to a specific class \\~\\
+The `function' is generic, whereas the `function.class' is a method for a class that applies to the generic
 <<>>=
-# what attributes are available for a swmpr object
-names(attributes(wq_dat))
+# view the methods that apply to the generic aggregate
+methods('aggregate')
+@
+A function with a class method can be executed using shorthand...
+<<eval = F>>=
+# shorthand for executing aggregate on a swmpr object
+aggregate(met_dat, by = 'quarters')
 
-# view the parameters
-attr(wq_dat, 'parameters')
+# long also works
+aggregate.swmpr(met_dat, by = 'quarters')
 @
 \end{frame}
 
 %%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+A useful feature of R is that a class will have both \Bigtxt{data} and \Bigtxt{attributes}\\~\\
+For the swmpr class, the \Bigtxt{data} are the raw swmpr data as a data.frame \\~\\
+The \Bigtxt{attributes} are a list of metadata for the imported data
+<<>>=
+# what attributes are available for a swmpr object
+names(attributes(met_dat))
+
+# view the parameters
+attr(met_dat, 'parameters')
+@
+\end{frame}
+
+%%%%%
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
 You can also view all the attributes as follows:
 <<eval = F>>=
 # view all attributes
-attributes(wq_dat)
+attributes(met_dat)
 @
 This is not recommended since they are quite long, e.g., an attribute of the `data.frame' class is the row names (\Sexpr{nrow(wq_dat)} rows for`wq\_dat') \\~\\
 Individual attributes are useful for getting a feel for the dataset - what is the date range? what parameters are included? are QAQC columns present? \\~\\
@@ -217,7 +238,18 @@ However, the intended use of attributes is behind the scenes with swmpr function
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,shrink]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Retrieve SWMP data}
+A summary of the swmpr object class:\\~\\
+\begin{itemize}
+\item Throughout `SWMPr' refers to the \Bigtxt{package}, `swmpr' refers to the object \Bigtxt{class}
+\item \Bigtxt{Methods} aka functions in the SWMPr package are specific for swmpr objects - see the help documentation (`?aggregate.swmpr')
+\item The swmpr object has both \Bigtxt{data} and \Bigtxt{attributes} - the data are in the `data.frame' format, the attributes are in a `list'\\~\\
+\end{itemize}
+These are basic concepts that are fundamental to how the R language works -- you should have a general understanding of their meaning
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim,shrink]{Organize SWMP data}
 Now that we have a feel for the data, what needs to be done before we can start analyzing the information? \\~\\
 Last module: \\~\\
 \begin{itemize}
@@ -231,7 +263,7 @@ Others are common to any analysis...
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
+\begin{frame}[containsverbatim]{Organize SWMP data}
 Perhaps the first organizational tool you want to use is `qaqc.swmpr'\\~\\
 This function does two things:\\~\\
 \begin{itemize}
@@ -242,17 +274,161 @@ This function does two things:\\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{Import SWMP data and organize}
-You will have to decide which values to keep - be conservative and only keep those that passed QAQC (best option?) or keep all the data (worst option?) \\~\\
-To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data\\~\\
+\begin{frame}[containsverbatim]{Organize SWMP data}
+You will have to decide which \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{values} to keep - be conservative and only keep those that passed QAQC or keep all the data \\~\\
+To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data
 <<>>=
-# use qaqcchk to view distributin of qaqc flags
-myqaqc <- qaqcchk(wq_dat)
+# use qaqcchk to view distribution of qaqc flags
+myqaqc <- qaqcchk(met_dat)
+@
+This function returns a data.frame\\~\\
+\begin{itemize}
+\item The first column shows all the QAQC codes in the data
+\item The remaining columns show the counts for each parameter of the observations assigned to each QAQC code
+\end{itemize}
+\end{frame}
 
-# view first six rows
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+<<>>=
+# a subset of results from the qaqcchk function
 head(myqaqc)
+
+# or view all in a separate window
+View(myqaqc)
+@
+\href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{Link} to QAQC codes
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A plot of the data can be useful to view QAQC flags, but this is tedious
+<<eval = F>>=
+# select values that did not pass qaqc
+nopass <- grep('0', met_dat$f_totpar, invert = T)
+nopass <- met_dat[nopass, ]
+
+# plot totpar from met_dat
+plot(totpar ~ datetimestamp, met_dat, type = 'l')
+
+# add  points that did not pass qaqc
+points(nopass$datetimestamp, nopass$totpar, col = 'red')
 @
 \end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A plot of the data can be useful to view QAQC flags, but this is tedious
+<<qaqc_ex, fig.height = 3.5, fig.width = 8, results = 'hold', echo = F>>=
+# select values that did not pass qaqc
+nopass <- grep('0', met_dat$f_totpar, invert = T)
+nopass <- met_dat[nopass, ]
+
+# plot totpar from met_dat
+plot(totpar ~ datetimestamp, met_dat, type = 'l')
+
+# add  points that did not pass qaqc
+points(nopass$datetimestamp, nopass$totpar, col = 'red')
+@
+Does this plot make sense??
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+You should have an idea of how you want to handle QAQC values after viewing the output from qaqcchk - or you already knew \\~\\
+Next, use the qaqc function...
+<<>>=
+# filter observations by qaqc flags, remove qaqc columns
+met_qaqc <- qaqc(met_dat)
+@
+The default behavior for this function is to keep only observations with a `0' QAQC flag - data that passed initial checks\\~\\
+See the help documentation for the function
+<<eval = F>>=
+# view help file
+?qaqc
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+View the data after keeping only values that passed QAQC (`0' flag)
+<<>>=
+# data after qaqc processing
+head(met_qaqc)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What if we want to keep all the values, regardless of flag?
+<<>>=
+# keep all values
+met_qaqc <- qaqc(met_dat, qaqc_keep = NULL)
+
+head(met_qaqc) # note the totpar column compared to the last example
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+If you're not convinced, try removing only the `0' flag
+<<>>=
+# keep all values
+to_keep <- c(-5, -4, -3, -2, -1, 1, 2, 3, 4, 5)
+met_qaqc <- qaqc(met_dat, qaqc_keep = to_keep)
+
+# does this result make sense??
+head(met_qaqc)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+We'll continue by using values that passed the QAQC checks
+<<>>=
+# continue with qaqc processed data
+
+# water quality
+# note the column number before/after qaqc processing
+dim(wq_dat)
+wq_dat <- qaqc(wq_dat)
+dim(wq_dat)
+
+# nutrients
+nut_dat <- qaqc(nut_dat)
+
+# weather
+met_dat <- qaqc(met_dat)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What is the next logical step after dealing with QAQC values? \\~\\
+How would we further want to organize the data? \\~\\
+Maybe we want to subset the data... \\~\\
+For example, we don't want all the data columns or we only want to work with a specific date range \\~\\
+Use the subset function...
+<<>>=
+# view help file
+?subset.swmpr
+@
+Note that R has a generic subset function, subset.swmpr is a subset method for swmpr objects
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The subset.swmpr function has several arguments
+<<>>=
+# view the arguments for subset.swmpr
+formals(subset.swmpr)
+@
+\end{frame}
+
+% %%%%%%
+% \begin{frame}[containsverbatim]{Organize SWMP data}
+% 
+% \end{frame}
 
 %%%%%%
 \begin{frame}
