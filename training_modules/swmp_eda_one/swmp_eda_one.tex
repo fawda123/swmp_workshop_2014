@@ -203,7 +203,7 @@ View the first six rows
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# View the first six rows of the wq data}
+\hlcom{# View the first six rows of the met data}
 \hlkwd{head}\hlstd{(met_dat)}
 \end{alltt}
 \begin{verbatim}
@@ -239,7 +239,7 @@ View the last six rows
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# View the last six rows of the wq data}
+\hlcom{# View the last six rows of the met data}
 \hlkwd{tail}\hlstd{(met_dat)}
 \end{alltt}
 \begin{verbatim}
@@ -426,15 +426,51 @@ Perhaps the first organizational tool you want to use is `qaqc.swmpr'\\~\\
 This function does two things:\\~\\
 \begin{itemize}
 \item Remove observations with a specified QAQC flag value
-\item Remove extraneous QAQC columns \\~\\
+\item Remove QAQC columns \\~\\
 \end{itemize}
 \centerline{\includegraphics[width = 0.8\textwidth]{qaqc_flags.png}}
 \end{frame}
 
 %%%%%%
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+Remember, each parameter has a QAQC column preceded by `f_'
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# View the first six rows of the met data}
+\hlkwd{head}\hlstd{(met_dat)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp atemp f_atemp rh f_rh   bp f_bp wspd f_wspd maxwspd
+## 1 2011-01-01 00:00:00    15    <0>  94 <0>  1019 <0>     3   <0>        3
+## 2 2011-01-01 00:15:00    15    <0>  95 <0>  1019 <0>     3   <0>        4
+## 3 2011-01-01 00:30:00    15    <0>  95 <0>  1019 <0>     3   <0>        4
+## 4 2011-01-01 00:45:00    15    <0>  95 <0>  1019 <0>     3   <0>        4
+## 5 2011-01-01 01:00:00    15    <0>  95 <0>  1018 <0>     3   <0>        4
+## 6 2011-01-01 01:15:00    15    <0>  95 <0>  1018 <0>     4   <0>        5
+##   f_maxwspd wdir f_wdir sdwdir f_sdwdir totpar  f_totpar totprcp f_totprcp
+## 1      <0>   145   <0>       8     <0>     0.8 <1> (CSM)       0      <0> 
+## 2      <0>   146   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+## 3      <0>   139   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+## 4      <0>   140   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+## 5      <0>   144   <0>       6     <0>     0.8 <1> (CSM)       0      <0> 
+## 6      <0>   141   <0>       7     <0>     0.8 <1> (CSM)       0      <0> 
+##   cumprcp f_cumprcp totsorad f_totsorad
+## 1       0      <0>        NA      <-1> 
+## 2       0      <0>        NA      <-1> 
+## 3       0      <0>        NA      <-1> 
+## 4       0      <0>        NA      <-1> 
+## 5       0      <0>        NA      <-1> 
+## 6       0      <0>        NA      <-1>
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
 You will have to decide which \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{values} to keep - be conservative and only keep those that passed QAQC or keep all the data \\~\\
-To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data
+To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data, use `qaqcchk'
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -485,7 +521,8 @@ This function returns a data.frame\\~\\
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A plot of the data can be useful to view QAQC flags, but this is tedious
+A plot of the data may also be useful to view QAQC flags, but this is tedious \\~\\
+Here's an example for the `totpar' variable
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -505,7 +542,7 @@ A plot of the data can be useful to view QAQC flags, but this is tedious
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A plot of the data can be useful to view QAQC flags, but this is tedious
+Observations in red are those that did not pass QAQC checks - some are obvious, others are not
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
@@ -521,8 +558,8 @@ Does this plot make sense??
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-You should have an idea of how you want to handle QAQC values after viewing the output from qaqcchk - or you already knew \\~\\
-Next, use the qaqc function...
+You should have an idea of how you want to handle QAQC values after viewing the output from qaqcchk or plotting - or you already knew \\~\\
+Next, use the `qaqc' function...
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -679,11 +716,12 @@ Use the subset function...
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
+\hlcom{# view help file}
 \hlopt{?}\hlstd{subset.swmpr}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Note that R has a generic subset function, subset.swmpr is a subset method for swmpr objects
+Note that R has a generic subset function, subset.swmpr is a method for swmpr objects
 \end{frame}
 
 %%%%%%
@@ -692,6 +730,7 @@ The subset.swmpr function has several arguments
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
+\hlcom{# view the arguments for subset.swmpr}
 \hlkwd{formals}\hlstd{(subset.swmpr)}
 \end{alltt}
 \begin{verbatim}
@@ -715,6 +754,252 @@ The subset.swmpr function has several arguments
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The subset.swmpr function has several arguments \\~\\
+\begin{itemize}
+\item swmpr\_in: input data (swmpr object)
+\item subset: dates to keep
+\item select: parameters to keep
+\item operator: value symbol if only one date in suset
+\item rem\_rows: remove empty rows
+\item rem\_cols: remove empty columns \\~\\
+\end{itemize}
+We'll go through examples that use the function with different arguments
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The simplest use of `subset.swmpr' is to remove empty rows and columns -- this is typically not a major issue but it's convenient if you're a compulsive data cleaner
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# rows, columns in wq_dat}
+\hlkwd{dim}\hlstd{(wq_dat)}
+\end{alltt}
+\begin{verbatim}
+## [1] 132035     13
+\end{verbatim}
+\begin{alltt}
+\hlcom{# remove empty rows, columns}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat)}
+
+\hlcom{# dimensions after removing empty rows, columns}
+\hlkwd{dim}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## [1] 132035     13
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Not an issue, further processing may create empty rows/columns
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `select' argument of `subset.swmpr' is used to select parameters of interested - one to many
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# select the DO column}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{select} \hlstd{=} \hlstr{'do_mgl'}\hlstd{)}
+\hlkwd{head}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp do_mgl
+## 1 2011-01-01 00:00:00      6
+## 2 2011-01-01 00:15:00      6
+## 3 2011-01-01 00:30:00      6
+## 4 2011-01-01 00:45:00      6
+## 5 2011-01-01 01:00:00      6
+## 6 2011-01-01 01:15:00      6
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Note that the datetimestamp is retained, this column will always be included in a subset
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `select' argument of `subset.swmpr' is used to select parameters of interested - one to many
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# select DO and salinity}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{select} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'do_mgl'}\hlstd{,} \hlstr{'sal'}\hlstd{))}
+\hlkwd{head}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp sal do_mgl
+## 1 2011-01-01 00:00:00  28      6
+## 2 2011-01-01 00:15:00  28      6
+## 3 2011-01-01 00:30:00  28      6
+## 4 2011-01-01 00:45:00  28      6
+## 5 2011-01-01 01:00:00  29      6
+## 6 2011-01-01 01:15:00  29      6
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Note the use of the concatenate function `c'\\~\\
+Try this...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# incorrect syntax}
+\hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{select} \hlstd{=} \hlstr{'do_mgl'}\hlstd{,} \hlstr{'sal'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: subset must be of format \%Y-\%m-\%d \%H:\%M}}\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `subset' argument of `subset.swmpr' selects a date range \\~\\
+The dates must have a specific format - `YYYY-mm-dd HH:MM'\\~\\
+You can also verify the subset by checking the attributes of the swmpr object
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# select a date range, July 2012}
+\hlstd{dates} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{'2012-07-01 12:00'}\hlstd{,} \hlstr{'2012-07-31 6:30'}\hlstd{)}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{subset} \hlstd{= dates)}
+
+\hlcom{# check the date_rng attribute}
+\hlkwd{class}\hlstd{(tmp)} \hlcom{# a swmpr object?}
+\end{alltt}
+\begin{verbatim}
+## [1] "swmpr"      "data.frame"
+\end{verbatim}
+\begin{alltt}
+\hlkwd{attr}\hlstd{(tmp,} \hlstr{'date_rng'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] "2012-07-01 12:00:00 EST" "2012-07-31 06:30:00 EST"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Observations earlier or later than a date can also be selected \\~\\
+This also requires the `operator' argument
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# get observations for 2013}
+\hlstd{dates} \hlkwb{<-} \hlstr{'2013-01-01 00:00'}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{subset} \hlstd{= dates,} \hlkwc{operator} \hlstd{=} \hlstr{'>='}\hlstd{)}
+\hlkwd{head}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp temp spcond sal do_pct do_mgl depth cdepth level clevel
+## 1 2013-01-01 00:00:00   13     42  27     99      9     1     NA    NA     NA
+## 2 2013-01-01 00:15:00   13     42  27     99      9     1     NA    NA     NA
+## 3 2013-01-01 00:30:00   13     42  27    101      9     1     NA    NA     NA
+## 4 2013-01-01 00:45:00   13     42  27    102      9     1     NA    NA     NA
+## 5 2013-01-01 01:00:00   13     42  27    100      9     1     NA    NA     NA
+## 6 2013-01-01 01:15:00   13     42  27    101      9     1     NA    NA     NA
+##   ph turb chlfluor
+## 1  8    0       NA
+## 2  8    1       NA
+## 3  8    1       NA
+## 4  8    1       NA
+## 5  8    0       NA
+## 6  8    0       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# dates and parameters  to select}
+\hlstd{dates} \hlkwb{<-} \hlstr{'2014-10-01 00:00'}
+\hlstd{params} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{'do_mgl'}\hlstd{,} \hlstr{'temp'}\hlstd{)}
+
+\hlcom{# subset}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{select} \hlstd{= params,} \hlkwc{subset} \hlstd{= dates,} \hlkwc{operator} \hlstd{=} \hlstr{'>='}\hlstd{)}
+\hlkwd{head}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp temp do_mgl
+## 1 2014-10-01 00:00:00   25      6
+## 2 2014-10-01 00:15:00   25      6
+## 3 2014-10-01 00:30:00   25      6
+## 4 2014-10-01 00:45:00   25      6
+## 5 2014-10-01 01:00:00   25      6
+## 6 2014-10-01 01:15:00   25      6
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# plot DO and water temp}
+\hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= tmp,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
+\hlkwd{plot}\hlstd{(temp} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= tmp,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.7\textwidth]{figure/sub_plo} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Common problems with `subset.swmpr'...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# incorrect date format}
+\hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{subset} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'2012-01-01'}\hlstd{,} \hlstr{'2012-01-31'}\hlstd{))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: subset must be of format \%Y-\%m-\%d \%H:\%M}}\begin{alltt}
+\hlcom{# forgot to include operator}
+\hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{subset} \hlstd{=} \hlstr{'2012-01-31 00:00'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Binary operator must be included if only one subset value is provided}}\begin{alltt}
+\hlcom{# incorrect parameter names}
+\hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{select} \hlstd{=} \hlstr{'DO'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: select argument is invalid}}\end{kframe}
+\end{knitrout}
+How do we fix these problems??
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Now that we know how to handle QAQC flags and subset the data, what else could we do before we analyze? \\~\\
+What if we want to compare time series from different datasets? \\~\\
+What are some challenges that we need to consider for combining data? \\~\\
 \end{frame}
 
 % %%%%%%

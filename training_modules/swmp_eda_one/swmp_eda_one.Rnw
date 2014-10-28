@@ -33,7 +33,7 @@ rm('add_lib')
 library(knitr)
 
 # set global chunk options
-opts_chunk$set(fig.align='center', fig.show='hold',message=F,dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size= 'scriptsize')
+opts_chunk$set(fig.align='center', fig.show='hold',message=F,dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size= 'scriptsize', cache = T)
 options(replace.assign=TRUE,width=80,digits=1)
 @
 
@@ -148,7 +148,7 @@ dim(met_dat)
 \begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
 View the first six rows
 <<>>=
-# View the first six rows of the wq data
+# View the first six rows of the met data
 head(met_dat)
 @
 \end{frame}
@@ -157,7 +157,7 @@ head(met_dat)
 \begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
 View the last six rows
 <<>>=
-# View the last six rows of the wq data
+# View the last six rows of the met data
 tail(met_dat)
 @
 \end{frame}
@@ -268,15 +268,24 @@ Perhaps the first organizational tool you want to use is `qaqc.swmpr'\\~\\
 This function does two things:\\~\\
 \begin{itemize}
 \item Remove observations with a specified QAQC flag value
-\item Remove extraneous QAQC columns \\~\\
+\item Remove QAQC columns \\~\\
 \end{itemize}
 \centerline{\includegraphics[width = 0.8\textwidth]{qaqc_flags.png}}
 \end{frame}
 
 %%%%%%
+\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
+Remember, each parameter has a QAQC column preceded by `f_'
+<<>>=
+# View the first six rows of the met data
+head(met_dat)
+@
+\end{frame}
+
+%%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
 You will have to decide which \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{values} to keep - be conservative and only keep those that passed QAQC or keep all the data \\~\\
-To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data
+To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data, use `qaqcchk'
 <<>>=
 # use qaqcchk to view distribution of qaqc flags
 myqaqc <- qaqcchk(met_dat)
@@ -302,7 +311,8 @@ View(myqaqc)
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A plot of the data can be useful to view QAQC flags, but this is tedious
+A plot of the data may also be useful to view QAQC flags, but this is tedious \\~\\
+Here's an example for the `totpar' variable
 <<eval = F>>=
 # select values that did not pass qaqc
 nopass <- grep('0', met_dat$f_totpar, invert = T)
@@ -318,7 +328,7 @@ points(nopass$datetimestamp, nopass$totpar, col = 'red')
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A plot of the data can be useful to view QAQC flags, but this is tedious
+Observations in red are those that did not pass QAQC checks - some are obvious, others are not
 <<qaqc_ex, fig.height = 3.5, fig.width = 8, results = 'hold', echo = F>>=
 # select values that did not pass qaqc
 nopass <- grep('0', met_dat$f_totpar, invert = T)
@@ -335,8 +345,8 @@ Does this plot make sense??
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-You should have an idea of how you want to handle QAQC values after viewing the output from qaqcchk - or you already knew \\~\\
-Next, use the qaqc function...
+You should have an idea of how you want to handle QAQC values after viewing the output from qaqcchk or plotting - or you already knew \\~\\
+Next, use the `qaqc' function...
 <<>>=
 # filter observations by qaqc flags, remove qaqc columns
 met_qaqc <- qaqc(met_dat)
@@ -413,7 +423,7 @@ Use the subset function...
 # view help file
 ?subset.swmpr
 @
-Note that R has a generic subset function, subset.swmpr is a subset method for swmpr objects
+Note that R has a generic subset function, subset.swmpr is a method for swmpr objects
 \end{frame}
 
 %%%%%%
@@ -423,6 +433,146 @@ The subset.swmpr function has several arguments
 # view the arguments for subset.swmpr
 formals(subset.swmpr)
 @
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The subset.swmpr function has several arguments \\~\\
+\begin{itemize}
+\item swmpr\_in: input data (swmpr object)
+\item subset: dates to keep
+\item select: parameters to keep
+\item operator: value symbol if only one date in suset
+\item rem\_rows: remove empty rows
+\item rem\_cols: remove empty columns \\~\\
+\end{itemize}
+We'll go through examples that use the function with different arguments
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The simplest use of `subset.swmpr' is to remove empty rows and columns -- this is typically not a major issue but it's convenient if you're a compulsive data cleaner
+<<>>=
+# rows, columns in wq_dat
+dim(wq_dat)
+
+# remove empty rows, columns
+tmp <- subset(wq_dat)
+
+# dimensions after removing empty rows, columns
+dim(tmp)
+@
+Not an issue, further processing may create empty rows/columns
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `select' argument of `subset.swmpr' is used to select parameters of interested - one to many
+<<>>=
+# select the DO column
+tmp <- subset(wq_dat, select = 'do_mgl')
+head(tmp)
+@
+Note that the datetimestamp is retained, this column will always be included in a subset
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `select' argument of `subset.swmpr' is used to select parameters of interested - one to many
+<<>>=
+# select DO and salinity
+tmp <- subset(wq_dat, select = c('do_mgl', 'sal'))
+head(tmp)
+@
+Note the use of the concatenate function `c'\\~\\
+Try this...
+<<>>=
+# incorrect syntax
+subset(wq_dat, select = 'do_mgl', 'sal')
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `subset' argument of `subset.swmpr' selects a date range \\~\\
+The dates must have a specific format - `YYYY-mm-dd HH:MM'\\~\\
+You can also verify the subset by checking the attributes of the swmpr object
+<<>>=
+# select a date range, July 2012
+dates <- c('2012-07-01 12:00', '2012-07-31 6:30')
+tmp <- subset(wq_dat, subset = dates)
+
+# check the date_rng attribute
+class(tmp) # a swmpr object?
+
+attr(tmp, 'date_rng')
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Observations earlier or later than a date can also be selected \\~\\
+This also requires the `operator' argument
+<<>>=
+# get observations for 2013
+dates <- '2013-01-01 00:00'
+tmp <- subset(wq_dat, subset = dates, operator = '>=')
+head(tmp)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+<<>>=
+# dates and parameters  to select
+dates <- '2014-10-01 00:00'
+params <- c('do_mgl', 'temp')
+
+# subset
+tmp <- subset(wq_dat, select = params, subset = dates, operator = '>=')
+head(tmp)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+<<eval = F>>=
+# plot DO and water temp
+plot(do_mgl ~ datetimestamp, data = tmp, type = 'l')
+plot(temp ~ datetimestamp, data = tmp, type = 'l')
+@
+<<sub_plo, fig.height = 5, fig.width = 8, echo = F, out.width = '0.7\\textwidth'>>=
+par(mfrow = c(2, 1), mar = c(4, 4, 1, 1))
+plot(do_mgl ~ datetimestamp, data = tmp, type = 'l')
+plot(temp ~ datetimestamp, data = tmp, type = 'l')
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Common problems with `subset.swmpr'...
+<<>>=
+# incorrect date format
+subset(wq_dat, subset = c('2012-01-01', '2012-01-31'))
+
+# forgot to include operator
+subset(wq_dat, subset = '2012-01-31 00:00')
+
+# incorrect parameter names
+subset(wq_dat, select = 'DO')
+@
+How do we fix these problems??
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Now that we know how to handle QAQC flags and subset the data, what else could we do before we analyze? \\~\\
+What if we want to compare time series from different datasets? \\~\\
+What are some challenges that we need to consider for combining data? \\~\\
+% setstep, comb
+% check timestep with diff
 \end{frame}
 
 % %%%%%%
