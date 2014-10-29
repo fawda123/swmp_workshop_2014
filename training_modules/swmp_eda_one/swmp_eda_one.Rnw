@@ -442,7 +442,7 @@ The subset.swmpr function has several arguments \\~\\
 \item swmpr\_in: input data (swmpr object)
 \item subset: dates to keep
 \item select: parameters to keep
-\item operator: value symbol if only one date in suset
+\item operator: less than, greater than if only one date in subset
 \item rem\_rows: remove empty rows
 \item rem\_cols: remove empty columns \\~\\
 \end{itemize}
@@ -457,17 +457,17 @@ The simplest use of `subset.swmpr' is to remove empty rows and columns -- this i
 dim(wq_dat)
 
 # remove empty rows, columns
-tmp <- subset(wq_dat)
+tmp <- subset(wq_dat, rem_rows = T, rem_cols = T)
 
 # dimensions after removing empty rows, columns
 dim(tmp)
 @
-Not an issue, further processing may create empty rows/columns
+About 1000 rows and four columns of missing data!
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-The `select' argument of `subset.swmpr' is used to select parameters of interested - one to many
+The `select' argument of `subset.swmpr' is used to select parameters of interest - one to many
 <<>>=
 # select the DO column
 tmp <- subset(wq_dat, select = 'do_mgl')
@@ -495,16 +495,26 @@ subset(wq_dat, select = 'do_mgl', 'sal')
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
 The `subset' argument of `subset.swmpr' selects a date range \\~\\
-The dates must have a specific format - `YYYY-mm-dd HH:MM'\\~\\
-You can also verify the subset by checking the attributes of the swmpr object
+The dates must have a specific format - `YYYY-mm-dd HH:MM'
 <<>>=
 # select a date range, July 2012
 dates <- c('2012-07-01 12:00', '2012-07-31 6:30')
 tmp <- subset(wq_dat, subset = dates)
+head(tmp) # view first six rows
+@
+\end{frame}
 
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+You can also verify the subset by checking the attributes of the swmpr object
+<<>>=
 # check the date_rng attribute
 class(tmp) # a swmpr object?
 
+# what are the attributes?
+names(attributes(tmp))
+
+# get the date range
 attr(tmp, 'date_rng')
 @
 \end{frame}
@@ -512,7 +522,7 @@ attr(tmp, 'date_rng')
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
 Observations earlier or later than a date can also be selected \\~\\
-This also requires the `operator' argument
+This also requires the `operator' argument -- $>$, $<$, $>$=, $<$= , ==, !=
 <<>>=
 # get observations for 2013
 dates <- '2013-01-01 00:00'
@@ -523,7 +533,7 @@ head(tmp)
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+Try a simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
 <<>>=
 # dates and parameters  to select
 dates <- '2014-10-01 00:00'
@@ -537,7 +547,7 @@ head(tmp)
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+Try a simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
 <<eval = F>>=
 # plot DO and water temp
 plot(do_mgl ~ datetimestamp, data = tmp, type = 'l')
@@ -554,7 +564,7 @@ plot(temp ~ datetimestamp, data = tmp, type = 'l')
 \begin{frame}[containsverbatim]{Organize SWMP data}
 Common problems with `subset.swmpr'...
 <<>>=
-# incorrect date format
+# incorrect subset argument format, no time
 subset(wq_dat, subset = c('2012-01-01', '2012-01-31'))
 
 # forgot to include operator
@@ -570,15 +580,207 @@ How do we fix these problems??
 \begin{frame}[containsverbatim]{Organize SWMP data}
 Now that we know how to handle QAQC flags and subset the data, what else could we do before we analyze? \\~\\
 What if we want to compare time series from different datasets? \\~\\
-What are some challenges that we need to consider for combining data? \\~\\
-% setstep, comb
-% check timestep with diff
+Data are imported separately for water quality, weather, and nutrients... \\~\\
+Sometimes the time step is different...\\~\\
+Use the `comb.swmp' and `setstep.swmp' functions!
+<<>>=
+# help files
+?comb.swmpr
+?setstep.swmpr
+@
 \end{frame}
 
-% %%%%%%
-% \begin{frame}[containsverbatim]{Organize SWMP data}
-% 
-% \end{frame}
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `setstep.swmpr' function is used to standardize the time step of a swmpr object \\~\\
+The `comb.swmpr' function is used to combine swmpr objects \\~\\
+`setstep.swmpr' is used within `comb.swmpr' so you should not have to use it directly \\~\\
+How is it done??
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+How can we combine SWMP data?
+<<>>=
+# combine water quality and weather data in the same object
+tmp <- comb(wq_dat, met_dat)
+head(tmp, 3) # first three rows
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What happened?  Check the attributes of the combined object...
+<<>>=
+# attributes of combined object
+
+# stations 
+attr(tmp, 'station')
+
+# date ranges, same as before
+attr(tmp, 'date_rng')
+
+# parameters, both wq and met
+attr(tmp, 'parameters')
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+We now have a swmpr object with data from two stations, why do we want this? Easier plotting...
+<<comb_plo, fig.height = 3, fig.width = 7, out.width = '0.7\\textwidth'>>=
+# plot some combined data
+
+# subset date ranges first
+dates <- c('2012-06-01 0:0', '2012-07-31 0:0')
+to_plot <- subset(tmp, subset = dates)
+
+# plot
+plot(atemp ~ datetimestamp, to_plot, type = 'l', col = 'red', ylab = 'Temp C')
+lines(to_plot$datetimestamp, to_plot$temp, col = 'blue')
+title('Air (red) and water (blue) temperature')
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The options for `comb.swmpr' allow flexibility \\~\\
+<<>>=
+# arguments for the function, or ?comb.swmpr
+formals(comb.swmpr)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What do the arguments specify? \\~\\
+\begin{itemize}
+\item ... : input swmpr data, separated by comma
+\item timestep: minutes defining the standardized time step
+\item differ: maximum difference in minutes for matching observations with original time steps to standardized time steps
+\item method: how are the data combined - union, intersect, or using a station
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Changing the `timestep' argument can be useful for reducing data volume...
+<<>>=
+# dimension of earlier combined object
+dim(tmp)
+
+# create new object at two hour time step
+tmp <- comb(wq_dat, met_dat, timestep = 120)
+dim(tmp)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Changing the `timestep' argument can be useful for reducing data volume...
+<<>>=
+# note the time step in datetimestamp
+head(tmp, 4)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+\alert{Caution!} Standardizing a time series to a set time step may impose some inaccuracy \\~\\
+Observations are matched as close in time as possible to the standardized time series \\~\\
+For example, if we set the time step at 60 minute intervals and actual observations are taken every 15 and 45 minutes of the hour \\~\\
+Which observations are matched and which are discarded? \\~\\
+By default, `comb.swmpr' matches the closest observation and discards the rest \\~\\
+`Close' is defined by the `differ' argument
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `differ' argument defines the maximum time difference for matching observations to the standardized time step \\~\\
+The maximum allowed value for `differ' is one half the time step -- values beyond this window will create duplicates in your data \\~\\
+For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm \\~\\
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\alert{wrong!}\\
+\begin{itemize}
+\item `differ' is 40 minutes
+\item observation will be duplicated at 6pm and 7pm
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\alert{right!}
+\begin{itemize}
+\item `differ' is 30 minutes
+\item observation is matched only to 7pm
+\end{itemize}
+\end{column}
+\end{columns}
+Again, default behavior of `comb.swmpr' prevents duplication
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Consider the alternative scenario of a using a conservative value for `differ'\\~\\
+For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm\\~
+If `differ' is five minutes, there will be no data in the standardized time series! \\~\\
+Fortunately, most SWMP data already follow a standard 15 minute time step
+<<>>=
+# note the pre-existing time steps
+head(wq_dat$datetimestamp)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+However, nutrient data may have irregular time stamps since these data are not from `continuous' monitoring station 
+<<>>=
+# note irregular time stamps on nutrient data
+head(nut_dat)
+@
+Use caution if combining these data or standardizing the time step - there is potential for data omission or extrapolation
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Case in point, try standardizing the nutrient time series with `setstep.swmpr'
+<<>>=
+# standardize nutrient time series
+tmp <- setstep(nut_dat, timestep = 60, differ = 5)
+
+# remove empty rows, columns
+tmp <- subset(tmp, rem_row = T, rem_col = T)
+
+tmp #only four rows!
+@
+Serious data reduction! Standardizing nutrient data will take some trial and error
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Standardizing nutrient data is easier in combination with other data
+<<>>=
+# combine weather and nutrient
+tmp <- comb(met_dat, nut_dat, timestep = 30)
+
+head(tmp)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Did we lose any of the nutrient data?
+<<>>=
+# how many non-missing values in each column?
+
+# check combined data
+sum_fun <- function(x) sum(!is.na(x))
+apply(tmp, 2, sum_fun) # apply the function to each column in tmp
+
+# check original nutrient data
+apply(nut_dat, 2, sum_fun)
+@
+Some data were lost but not much
+\end{frame}
 
 %%%%%%
 \begin{frame}

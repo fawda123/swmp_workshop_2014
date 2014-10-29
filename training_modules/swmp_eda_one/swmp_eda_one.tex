@@ -763,7 +763,7 @@ The subset.swmpr function has several arguments \\~\\
 \item swmpr\_in: input data (swmpr object)
 \item subset: dates to keep
 \item select: parameters to keep
-\item operator: value symbol if only one date in suset
+\item operator: less than, greater than if only one date in subset
 \item rem\_rows: remove empty rows
 \item rem\_cols: remove empty columns \\~\\
 \end{itemize}
@@ -784,22 +784,22 @@ The simplest use of `subset.swmpr' is to remove empty rows and columns -- this i
 \end{verbatim}
 \begin{alltt}
 \hlcom{# remove empty rows, columns}
-\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat)}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{rem_rows} \hlstd{= T,} \hlkwc{rem_cols} \hlstd{= T)}
 
 \hlcom{# dimensions after removing empty rows, columns}
 \hlkwd{dim}\hlstd{(tmp)}
 \end{alltt}
 \begin{verbatim}
-## [1] 132035     13
+## [1] 124273      9
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-Not an issue, further processing may create empty rows/columns
+About 1000 rows and four columns of missing data!
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-The `select' argument of `subset.swmpr' is used to select parameters of interested - one to many
+The `select' argument of `subset.swmpr' is used to select parameters of interest - one to many
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -859,15 +859,41 @@ Try this...
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
 The `subset' argument of `subset.swmpr' selects a date range \\~\\
-The dates must have a specific format - `YYYY-mm-dd HH:MM'\\~\\
-You can also verify the subset by checking the attributes of the swmpr object
+The dates must have a specific format - `YYYY-mm-dd HH:MM'
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# select a date range, July 2012}
 \hlstd{dates} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{'2012-07-01 12:00'}\hlstd{,} \hlstr{'2012-07-31 6:30'}\hlstd{)}
 \hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{subset} \hlstd{= dates)}
+\hlkwd{head}\hlstd{(tmp)} \hlcom{# view first six rows}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp temp spcond sal do_pct do_mgl depth cdepth level clevel
+## 1 2012-07-01 12:00:00   29     34  21     86      6     2     NA    NA     NA
+## 2 2012-07-01 12:15:00   28     34  21     83      6     2     NA    NA     NA
+## 3 2012-07-01 12:30:00   28     34  21     74      5     2     NA    NA     NA
+## 4 2012-07-01 12:45:00   28     34  21     74      5     2     NA    NA     NA
+## 5 2012-07-01 13:00:00   28     34  21     73      5     2     NA    NA     NA
+## 6 2012-07-01 13:15:00   28     34  22     70      5     2     NA    NA     NA
+##   ph turb chlfluor
+## 1  8    7       NA
+## 2  8    6       NA
+## 3  8    5       NA
+## 4  8    6       NA
+## 5  8    7       NA
+## 6  8    8       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
 
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+You can also verify the subset by checking the attributes of the swmpr object
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
 \hlcom{# check the date_rng attribute}
 \hlkwd{class}\hlstd{(tmp)} \hlcom{# a swmpr object?}
 \end{alltt}
@@ -875,6 +901,15 @@ You can also verify the subset by checking the attributes of the swmpr object
 ## [1] "swmpr"      "data.frame"
 \end{verbatim}
 \begin{alltt}
+\hlcom{# what are the attributes?}
+\hlkwd{names}\hlstd{(}\hlkwd{attributes}\hlstd{(tmp))}
+\end{alltt}
+\begin{verbatim}
+## [1] "names"       "row.names"   "class"       "station"     "parameters" 
+## [6] "qaqc_cols"   "date_rng"    "timezone"    "stamp_class"
+\end{verbatim}
+\begin{alltt}
+\hlcom{# get the date range}
 \hlkwd{attr}\hlstd{(tmp,} \hlstr{'date_rng'}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
@@ -887,7 +922,7 @@ You can also verify the subset by checking the attributes of the swmpr object
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
 Observations earlier or later than a date can also be selected \\~\\
-This also requires the `operator' argument
+This also requires the `operator' argument -- $>$, $<$, $>$=, $<$= , ==, !=
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -918,7 +953,7 @@ This also requires the `operator' argument
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+Try a simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -945,7 +980,7 @@ A simple application of `subset' - plot dissolved oxygen and water temperature f
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
+Try a simple application of `subset' - plot dissolved oxygen and water temperature for October 2014
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -973,7 +1008,7 @@ Common problems with `subset.swmpr'...
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# incorrect date format}
+\hlcom{# incorrect subset argument format, no time}
 \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{subset} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'2012-01-01'}\hlstd{,} \hlstr{'2012-01-31'}\hlstd{))}
 \end{alltt}
 
@@ -999,13 +1034,381 @@ How do we fix these problems??
 \begin{frame}[containsverbatim]{Organize SWMP data}
 Now that we know how to handle QAQC flags and subset the data, what else could we do before we analyze? \\~\\
 What if we want to compare time series from different datasets? \\~\\
-What are some challenges that we need to consider for combining data? \\~\\
+Data are imported separately for water quality, weather, and nutrients... \\~\\
+Sometimes the time step is different...\\~\\
+Use the `comb.swmp' and `setstep.swmp' functions!
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# help files}
+\hlopt{?}\hlstd{comb.swmpr}
+\hlopt{?}\hlstd{setstep.swmpr}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 \end{frame}
 
-% %%%%%%
-% \begin{frame}[containsverbatim]{Organize SWMP data}
-% 
-% \end{frame}
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `setstep.swmpr' function is used to standardize the time step of a swmpr object \\~\\
+The `comb.swmpr' function is used to combine swmpr objects \\~\\
+`setstep.swmpr' is used within `comb.swmpr' so you should not have to use it directly \\~\\
+How is it done??
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+How can we combine SWMP data?
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# combine water quality and weather data in the same object}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{comb}\hlstd{(wq_dat, met_dat)}
+\hlkwd{head}\hlstd{(tmp,} \hlnum{3}\hlstd{)} \hlcom{# first three rows}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp atemp rh   bp wspd maxwspd wdir sdwdir totpar totprcp
+## 1 2011-01-01 00:00:00    15 94 1019    3       3  145      8     NA       0
+## 2 2011-01-01 00:15:00    15 95 1019    3       4  146      7     NA       0
+## 3 2011-01-01 00:30:00    15 95 1019    3       4  139      7     NA       0
+##   cumprcp totsorad temp spcond sal do_pct do_mgl depth cdepth level clevel ph
+## 1       0       NA   11     44  28     68      6     2     NA    NA     NA  8
+## 2       0       NA   11     44  28     68      6     2     NA    NA     NA  8
+## 3       0       NA   11     44  28     68      6     2     NA    NA     NA  8
+##   turb chlfluor
+## 1    3       NA
+## 2    3       NA
+## 3    2       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What happened?  Check the attributes of the combined object...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# attributes of combined object}
+
+\hlcom{# stations }
+\hlkwd{attr}\hlstd{(tmp,} \hlstr{'station'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] "apacpwq"  "apaebmet"
+\end{verbatim}
+\begin{alltt}
+\hlcom{# date ranges, same as before}
+\hlkwd{attr}\hlstd{(tmp,} \hlstr{'date_rng'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] "2011-01-01 00:00:00 EST" "2014-10-23 02:45:00 EST"
+\end{verbatim}
+\begin{alltt}
+\hlcom{# parameters, both wq and met}
+\hlkwd{attr}\hlstd{(tmp,} \hlstr{'parameters'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##  [1] "atemp"    "rh"       "bp"       "wspd"     "maxwspd"  "wdir"    
+##  [7] "sdwdir"   "totpar"   "totprcp"  "cumprcp"  "totsorad" "temp"    
+## [13] "spcond"   "sal"      "do_pct"   "do_mgl"   "depth"    "cdepth"  
+## [19] "level"    "clevel"   "ph"       "turb"     "chlfluor"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+We now have a swmpr object with data from two stations, why do we want this? Easier plotting...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# plot some combined data}
+
+\hlcom{# subset date ranges first}
+\hlstd{dates} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{'2012-06-01 0:0'}\hlstd{,} \hlstr{'2012-07-31 0:0'}\hlstd{)}
+\hlstd{to_plot} \hlkwb{<-} \hlkwd{subset}\hlstd{(tmp,} \hlkwc{subset} \hlstd{= dates)}
+
+\hlcom{# plot}
+\hlkwd{plot}\hlstd{(atemp} \hlopt{~} \hlstd{datetimestamp, to_plot,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{'red'}\hlstd{,} \hlkwc{ylab} \hlstd{=} \hlstr{'Temp C'}\hlstd{)}
+\hlkwd{lines}\hlstd{(to_plot}\hlopt{$}\hlstd{datetimestamp, to_plot}\hlopt{$}\hlstd{temp,} \hlkwc{col} \hlstd{=} \hlstr{'blue'}\hlstd{)}
+\hlkwd{title}\hlstd{(}\hlstr{'Air (red) and water (blue) temperature'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.7\textwidth]{figure/comb_plo} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The options for `comb.swmpr' allow flexibility \\~\\
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# arguments for the function, or ?comb.swmpr}
+\hlkwd{formals}\hlstd{(comb.swmpr)}
+\end{alltt}
+\begin{verbatim}
+## $...
+## 
+## 
+## $timestep
+## [1] 15
+## 
+## $differ
+## [1] 5
+## 
+## $method
+## [1] "union"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+What do the arguments specify? \\~\\
+\begin{itemize}
+\item ... : input swmpr data, separated by comma
+\item timestep: minutes defining the standardized time step
+\item differ: maximum difference in minutes for matching observations with original time steps to standardized time steps
+\item method: how are the data combined - union, intersect, or using a station
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Changing the `timestep' argument can be useful for reducing data volume...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# dimension of earlier combined object}
+\hlkwd{dim}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## [1] 133548     24
+\end{verbatim}
+\begin{alltt}
+\hlcom{# create new object at two hour time step}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{comb}\hlstd{(wq_dat, met_dat,} \hlkwc{timestep} \hlstd{=} \hlnum{120}\hlstd{)}
+\hlkwd{dim}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## [1] 16695    24
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Changing the `timestep' argument can be useful for reducing data volume...
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# note the time step in datetimestamp}
+\hlkwd{head}\hlstd{(tmp,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp atemp rh   bp wspd maxwspd wdir sdwdir totpar totprcp
+## 1 2010-12-31 23:00:00    NA NA   NA   NA      NA   NA     NA     NA      NA
+## 2 2011-01-01 01:00:00    15 95 1018    3       4  144      6     NA       0
+## 3 2011-01-01 03:00:00    15 93 1017    6       7  137      7     NA       0
+## 4 2011-01-01 05:00:00    15 95 1017    4       6  146      8     NA       0
+##   cumprcp totsorad temp spcond sal do_pct do_mgl depth cdepth level clevel ph
+## 1      NA       NA   NA     NA  NA     NA     NA    NA     NA    NA     NA NA
+## 2       0       NA   11     44  29     68      6     2     NA    NA     NA  8
+## 3       0       NA   11     45  29     66      6     2     NA    NA     NA  8
+## 4       0       NA   11     44  28     66      6     1     NA    NA     NA  8
+##   turb chlfluor
+## 1   NA       NA
+## 2    2       NA
+## 3    3       NA
+## 4    2       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+\alert{Caution!} Standardizing a time series to a set time step may impose some inaccuracy \\~\\
+Observations are matched as close in time as possible to the standardized time series \\~\\
+For example, if we set the time step at 60 minute intervals and actual observations are taken every 15 and 45 minutes of the hour \\~\\
+Which observations are matched and which are discarded? \\~\\
+By default, `comb.swmpr' matches the closest observation and discards the rest \\~\\
+`Close' is defined by the `differ' argument
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+The `differ' argument defines the maximum time difference for matching observations to the standardized time step \\~\\
+The maximum allowed value for `differ' is one half the time step -- values beyond this window will create duplicates in your data \\~\\
+For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm \\~\\
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\alert{wrong!}\\
+\begin{itemize}
+\item `differ' is 40 minutes
+\item observation will be duplicated at 6pm and 7pm
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\alert{right!}
+\begin{itemize}
+\item `differ' is 30 minutes
+\item observation is matched only to 7pm
+\end{itemize}
+\end{column}
+\end{columns}
+Again, default behavior of `comb.swmpr' prevents duplication
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Consider the alternative scenario of a using a conservative value for `differ'\\~\\
+For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm\\~
+If `differ' is five minutes, there will be no data in the standardized time series! \\~\\
+Fortunately, most SWMP data already follow a standard 15 minute time step
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# note the pre-existing time steps}
+\hlkwd{head}\hlstd{(wq_dat}\hlopt{$}\hlstd{datetimestamp)}
+\end{alltt}
+\begin{verbatim}
+## [1] "2011-01-01 00:00:00 EST" "2011-01-01 00:15:00 EST"
+## [3] "2011-01-01 00:30:00 EST" "2011-01-01 00:45:00 EST"
+## [5] "2011-01-01 01:00:00 EST" "2011-01-01 01:15:00 EST"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+However, nutrient data may have irregular time stamps since these data are not from `continuous' monitoring station 
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# note irregular time stamps on nutrient data}
+\hlkwd{head}\hlstd{(nut_dat)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp  po4f nh4f no2f no3f no23f chla_n
+## 1 2011-01-11 11:28:00    NA 0.04   NA   NA    NA      4
+## 2 2011-02-09 12:51:00 0.005   NA   NA   NA  0.09      8
+## 3 2011-02-09 12:55:00 0.004   NA   NA   NA  0.10      9
+## 4 2011-02-09 13:03:00 0.004   NA   NA   NA  0.07      8
+## 5 2011-03-02 10:36:00 0.004   NA   NA   NA  0.05      5
+## 6 2011-04-06 11:29:00    NA 0.04   NA   NA  0.24      9
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Use caution if combining these data or standardizing the time step - there is potential for data omission or extrapolation
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Case in point, try standardizing the nutrient time series with `setstep.swmpr'
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# standardize nutrient time series}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{setstep}\hlstd{(nut_dat,} \hlkwc{timestep} \hlstd{=} \hlnum{60}\hlstd{,} \hlkwc{differ} \hlstd{=} \hlnum{5}\hlstd{)}
+
+\hlcom{# remove empty rows, columns}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(tmp,} \hlkwc{rem_row} \hlstd{= T,} \hlkwc{rem_col} \hlstd{= T)}
+
+\hlstd{tmp} \hlcom{#only four rows!}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp  po4f nh4f no23f chla_n
+## 1 2011-02-09 13:00:00 0.004   NA 0.075      8
+## 2 2012-07-03 10:00:00 0.004 0.07 0.057      6
+## 3 2012-09-05 11:00:00    NA 0.03 0.007      9
+## 4 2013-07-09 09:00:00 0.004 0.06 0.036      7
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Serious data reduction! Standardizing nutrient data will take some trial and error
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Standardizing nutrient data is easier in combination with other data
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# combine weather and nutrient}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{comb}\hlstd{(met_dat, nut_dat,} \hlkwc{timestep} \hlstd{=} \hlnum{30}\hlstd{)}
+
+\hlkwd{head}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp po4f nh4f no2f no3f no23f chla_n atemp rh   bp wspd
+## 1 2011-01-01 00:00:00   NA 0.04   NA   NA    NA      4    15 94 1019    3
+## 2 2011-01-01 00:30:00   NA 0.04   NA   NA    NA      4    15 95 1019    3
+## 3 2011-01-01 01:00:00   NA 0.04   NA   NA    NA      4    15 95 1018    3
+## 4 2011-01-01 01:30:00   NA 0.04   NA   NA    NA      4    16 94 1018    4
+## 5 2011-01-01 02:00:00   NA 0.04   NA   NA    NA      4    16 93 1018    5
+## 6 2011-01-01 02:30:00   NA 0.04   NA   NA    NA      4    15 94 1018    5
+##   maxwspd wdir sdwdir totpar totprcp cumprcp totsorad
+## 1       3  145      8     NA       0       0       NA
+## 2       4  139      7     NA       0       0       NA
+## 3       4  144      6     NA       0       0       NA
+## 4       6  137      7     NA       0       0       NA
+## 5       6  138      7     NA       0       0       NA
+## 6       6  135      9     NA       0       0       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Did we lose any of the nutrient data?
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# how many non-missing values in eah column?}
+
+\hlcom{# check combined data}
+\hlstd{sum_fun} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwd{sum}\hlstd{(}\hlopt{!}\hlkwd{is.na}\hlstd{(x))}
+\hlkwd{apply}\hlstd{(tmp,} \hlnum{2}\hlstd{, sum_fun)} \hlcom{# apply the function to each column in tmp}
+\end{alltt}
+\begin{verbatim}
+## datetimestamp          po4f          nh4f          no2f          no3f 
+##         66775         15555         16072             0             0 
+##         no23f        chla_n         atemp            rh            bp 
+##         15569         16075         60856         60785         66441 
+##          wspd       maxwspd          wdir        sdwdir        totpar 
+##         62357         62357         62357         62357         44803 
+##       totprcp       cumprcp      totsorad 
+##         62155         62016             0
+\end{verbatim}
+\begin{alltt}
+\hlcom{# check original nutrient data}
+\hlkwd{apply}\hlstd{(nut_dat,} \hlnum{2}\hlstd{, sum_fun)}
+\end{alltt}
+\begin{verbatim}
+## datetimestamp          po4f          nh4f          no2f          no3f 
+##            48            24            40             0             0 
+##         no23f        chla_n 
+##            42            46
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Some data were lost but not much
+\end{frame}
 
 %%%%%%
 \begin{frame}
