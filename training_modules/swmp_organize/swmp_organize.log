@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  29 OCT 2014 14:13
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  30 OCT 2014 15:48
 entering extended mode
-**swmp_eda_one.tex
-(M:\docs\swmp_workshop_2014\training_modules\swmp_eda_one\swmp_eda_one.tex
+**swmp_organize.tex
+(M:\docs\swmp_workshop_2014\training_modules\swmp_organize\swmp_organize.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -1306,7 +1306,7 @@ Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
 ))
-(M:\docs\swmp_workshop_2014\training_modules\swmp_eda_one\swmp_eda_one.aux)
+(M:\docs\swmp_workshop_2014\training_modules\swmp_organize\swmp_organize.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
 LaTeX Font Info:    ... okay on input line 67.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
@@ -1397,8 +1397,8 @@ LaTeX Info: Redefining \ref on input line 67.
 LaTeX Info: Redefining \pageref on input line 67.
 LaTeX Info: Redefining \nameref on input line 67.
 
-(M:\docs\swmp_workshop_2014\training_modules\swmp_eda_one\swmp_eda_one.out)
-(M:\docs\swmp_workshop_2014\training_modules\swmp_eda_one\swmp_eda_one.out)
+(M:\docs\swmp_workshop_2014\training_modules\swmp_organize\swmp_organize.out)
+(M:\docs\swmp_workshop_2014\training_modules\swmp_organize\swmp_organize.out)
 \@outlinefile=\write5
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 67.
@@ -1471,7 +1471,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 LaTeX Info: Redefining \includegraphics on input line 67.
 
-(M:\docs\swmp_workshop_2014\training_modules\swmp_eda_one\swmp_eda_one.nav)
+(M:\docs\swmp_workshop_2014\training_modules\swmp_organize\swmp_organize.nav)
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
 (hyperref)                setting the option has no effect on input line 71.
@@ -1524,16 +1524,20 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 91.
 LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <5> not available
 (Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 91.
- [1
+
+Overfull \vbox (7.02399pt too high) detected at line 91
+ []
+
+[1
 
 {C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <M:/docs/swm
-p_workshop_2014/training_modules/swmp_eda_one/bg_main.jpg>] [2
+p_workshop_2014/training_modules/swmp_organize/bg_main.jpg>] [2
 
 ] [3
 
 ]
 LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <14.4> not available
-(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 123.
+(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 122.
 
  [4
 
@@ -1541,36 +1545,36 @@ LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <14.4> not available
 <adv_query.png, id=147, 794.97pt x 277.78781pt>
 File: adv_query.png Graphic file (type png)
  <use adv_query.png>
-Package pdftex.def Info: adv_query.png used on input line 131.
+Package pdftex.def Info: adv_query.png used on input line 130.
 (pdftex.def)             Requested size: 273.83728pt x 95.68852pt.
  [5
 
- <M:/docs/swmp_workshop_2014/training_modules/swmp_eda_one/adv_query.png>]
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_organize/adv_query.png>]
 <zip_eda.png, id=174, 746.79pt x 255.95625pt>
 File: zip_eda.png Graphic file (type png)
  <use zip_eda.png>
-Package pdftex.def Info: zip_eda.png used on input line 138.
+Package pdftex.def Info: zip_eda.png used on input line 137.
 (pdftex.def)             Requested size: 342.2953pt x 117.31949pt.
  [6
 
- <M:/docs/swmp_workshop_2014/training_modules/swmp_eda_one/zip_eda.png>]
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_organize/zip_eda.png>]
 <zip_eda2.png, id=201, 264.23718pt x 117.43875pt>
 File: zip_eda2.png Graphic file (type png)
  <use zip_eda2.png>
-Package pdftex.def Info: zip_eda2.png used on input line 146.
+Package pdftex.def Info: zip_eda2.png used on input line 145.
 (pdftex.def)             Requested size: 171.14764pt x 76.06548pt.
  [7
 
- <M:/docs/swmp_workshop_2014/training_modules/swmp_eda_one/zip_eda2.png>]
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 154
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_organize/zip_eda2.png>]
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 153
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmtt.fd"
 File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <8> not available
-(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 156.
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 160
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 155.
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 159
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
@@ -1582,61 +1586,61 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 9.31091 percent inste
-ad of 0 percent on input line 234.
+ad of 0 percent on input line 233.
 
 [10
 
 ]
-Overfull \hbox (1.9547pt too wide) in paragraph at lines 246--246
+Overfull \hbox (1.9547pt too wide) in paragraph at lines 245--245
 []\OT1/lmtt/m/n/8 ##              datetimestamp atemp f_atemp rh f_rh   bp f_bp
  wspd f_wspd maxwspd 
  []
 
 
-Overfull \hbox (1.9547pt too wide) in paragraph at lines 247--247
+Overfull \hbox (1.9547pt too wide) in paragraph at lines 246--246
 []\OT1/lmtt/m/n/8 ## 133543 2014-10-23 01:30:00    14    <0>  72 <0>  1017 <0> 
     3   <0>        5[] 
  []
 
 
-Overfull \hbox (1.9527pt too wide) in paragraph at lines 248--248
+Overfull \hbox (1.9527pt too wide) in paragraph at lines 247--247
 []\OT1/lmtt/m/n/8 ## 133544 2014-10-23 01:45:00    14    <0>  72 <0>  1016 <0> 
     3   <0>        5[] 
  []
 
 
-Overfull \hbox (1.9527pt too wide) in paragraph at lines 249--249
+Overfull \hbox (1.9527pt too wide) in paragraph at lines 248--248
 []\OT1/lmtt/m/n/8 ## 133545 2014-10-23 02:00:00    14    <0>  74 <0>  1016 <0> 
     3   <0>        4[] 
  []
 
 
-Overfull \hbox (1.9507pt too wide) in paragraph at lines 250--250
+Overfull \hbox (1.9507pt too wide) in paragraph at lines 249--249
 []\OT1/lmtt/m/n/8 ## 133546 2014-10-23 02:15:00    14    <0>  74 <0>  1016 <0> 
     3   <0>        4[] 
  []
 
 
-Overfull \hbox (1.9527pt too wide) in paragraph at lines 251--251
+Overfull \hbox (1.9527pt too wide) in paragraph at lines 250--250
 []\OT1/lmtt/m/n/8 ## 133547 2014-10-23 02:30:00    14    <0>  75 <0>  1016 <0> 
     3   <0>        4[] 
  []
 
 
-Overfull \hbox (1.9507pt too wide) in paragraph at lines 252--252
+Overfull \hbox (1.9507pt too wide) in paragraph at lines 251--251
 []\OT1/lmtt/m/n/8 ## 133548 2014-10-23 02:45:00    14    <0>  76 <0>  1016 <0> 
     2   <0>        4[] 
  []
 
 
-Overfull \hbox (1.9547pt too wide) in paragraph at lines 253--253
+Overfull \hbox (1.9547pt too wide) in paragraph at lines 252--252
 []\OT1/lmtt/m/n/8 ##        f_maxwspd wdir f_wdir sdwdir f_sdwdir totpar f_totp
 ar totprcp f_totprcp[] 
  []
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 9.31091 percent inste
-ad of 0 percent on input line 270.
+ad of 0 percent on input line 269.
 
 [11
 
@@ -1645,7 +1649,7 @@ ad of 0 percent on input line 270.
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 0.16632 percent inste
-ad of 0 percent on input line 321.
+ad of 0 percent on input line 320.
 
 [13
 
@@ -1653,7 +1657,7 @@ ad of 0 percent on input line 321.
 
 ]
 LaTeX Font Info:    Font shape `OT1/lmss/bx/it' in size <10.95> not available
-(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 357
+(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 356
 .
  [15
 
@@ -1667,15 +1671,15 @@ LaTeX Font Info:    Font shape `OT1/lmss/bx/it' in size <10.95> not available
 <qaqc_flags.png, id=522, 488.57532pt x 147.55125pt>
 File: qaqc_flags.png Graphic file (type png)
  <use qaqc_flags.png>
-Package pdftex.def Info: qaqc_flags.png used on input line 431.
+Package pdftex.def Info: qaqc_flags.png used on input line 430.
 (pdftex.def)             Requested size: 273.83728pt x 82.70016pt.
 
 [19
 
- <M:/docs/swmp_workshop_2014/training_modules/swmp_eda_one/qaqc_flags.png>]
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_organize/qaqc_flags.png>]
 
 Class beamer Warning: Frame text is shrunk by a factor of 9.31091 percent inste
-ad of 0 percent on input line 468.
+ad of 0 percent on input line 467.
 
 [20
 
@@ -1689,12 +1693,12 @@ ad of 0 percent on input line 468.
 File: figure/qaqc_ex.pdf Graphic file (type pdf)
 
 <use figure/qaqc_ex.pdf>
-Package pdftex.def Info: figure/qaqc_ex.pdf used on input line 549.
+Package pdftex.def Info: figure/qaqc_ex.pdf used on input line 548.
 (pdftex.def)             Requested size: 342.2953pt x 149.75345pt.
  [24
 
- <M:/docs/swmp_workshop_2014/training_modules/swmp_eda_one/figure/qaqc_ex.pdf>]
- [25
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_organize/figure/qaqc_ex.pdf>
+] [25
 
 ] [26
 
@@ -1729,13 +1733,13 @@ Package pdftex.def Info: figure/qaqc_ex.pdf used on input line 549.
 <figure/sub_plo.pdf, id=1082, 578.16pt x 361.35pt>
 File: figure/sub_plo.pdf Graphic file (type pdf)
  <use figure/sub_plo.pdf>
-Package pdftex.def Info: figure/sub_plo.pdf used on input line 996.
+Package pdftex.def Info: figure/sub_plo.pdf used on input line 995.
 (pdftex.def)             Requested size: 239.60567pt x 149.75345pt.
 
 [40
 
- <M:/docs/swmp_workshop_2014/training_modules/swmp_eda_one/figure/sub_plo.pdf>]
- [41
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_organize/figure/sub_plo.pdf>
+] [41
 
 ] [42
 
@@ -1749,13 +1753,13 @@ Package pdftex.def Info: figure/sub_plo.pdf used on input line 996.
 <figure/comb_plo.pdf, id=1245, 505.89pt x 216.81pt>
 File: figure/comb_plo.pdf Graphic file (type pdf)
  <use figure/comb_plo.pdf>
-Package pdftex.def Info: figure/comb_plo.pdf used on input line 1141.
+Package pdftex.def Info: figure/comb_plo.pdf used on input line 1140.
 (pdftex.def)             Requested size: 239.60567pt x 102.68806pt.
 
 [46
 
- <M:/docs/swmp_workshop_2014/training_modules/swmp_eda_one/figure/comb_plo.pdf>
-] [47
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_organize/figure/comb_plo.pdf
+>] [47
 
 ] [48
 
@@ -1775,45 +1779,56 @@ Package pdftex.def Info: figure/comb_plo.pdf used on input line 1141.
 
 ] [56
 
-]
-Overfull \vbox (14.93774pt too high) detected at line 1411
- []
+] [57
 
-[57
+] [58
+
+] [59
+
+] [60
+
+]
+[61
+
+] [62
+
+] [63
+
+] [64
 
 ]
 File: bg_main.jpg Graphic file (type jpg)
  <use bg_main.jpg>
-Package pdftex.def Info: bg_main.jpg used on input line 1423.
+Package pdftex.def Info: bg_main.jpg used on input line 1490.
 (pdftex.def)             Requested size: 308.06367pt x 53.75914pt.
 LaTeX Font Info:    Font shape `OT1/lmss/bx/it' in size <14.4> not available
-(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 142
-3.
- [58
+(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 149
+0.
+ [65
 
 ]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1425.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1425.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1492.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1492.
 
-(M:\docs\swmp_workshop_2014\training_modules\swmp_eda_one\swmp_eda_one.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1425.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1425.
+(M:\docs\swmp_workshop_2014\training_modules\swmp_organize\swmp_organize.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1492.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1492.
 
-Package rerunfilecheck Info: File `swmp_eda_one.out' has not changed.
+Package rerunfilecheck Info: File `swmp_organize.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1425.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1492.
  ) 
 Here is how much of TeX's memory you used:
- 25294 strings out of 493921
- 481957 string characters out of 3147282
- 567252 words of memory out of 3000000
- 27859 multiletter control sequences out of 15000+200000
+ 25318 strings out of 493921
+ 482209 string characters out of 3147282
+ 567261 words of memory out of 3000000
+ 27869 multiletter control sequences out of 15000+200000
  54663 words of font info for 56 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 56i,16n,69p,484b,709s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,16n,69p,485b,709s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Fil
 es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
 nc/dvips/lm/lm-ts1.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rmtt.
@@ -1826,9 +1841,9 @@ C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsso12.pfb><C:/Program Files
 /type1/public/lm/lmtt8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
 mtti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msa
 m7.pfb>
-Output written on swmp_eda_one.pdf (58 pages, 2070672 bytes).
+Output written on swmp_organize.pdf (65 pages, 2112268 bytes).
 PDF statistics:
- 1655 PDF objects out of 1728 (max. 8388607)
- 117 named destinations out of 1000 (max. 500000)
+ 1840 PDF objects out of 2073 (max. 8388607)
+ 131 named destinations out of 1000 (max. 500000)
  185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

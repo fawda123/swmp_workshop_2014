@@ -66,7 +66,7 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
-\title[Intro to EDA]{Introduction to exploratory data analysis}
+\title[SWMP organizing]{Processing and organizing SWMP time series for analysis}
 
 \author[M. Beck, T. O'Brien]{Marcus W. Beck\inst{1} \and Todd D. O'Brien\inst{2}}
 
@@ -96,17 +96,16 @@
 \onslide<+->
 \item Objectives \\~\\
 \begin{itemize}
-\item What are some tools for pre-processing/organizing the SWMP data? \\~\\
-\item What is the purpose of exploratory data analysis (EDA)? \\~\\
-\item What are some common techniques and tools for EDA? \\~\\
+\item How can SWMP data quality be evaluated and handled? \\~\\
+\item How can data be selected and removed to facilitate analysis? \\~\\
+\item What are some ways that date are combined and why would this be done? \\~\\
 \end{itemize}
 \onslide<+->
 \item Agenda \\~\\
 \begin{itemize}
-\item Review of data retrieval and import \\~\\
-\item Organizing tools in SWMPr \\~\\
-\item Purpose and overview of EDA \\~\\
-\item Generic EDA tools in R, tools in SWMPr\\~\\
+\item Review of import and handling QAQC flags\\~\\
+\item Appropriate use of data subsets \\~\\
+\item Combining data for comparisons \\~\\
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -823,7 +822,7 @@ Note that the datetimestamp is retained, this column will always be included in 
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-The `select' argument of `subset.swmpr' is used to select parameters of interested - one to many
+The `select' argument of `subset.swmpr' is used to select parameters of interest - one to many
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -1177,10 +1176,10 @@ The options for `comb.swmpr' allow flexibility \\~\\
 \begin{frame}[containsverbatim]{Organize SWMP data}
 What do the arguments specify? \\~\\
 \begin{itemize}
-\item ... : input swmpr data, separated by comma
-\item timestep: minutes defining the standardized time step
-\item differ: maximum difference in minutes for matching observations with original time steps to standardized time steps
-\item method: how are the data combined - union, intersect, or using a station
+\item ... : input swmpr data, separated by comma\\~\\
+\item timestep: minutes defining the standardized time step\\~\\
+\item differ: maximum difference in minutes for matching observations with original time steps to standardized time steps \\`\\
+\item method: how the data are combined using the time stamps - union, intersect, or using a station
 \end{itemize}
 \end{frame}
 
@@ -1258,14 +1257,14 @@ For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an obser
 \alert{wrong!}\\
 \begin{itemize}
 \item `differ' is 40 minutes
-\item observation will be duplicated at 6pm and 7pm
+\item observation will be duplicated at 6pm and 7pm \\~\\
 \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
 \alert{right!}
 \begin{itemize}
 \item `differ' is 30 minutes
-\item observation is matched only to 7pm
+\item observation is matched only to 7pm \\~\\
 \end{itemize}
 \end{column}
 \end{columns}
@@ -1275,7 +1274,7 @@ Again, default behavior of `comb.swmpr' prevents duplication
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
 Consider the alternative scenario of a using a conservative value for `differ'\\~\\
-For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm\\~
+For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm\\~\\
 If `differ' is five minutes, there will be no data in the standardized time series! \\~\\
 Fortunately, most SWMP data already follow a standard 15 minute time step
 \begin{knitrout}\scriptsize
@@ -1322,12 +1321,22 @@ Case in point, try standardizing the nutrient time series with `setstep.swmpr'
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
+\hlkwd{dim}\hlstd{(nut_dat)} \hlcom{# initial dimensions}
+\end{alltt}
+\begin{verbatim}
+## [1] 48  7
+\end{verbatim}
+\begin{alltt}
 \hlcom{# standardize nutrient time series}
 \hlstd{tmp} \hlkwb{<-} \hlkwd{setstep}\hlstd{(nut_dat,} \hlkwc{timestep} \hlstd{=} \hlnum{60}\hlstd{,} \hlkwc{differ} \hlstd{=} \hlnum{5}\hlstd{)}
-
+\hlkwd{dim}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## [1] 25369     7
+\end{verbatim}
+\begin{alltt}
 \hlcom{# remove empty rows, columns}
 \hlstd{tmp} \hlkwb{<-} \hlkwd{subset}\hlstd{(tmp,} \hlkwc{rem_row} \hlstd{= T,} \hlkwc{rem_col} \hlstd{= T)}
-
 \hlstd{tmp} \hlcom{#only four rows!}
 \end{alltt}
 \begin{verbatim}
@@ -1339,35 +1348,59 @@ Case in point, try standardizing the nutrient time series with `setstep.swmpr'
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-Serious data reduction! Standardizing nutrient data will take some trial and error
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-Standardizing nutrient data is easier in combination with other data
+A final note about combining data... what about combining data with different \alert{time ranges}\\~\\
+Consider combining two datasets \\~\\
+\begin{itemize}
+\item \alert{Scenario 1}: Time ranges are the same
+\item \alert{Scenario 2}: Time ranges are not the same, but there is overlap
+\item \alert{Scenario 3}: Time ranges are not the same, there is no overlap \\~\\
+\end{itemize}
+The `method' argument of `comb.swmpr' allows flexibility under different scenarios - time range intersect, union, or range of one station
+\end{frame}
+
+%%%%%%
+\begin{frame}{Organize SWMP data}
+\onslide<+->
+\alert{Scenario 1}: Time ranges are the same \\~\\
+Don't worry about changing the `method' argument - it will have no effect\\~\\
+Our previous examples represent scenario 1 \\~\\
+\onslide<+->
+\alert{Scenario 2}: Time ranges are not the same, but there is overlap \\~\\
+\begin{itemize}
+\item union: the default method, use the whole time range of both datasets
+\item intersect: use only the time range that is shared between the two
+\item or enter one of the station names, this says use the time range belonging to that station\\~\\
+\end{itemize}
+\onslide<+->
+\alert{Scenario 3}: Time ranges are not the same, there is no overlap \\~\\
+The only method that makes sense is `union'
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Try some examples
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# combine weather and nutrient}
-\hlstd{tmp} \hlkwb{<-} \hlkwd{comb}\hlstd{(met_dat, nut_dat,} \hlkwc{timestep} \hlstd{=} \hlnum{30}\hlstd{)}
+\hlcom{# first we subset for the example}
+\hlstd{sub1} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{subset} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'2012-07-01 0:0'}\hlstd{,} \hlstr{'2012-07-31 0:0'}\hlstd{))}
+\hlstd{sub2} \hlkwb{<-} \hlkwd{subset}\hlstd{(met_dat,} \hlkwc{subset} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'2012-07-15 0:0'}\hlstd{,} \hlstr{'2012-08-12 0:0'}\hlstd{))}
 
-\hlkwd{head}\hlstd{(tmp)}
+\hlcom{# what are the date ranges?}
+\hlkwd{attr}\hlstd{(sub1,} \hlstr{'date_rng'}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##         datetimestamp po4f nh4f no2f no3f no23f chla_n atemp rh   bp wspd
-## 1 2011-01-01 00:00:00   NA 0.04   NA   NA    NA      4    15 94 1019    3
-## 2 2011-01-01 00:30:00   NA 0.04   NA   NA    NA      4    15 95 1019    3
-## 3 2011-01-01 01:00:00   NA 0.04   NA   NA    NA      4    15 95 1018    3
-## 4 2011-01-01 01:30:00   NA 0.04   NA   NA    NA      4    16 94 1018    4
-## 5 2011-01-01 02:00:00   NA 0.04   NA   NA    NA      4    16 93 1018    5
-## 6 2011-01-01 02:30:00   NA 0.04   NA   NA    NA      4    15 94 1018    5
-##   maxwspd wdir sdwdir totpar totprcp cumprcp totsorad
-## 1       3  145      8     NA       0       0       NA
-## 2       4  139      7     NA       0       0       NA
-## 3       4  144      6     NA       0       0       NA
-## 4       6  137      7     NA       0       0       NA
-## 5       6  138      7     NA       0       0       NA
-## 6       6  135      9     NA       0       0       NA
+## [1] "2012-07-01 EST" "2012-07-31 EST"
+\end{verbatim}
+\begin{alltt}
+\hlkwd{attr}\hlstd{(sub2,} \hlstr{'date_rng'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] "2012-07-15 EST" "2012-08-12 EST"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -1375,39 +1408,73 @@ Standardizing nutrient data is easier in combination with other data
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-Did we lose any of the nutrient data?
+Try some examples
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# how many non-missing values in eah column?}
+\hlcom{# combine using union, this is the default}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{comb}\hlstd{(sub1, sub2,} \hlkwc{method} \hlstd{=} \hlstr{'union'}\hlstd{)}
 
-\hlcom{# check combined data}
-\hlstd{sum_fun} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwd{sum}\hlstd{(}\hlopt{!}\hlkwd{is.na}\hlstd{(x))}
-\hlkwd{apply}\hlstd{(tmp,} \hlnum{2}\hlstd{, sum_fun)} \hlcom{# apply the function to each column in tmp}
+\hlcom{# what is the date range of the combined object?}
+\hlkwd{attr}\hlstd{(tmp,} \hlstr{'date_rng'}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## datetimestamp          po4f          nh4f          no2f          no3f 
-##         66775         15555         16072             0             0 
-##         no23f        chla_n         atemp            rh            bp 
-##         15569         16075         60856         60785         66441 
-##          wspd       maxwspd          wdir        sdwdir        totpar 
-##         62357         62357         62357         62357         44803 
-##       totprcp       cumprcp      totsorad 
-##         62155         62016             0
-\end{verbatim}
-\begin{alltt}
-\hlcom{# check original nutrient data}
-\hlkwd{apply}\hlstd{(nut_dat,} \hlnum{2}\hlstd{, sum_fun)}
-\end{alltt}
-\begin{verbatim}
-## datetimestamp          po4f          nh4f          no2f          no3f 
-##            48            24            40             0             0 
-##         no23f        chla_n 
-##            42            46
+## [1] "2012-07-01 EST" "2012-08-12 EST"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-Some data were lost but not much
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Try some examples
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# combine using intersect}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{comb}\hlstd{(sub1, sub2,} \hlkwc{method} \hlstd{=} \hlstr{'intersect'}\hlstd{)}
+
+\hlcom{# what is the date range of the combined object?}
+\hlkwd{attr}\hlstd{(tmp,} \hlstr{'date_rng'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] "2012-07-15 EST" "2012-07-31 EST"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Try some examples
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# combine using the time range in sub1}
+\hlstd{station} \hlkwb{<-} \hlkwd{attr}\hlstd{(sub1,} \hlstr{'station'}\hlstd{)}
+\hlstd{tmp} \hlkwb{<-} \hlkwd{comb}\hlstd{(sub1, sub2,} \hlkwc{method} \hlstd{= station)}
+
+\hlcom{# what is the date range of the combined object?}
+\hlkwd{attr}\hlstd{(tmp,} \hlstr{'date_rng'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] "2012-07-01 EST" "2012-07-31 EST"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Organize SWMP data}
+Now you have an idea of how to organize SWMP data for analysis!\\~\\
+Here's what we did:\\~\\
+\begin{itemize}
+\item Evaluate QAQC flags in the data and handle accordingly \\~\\
+\item Subsetting the data to remove empty rows/columns or to select variables or time ranges of interest \\~\\
+\item Combining data for comparison or data simplification \\~\\
+\end{itemize}
+Consult the SWMPr cookboook for an example workflow! \\~\\
+After lunch... what are some basic ways we can analyze the data?
 \end{frame}
 
 %%%%%%
