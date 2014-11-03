@@ -1,0 +1,247 @@
+\documentclass[xcolor=svgnames]{beamer}
+\usetheme{Boadilla}
+\usecolortheme[named=SeaGreen]{structure}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usetikzlibrary{shadows,arrows,positioning}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
+\usepackage{pgfpages}
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+\begin{document}
+
+\title[Exploratory Data Analysis]{Exploratory Data Analysis with SWMP}
+
+\author[M. Beck, T. O'Brien]{Marcus W. Beck\inst{1} \and Todd D. O'Brien\inst{2}}
+
+\date{}
+
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS Copepod Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
+
+% knitr setup
+<<setup, include = F, cache = F>>=
+add_lib <- 'C:\\Users\\mbeck\\R\\library'
+if(file.exists(add_lib)) .libPaths(add_lib)
+rm('add_lib')
+library(knitr)
+
+# set global chunk options
+opts_chunk$set(fig.align='center', fig.show='hold',message=F,dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size= 'scriptsize', cache = T)
+options(replace.assign=TRUE,width=80,digits=1)
+@
+
+% load SWMPr from local
+<<swmpr, eval = T, echo = F, cache = F, message = F>>=
+devtools::load_all('M:/docs/SWMPr')
+@
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\titlepage
+\end{frame}
+
+%%%%%%
+\begin{frame}{Objectives and agenda}
+\begin{itemize}
+\onslide<+->
+\item Objectives \\~\\
+\begin{itemize}
+\item What are some basic time series analysis techniques and when would you use them? \\~\\
+\item How are the data set up, what functions are used, and how are the results interpreted? \\~\\
+\end{itemize}
+\onslide<+->
+\item Agenda \\~\\
+\begin{itemize}
+\item Common functions for exploratory data analysis \\~\\
+\item Analysis 1 - missing data and interpolation\\~\\
+\item Analysis 2 - smoothing and aggregation \\~\\
+\item Analysis 3 - basic trend analysis\\~\\
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Interactive portion}
+You can follow along in this module: \\~\\
+\begin{itemize}
+\item dataset3 \\~\\
+\item script3 \\~\\
+\end{itemize}
+\Large
+\centerline{\emph{Interactive!}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Common functions for EDA}
+What is exploratory data analysis (EDA)? \\~\\
+A general term that describes preliminary evaluation of a variable or multiple variables in a dataset to assess quantitative properties for further analysis\\~\\
+EDA can inform you of the \alert{types} of variables (categorical, continuous), \alert{distribution} of a variable (central tendency, spread), \alert{correlations} between variables, and presence of \alert{outliers} \\~\\
+You may decide to omit variables or specific observations, transform, standardize, etc.\\~\\
+Many of the same principles that apply to standard data analysis apply to time series analysis
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Common functions for EDA}
+R has many functions available for EDA - see the \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{R reference card} for some ideas\\~\\
+We will cover a few basic techniques but keep in mind EDA is a general term and much of what we have already covered, and will cover, can be considered exploratory \\~\\
+Let's import some data:
+<<echo = F>>=
+path <- 'M:/docs/swmp_workshop_2014/training_modules/data/dataset3/' 
+nut_dat <- import_local(path, 'cbmmcnut')
+nut_dat <- qaqc(nut_dat)
+nut_dat <- subset(nut_dat, select = c('po4f', 'no23f'))
+@
+<<eval = F>>=
+# reload the SWMPr package if you started a new session
+library(SWMPr)
+
+# import data, qaqc, and subset
+# change this path for the flash drive
+path <- 'C:/data/dataset3'
+nut_dat <- import_local(path, 'cbmmcnut')
+nut_dat <- qaqc(nut_dat)
+nut_dat <- subset(nut_dat, select = c('po4f', 'nh4f'))
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Common functions for EDA}
+Perhaps the most useful function in R is `summary'
+<<echo = T>>=
+# get a summary of the data
+summary(nut_dat)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Common functions for EDA}
+The pairs function is useful for evaluating simple bivariate correlations
+<<fig.height = 5, fig.width = 5, out.width = '0.5\\textwidth'>>=
+# bivariate scatterplots
+pairs(nut_dat)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Common functions for EDA}
+Histograms are useful...
+<<fig.height = 3, fig.width = 3, out.width = '0.4\\textwidth', results = 'hold'>>=
+# some histograms
+hist(nut_dat$po4f)
+hist(nut_dat$no23f)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Common functions for EDA}
+Boxplots are useful...
+<<fig.height = 3, fig.width = 3, out.width = '0.4\\textwidth', results = 'hold'>>=
+# some boxplots
+boxplot(nut_dat$po4f, main = 'p04f')
+boxplot(nut_dat$no23f, main = 'no23f')
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}{Common functions for EDA}
+Plotting individual variables or simple scatterplots between two variables will get you familiar with a dataset\\~\\
+Again, R has many functions for EDA and we don't want to focus on general approaches that can be learned at home \\~\\
+A quick google search of `exploratory data analysis in r' will point you in the right direction \\~\\
+For now, we will focus on some tasks that have specific relevance to SWMP
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+Time series will usually include missing data - you will have to decide how to handle missing values \\~\\
+Let's import some wq data
+<<echo = F, cache = F>>=
+path <- 'M:/docs/swmp_workshop_2014/training_modules/data/dataset3/' 
+wq_dat <- import_local(path, 'cbmmcwq2012')
+@
+<<eval = F>>=
+# import data, qaqc, and subset
+# change this path for the flash drive
+path <- 'C:/data/dataset3'
+wq_dat <- import_local(path, 'cbmmcwq2012')
+@
+<<cache = F>>=
+# remove qaqc, and subset do_mgl
+wq_dat <- qaqc(wq_dat)
+wq_dat <- subset(wq_dat, select = 'do_mgl')
+
+# how many missing values?
+sum(is.na(wq_dat$do_mgl))
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+Mising data can be removed with the subset function or replaced with the mean
+<<>>=
+# a temporary object so we don't overwrite wq_dat
+wq_tmp <- wq_dat
+
+# remove missing values with subset function
+wq_tmp <- subset(wq_tmp, rem_row = T)
+
+# or replace missing values with the mean
+wq_tmp <- wq_dat
+wq_tmp[is.na(wq_tmp$do_mgl), 'do_mgl'] <- mean(wq_tmp$do_mgl, na.rm = T)
+@
+What are some issues with these approaches? \\~\\
+`subset' will change the time step \\~\\
+Neither approach is very true to the data... 
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+Introducing the `na.approx' function - this method can interpolate missing data
+<<fig.height = 3, fig.width = 7, out.width = '0.8\\textwidth'>>=
+# subset the do time series for plotting
+wq_dat <- subset(wq_dat, subset = c('2012-10-01 0:0', '2012-10-31 0:0'))
+plot(do_mgl ~ datetimestamp, wq_dat, type = 'l')
+@
+Notice the missing values around October 12\textsuperscript{th}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+Here's what the time series looks like after using `na.approx'
+<<fig.height = 3, fig.width = 7, out.width = '0.8\\textwidth', echo = F>>=
+# subset the do time series for plotting
+wq_dat <- na.approx(wq_dat, maxgap = 100)
+plot(do_mgl ~ datetimestamp, wq_dat, type = 'l')
+@
+The missing values have been linearly interpolated - not a true representation but better than some other approaches
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+The `na.approx' function has only a few arguments
+\end{frame}
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\vspace{0.5in}
+\Large
+\centerline{\Bigtxt{Questions??}}
+\end{frame}
+
+\end{document}

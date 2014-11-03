@@ -80,7 +80,7 @@ You can follow along in this module: \\~\\
 \item script2 \\~\\
 \end{itemize}
 \Large
-\centerline{\emph{Interactive! Interrupt me!}}
+\centerline{\emph{Interactive!}}
 \end{frame}
 
 %%%%%%
