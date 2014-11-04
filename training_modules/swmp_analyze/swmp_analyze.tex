@@ -124,8 +124,8 @@ You can follow along in this module: \\~\\
 %%%%%%
 \begin{frame}{Common functions for EDA}
 What is exploratory data analysis (EDA)? \\~\\
-A general term that describes preliminary evaluation of a variable or multiple variables in a dataset to assess quantitative properties for further analysis\\~\\
-EDA can inform you of the \alert{types} of variables (categorical, continuous), \alert{distribution} of a variable (central tendency, spread), \alert{correlations} between variables, and presence of \alert{outliers} \\~\\
+A general term that describes preliminary evaluation of a variable or multiple variables in a dataset to assess quantitative properties for further analysis or hypothesis generation\\~\\
+EDA can inform you of the \alert{types} of variables (categorical, continuous), \alert{distribution} of variables (central tendency, spread), \alert{correlations} between variables, and presence of \alert{outliers} \\~\\
 You may decide to omit variables or specific observations, transform, standardize, etc.\\~\\
 Many of the same principles that apply to standard data analysis apply to time series analysis
 \end{frame}
@@ -243,7 +243,7 @@ Boxplots are useful...
 %%%%%%
 \begin{frame}{Common functions for EDA}
 Plotting individual variables or simple scatterplots between two variables will get you familiar with a dataset\\~\\
-Again, R has many functions for EDA and we don't want to focus on general approaches that can be learned at home \\~\\
+Again, R has many functions for EDA and we don't want to focus on generic approaches that can be learned at home \\~\\
 A quick google search of `exploratory data analysis in r' will point you in the right direction \\~\\
 For now, we will focus on some tasks that have specific relevance to SWMP
 \end{frame}
@@ -266,7 +266,7 @@ Let's import some wq data
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# remove qaqc, and subset do_mgl}
+\hlcom{# qaqc and subset do_mgl}
 \hlstd{wq_dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(wq_dat)}
 \hlstd{wq_dat} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{select} \hlstd{=} \hlstr{'do_mgl'}\hlstd{)}
 
@@ -338,12 +338,262 @@ Here's what the time series looks like after using `na.approx'
 
 
 \end{knitrout}
-The missing values have been linearly interpolated - not a true representation but better than some other approaches
+The missing values have been linearly interpolated - a simple function that predicts missing values based on the starting and ending values in gaps\\~\\
+May not be a true representation but better than some other approaches
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
 The `na.approx' function has only a few arguments
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# arguments for na.approx.swmpr, a method for na.approx}
+\hlkwd{formals}\hlstd{(na.approx.swmpr)}
+\end{alltt}
+\begin{verbatim}
+## $swmpr_in
+## 
+## 
+## $params
+## NULL
+## 
+## $maxgap
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{itemize}
+\item swmpr\_in: input swmpr data \\~\\
+\item params: which parameters to interplate, default is all \\~\\
+\item maxgap: what is the maximum gap size to interpolate?
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+Now you try an analysis! Open a new script and try the following: \\~\\
+\begin{itemize}
+\item Import the file `cbmmcwq2012.csv' in the dataset3 folder \\~\\
+\item Handle QAQC flags and subset by October 1 to 31 \\~\\
+\item Plot the data - where are the missing values?\\~\\
+\item Use `na.approx.swmpr' to interpolate the missing values - what value to use for maxgap?\\~\\
+\item Plot the data again - how does it look? \\~\\
+\item Does interpolation affect the mean? variance?
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+Now you try an analysis! Open a new script and try the following: \\~\\
+\begin{itemize}
+\item `import\_local', make sure path is correct
+\item `qaqc' then `subset.swmpr' with appropriate `subset' argument
+\item `plot' y $\sim$ x, data, type = `l'
+\item `na.approx.swmpr', maxgap = some number, assign results to new objectt 
+\item `plot' y $\sim$ x, data, type = `l'
+\item `mean' or `var' of do_mgl, must include na.rm = T \\~\\
+\end{itemize}
+Consult the cookbook or help files for how to use a function (`?na.approx.swmpr')
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# the analysis should look something like this}
+
+\hlcom{# change path as needed}
+\hlstd{path} \hlkwb{<-} \hlstr{'C:/data/dataset3'}
+\hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(path,} \hlstr{'cbmmcwq2012'}\hlstd{)}
+
+\hlcom{# qaqc and subset imported data}
+\hlstd{dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(dat)}
+\hlstd{dat} \hlkwb{<-} \hlkwd{subset}\hlstd{(dat,} \hlkwc{subset} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'2012-10-01 00:00'}\hlstd{,} \hlstr{'2012-10-31 00:00'}\hlstd{))}
+
+\hlcom{# plot}
+\hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-15} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# interpolate missing}
+\hlstd{new_dat} \hlkwb{<-} \hlkwd{na.approx}\hlstd{(dat,} \hlkwc{maxgap} \hlstd{=} \hlnum{50}\hlstd{)} \hlcom{# try different maxgaps}
+
+\hlcom{# plot}
+\hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= new_dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-17} 
+
+}
+
+
+
+\end{knitrout}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{mean}\hlstd{(dat}\hlopt{$}\hlstd{do_mgl,} \hlkwc{na.rm} \hlstd{= T)}
+\end{alltt}
+\begin{verbatim}
+## [1] 5.8
+\end{verbatim}
+\begin{alltt}
+\hlkwd{mean}\hlstd{(new_dat}\hlopt{$}\hlstd{do_mgl,} \hlkwc{na.rm} \hlstd{= T)}
+\end{alltt}
+\begin{verbatim}
+## [1] 5.9
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
+Problem: trend evaluation is difficult if the data are noisy \\~\\
+Noise can be caused by many factors (e.g., measurement error, process uncertainty), we are usually more concerned with the true signal in a time series \\~\\
+Noise can be addressed by aggregating or smoothing data, both are similar \\~\\
+The `aggregate.swmpr' function aggregates a time series by set periods of observation and calculates summary data for a variable \\~\\
+The `smoother.swmpr' function calculates a moving window average of a time series \\~\\
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
+The arguments for `aggregate.swmpr':\\~\\
+\begin{itemize}
+\item swmpr\_in: Input data object \\~\\
+\item by: How are the data aggregated - `year', `quarters', `months', `weeks', `days', `hours' \\~\\
+\item FUN: What function is used to aggregate the data? Defaults to mean. \\~\\
+\item params: Which parameters do you aggregate? Defaults to all. \\~\\
+\item na.action: how are missing data treated, default is to retain missing data in results
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
+The arguments for `smoother.swmpr':\\~\\
+\begin{itemize}
+\item swmpr\_in: Input data object \\~\\
+\item window: the size of the smoothing window, defaults to five observations at the current time step \\~\\
+\item sides: what defines the window, centered on an observation (2) or use only the preceding observations (1)  \\~\\
+\item params: Which parameters do you aggregate? Defaults to all. \\~\\
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
+Now you try an analysis! Open a new script and try the following: \\~\\
+\begin{itemize}
+\item Import the the same data as before - `cbmmcwq2012.csv' in the dataset3 folder \\~\\
+\item Handle QAQC flags and subset by October 1 to 31 \\~\\
+\item Plot the raw data \\~\\
+\item Use `smoother.swmpr', plot again, how does it look? Try different window sizes.\\~\\
+\item Aggregate the data by weeks and view the raw data (do not plot).  Now try aggregation by months, what's the difference?\\~\\
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
+Now you try an analysis! Open a new script and try the following: \\~\\
+\begin{itemize}
+\item `import\_local', make sure path is correct
+\item `qaqc' then `subset.swmpr' with appropriate `subset' argument
+\item `plot' y $\sim$ x, data, type = `l'
+\item `smoother.swmpr', try a large number (e.g., 30), assign results to new object 
+\item `plot' y $\sim$ x, data, type = `l'
+\item `aggregate.swmpr', by = `weeks', by = 'days'\\~\\
+\end{itemize}
+Consult the cookbook or help files for how to use a function (`?smoother.swmpr')
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# use the same data as in analysis 1}
+
+\hlcom{# smooth }
+\hlstd{new_dat} \hlkwb{<-} \hlkwd{smoother.swmpr}\hlstd{(dat,} \hlkwc{window} \hlstd{=} \hlnum{40}\hlstd{)}
+
+\hlcom{# plot original, then new}
+\hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
+\hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= new_dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-20} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# try an aggregation by 'weeks'}
+\hlkwd{aggregate}\hlstd{(dat,} \hlkwc{by} \hlstd{=} \hlstr{'weeks'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##   datetimestamp temp spcond  sal do_pct do_mgl depth cdepth level clevel  ph
+## 1    2012-09-30   21   0.75 0.36     61    5.4  0.47    NaN   NaN    NaN 6.5
+## 2    2012-10-07   16   0.67 0.33     65    6.4  0.51    NaN   NaN    NaN 6.6
+## 3    2012-10-14   15   0.70 0.34     67    6.6  0.51    NaN   NaN    NaN 6.8
+## 4    2012-10-21   16   0.71 0.35     46    4.5  0.52    NaN   NaN    NaN 6.8
+## 5    2012-10-28   14   0.57 0.29     59    6.2  0.64    NaN   NaN    NaN 6.7
+##   turb chlfluor
+## 1   22       23
+## 2   34       23
+## 3   35       20
+## 4   31       14
+## 5   88       14
+\end{verbatim}
+\begin{alltt}
+\hlcom{# try an aggregation by 'months'}
+\hlkwd{aggregate}\hlstd{(dat,} \hlkwc{by} \hlstd{=} \hlstr{'months'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##   datetimestamp temp spcond  sal do_pct do_mgl depth cdepth level clevel  ph
+## 1    2012-10-01   16   0.69 0.33     59    5.8  0.52    NaN   NaN    NaN 6.7
+##   turb chlfluor
+## 1   39       19
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
+
 \end{frame}
 
 %%%%%%
