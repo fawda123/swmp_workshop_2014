@@ -1,0 +1,17 @@
+handling missing data w/o using na.approx
+
+<<>>=
+# a temporary object so we don't overwrite wq_dat
+wq_tmp <- wq_dat
+
+# remove missing values with subset function
+wq_tmp <- subset(wq_tmp, rem_row = T)
+
+# or replace missing values with the mean
+wq_tmp <- wq_dat
+wq_tmp[is.na(wq_tmp$do_mgl), 'do_mgl'] <- mean(wq_tmp$do_mgl, na.rm = T)
+@
+
+plotting data 
+
+kimberly's script

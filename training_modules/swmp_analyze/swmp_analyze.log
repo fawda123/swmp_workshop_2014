@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  4 NOV 2014 11:45
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  5 NOV 2014 12:01
 entering extended mode
 **swmp_analyze.tex
 (M:\docs\swmp_workshop_2014\training_modules\swmp_analyze\swmp_analyze.tex
@@ -1533,203 +1533,213 @@ p_workshop_2014/training_modules/swmp_analyze/bg_main.jpg>] [2
 
 ]
 LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <14.4> not available
-(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 122.
+(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 121.
 
  [4
 
 ] [5
 
+] [6
+
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 141
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 146
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmtt.fd"
 File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <8> not available
-(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 143.
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 147
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 149
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [6
-
-] [7
+)
+LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <8> not available
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 150.
+ [7
 
 ]
-<figure/unnamed-chunk-4.pdf, id=230, 361.35pt x 361.35pt>
+<figure/unnamed-chunk-4.pdf, id=230, 505.89pt x 216.81pt>
 File: figure/unnamed-chunk-4.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-4.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-4.pdf used on input line 190.
-(pdftex.def)             Requested size: 171.14764pt x 171.14679pt.
+Package pdftex.def Info: figure/unnamed-chunk-4.pdf used on input line 183.
+(pdftex.def)             Requested size: 273.83728pt x 117.36015pt.
  [8
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
 -4.pdf>]
-<figure/unnamed-chunk-51.pdf, id=262, 216.81pt x 216.81pt>
-File: figure/unnamed-chunk-51.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-5.pdf, id=262, 505.89pt x 216.81pt>
+File: figure/unnamed-chunk-5.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-51.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-51.pdf used on input line 211.
-(pdftex.def)             Requested size: 136.91603pt x 136.92184pt.
-
-<figure/unnamed-chunk-52.pdf, id=263, 216.81pt x 216.81pt>
-File: figure/unnamed-chunk-52.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-52.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-52.pdf used on input line 212.
-(pdftex.def)             Requested size: 136.91603pt x 136.92184pt.
+<use figure/unnamed-chunk-5.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-5.pdf used on input line 199.
+(pdftex.def)             Requested size: 273.83728pt x 117.36015pt.
  [9
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
--51.pdf> <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnam
-ed-chunk-52.pdf>]
-<figure/unnamed-chunk-61.pdf, id=302, 216.81pt x 216.81pt>
-File: figure/unnamed-chunk-61.pdf Graphic file (type pdf)
+-5.pdf>] [10
 
-<use figure/unnamed-chunk-61.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-61.pdf used on input line 233.
-(pdftex.def)             Requested size: 136.91603pt x 136.92184pt.
-
-<figure/unnamed-chunk-62.pdf, id=303, 216.81pt x 216.81pt>
-File: figure/unnamed-chunk-62.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-62.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-62.pdf used on input line 234.
-(pdftex.def)             Requested size: 136.91603pt x 136.92184pt.
- [10
-
- <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
--61.pdf> <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnam
-ed-chunk-62.pdf>] [11
+] [11
 
 ] [12
 
-] [13
-
 ]
-<figure/unnamed-chunk-11.pdf, id=422, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-11.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-8.pdf, id=372, 433.62pt x 144.54pt>
+File: figure/unnamed-chunk-8.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-11.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-11.pdf used on input line 318.
-(pdftex.def)             Requested size: 273.83728pt x 117.36015pt.
- [14
-
- <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
--11.pdf>]
-<figure/unnamed-chunk-12.pdf, id=454, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-12.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-12.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-12.pdf used on input line 334.
-(pdftex.def)             Requested size: 273.83728pt x 117.36015pt.
- [15
+<use figure/unnamed-chunk-8.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-8.pdf used on input line 271.
+(pdftex.def)             Requested size: 239.60567pt x 79.86996pt.
+ [13
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
--12.pdf>] [16
+-8.pdf>] [14
+
+] [15
+
+] [16
 
 ] [17
 
-] [18
-
 ]
-<figure/unnamed-chunk-15.pdf, id=565, 433.62pt x 144.54pt>
-File: figure/unnamed-chunk-15.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-13.pdf, id=509, 433.62pt x 252.945pt>
+File: figure/unnamed-chunk-13.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-15.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-15.pdf used on input line 422.
-(pdftex.def)             Requested size: 239.60567pt x 79.86996pt.
- [19
+<use figure/unnamed-chunk-13.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-13.pdf used on input line 372.
+(pdftex.def)             Requested size: 239.60567pt x 139.77245pt.
+ [18
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
--15.pdf>]
-<figure/unnamed-chunk-17.pdf, id=598, 433.62pt x 144.54pt>
+-13.pdf>]
+Overfull \vbox (1.34172pt too high) detected at line 415
+ []
+
+[19
+
+] [20
+
+] [21
+
+] <figure/unnamed-chunk-17.pdf, id=621, 578.16pt x 216.81pt>
 File: figure/unnamed-chunk-17.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-17.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-17.pdf used on input line 447.
-(pdftex.def)             Requested size: 239.60567pt x 79.86996pt.
- [20
+Package pdftex.def Info: figure/unnamed-chunk-17.pdf used on input line 456.
+(pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
+ [22
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
--17.pdf>] [21
+-17.pdf>]
+<figure/unnamed-chunk-18.pdf, id=653, 578.16pt x 216.81pt>
+File: figure/unnamed-chunk-18.pdf Graphic file (type pdf)
 
-] [22
+<use figure/unnamed-chunk-18.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-18.pdf used on input line 478.
+(pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
+ [23
 
-] [23
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
+-18.pdf>]
+<figure/unnamed-chunk-19.pdf, id=685, 578.16pt x 216.81pt>
+File: figure/unnamed-chunk-19.pdf Graphic file (type pdf)
 
-] [24
+<use figure/unnamed-chunk-19.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-19.pdf used on input line 501.
+(pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
+ [24
 
-] [25
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
+-19.pdf>]
+Overfull \vbox (39.53778pt too high) detected at line 546
+ []
 
-]
-<figure/unnamed-chunk-20.pdf, id=761, 433.62pt x 252.945pt>
-File: figure/unnamed-chunk-20.pdf Graphic file (type pdf)
+[25
 
-<use figure/unnamed-chunk-20.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-20.pdf used on input line 549.
-(pdftex.def)             Requested size: 239.60567pt x 139.77245pt.
+] <figure/unnamed-chunk-21.pdf, id=744, 650.43pt x 361.35pt>
+File: figure/unnamed-chunk-21.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-21.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-21.pdf used on input line 559.
+(pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
  [26
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
--20.pdf>]
-Overfull \vbox (1.34172pt too high) detected at line 592
+-21.pdf>]
+<figure/unnamed-chunk-22.pdf, id=776, 650.43pt x 361.35pt>
+File: figure/unnamed-chunk-22.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-22.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-22.pdf used on input line 580.
+(pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
+
+Overfull \vbox (6.28474pt too high) detected at line 587
  []
 
 [27
 
-] [28
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
+-22.pdf>] <figure/unnamed-chunk-23.pdf, id=808, 650.43pt x 361.35pt>
+File: figure/unnamed-chunk-23.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-23.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-23.pdf used on input line 601.
+(pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
+
+Overfull \vbox (6.28474pt too high) detected at line 608
+ []
+
+[28
+
+ <M:/docs/swmp_workshop_2014/training_modules/swmp_analyze/figure/unnamed-chunk
+-23.pdf>] [29
 
 ]
 File: bg_main.jpg Graphic file (type jpg)
  <use bg_main.jpg>
-Package pdftex.def Info: bg_main.jpg used on input line 609.
+Package pdftex.def Info: bg_main.jpg used on input line 630.
 (pdftex.def)             Requested size: 308.06367pt x 53.75914pt.
 LaTeX Font Info:    Font shape `OT1/lmss/bx/it' in size <14.4> not available
-(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 609
+(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 630
 .
- [29
+ [30
 
 ]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 611.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 611.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 632.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 632.
 
 (M:\docs\swmp_workshop_2014\training_modules\swmp_analyze\swmp_analyze.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 611.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 611.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 632.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 632.
 Package rerunfilecheck Info: File `swmp_analyze.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 611.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 632.
  ) 
 Here is how much of TeX's memory you used:
- 25187 strings out of 493921
- 481540 string characters out of 3147282
+ 25191 strings out of 493921
+ 481565 string characters out of 3147282
  554252 words of memory out of 3000000
- 27806 multiletter control sequences out of 15000+200000
+ 27808 multiletter control sequences out of 15000+200000
  49504 words of font info for 55 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  56i,16n,69p,484b,709s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/M
-iKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
-nc/dvips/lm/lm-ts1.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rmtt.
-enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/public/lm/lmss8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-lm/lmssbo10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsso12.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/lm/lmtt8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
-mtti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msa
-m7.pfb>
-Output written on swmp_analyze.pdf (29 pages, 662735 bytes).
+iKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/
+dvips/lm/lm-rmtt.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss10.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/public/lm/lmss8.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/lm/lmssbo10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/lm/lmsso12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt8.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb><C:/Program Files/MiKTeX 2.9/fonts
+/type1/public/amsfonts/symbols/msam7.pfb>
+Output written on swmp_analyze.pdf (30 pages, 1544140 bytes).
 PDF statistics:
- 922 PDF objects out of 1000 (max. 8388607)
- 59 named destinations out of 1000 (max. 500000)
+ 941 PDF objects out of 1000 (max. 8388607)
+ 61 named destinations out of 1000 (max. 500000)
  200 words of extra memory for PDF output out of 10000 (max. 10000000)
 
