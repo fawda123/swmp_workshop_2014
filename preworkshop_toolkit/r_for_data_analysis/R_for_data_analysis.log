@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  26 OCT 2014 13:34
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  5 NOV 2014 13:05
 entering extended mode
 **R_for_data_analysis.tex
 
@@ -1726,8 +1726,8 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 673.
  ) 
 Here is how much of TeX's memory you used:
  25268 strings out of 493921
- 485885 string characters out of 3147282
- 553776 words of memory out of 3000000
+ 485887 string characters out of 3147282
+ 552776 words of memory out of 3000000
  27863 multiletter control sequences out of 15000+200000
  42260 words of font info for 55 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
@@ -1744,7 +1744,7 @@ TeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/public/lm/lmtt8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtti
 10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam7.p
 fb>
-Output written on R_for_data_analysis.pdf (22 pages, 518276 bytes).
+Output written on R_for_data_analysis.pdf (22 pages, 518265 bytes).
 PDF statistics:
  727 PDF objects out of 1000 (max. 8388607)
  46 named destinations out of 1000 (max. 500000)

@@ -34,7 +34,7 @@ options(replace.assign=T,width=80,digits=1)
 
 \date{}
 
-\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS Copepod Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS COPEPOD Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
 
 %%%%%%
 \begin{frame}
@@ -243,7 +243,7 @@ library(ggplot2)
 Or you can download packages from GitHub, which requires using the devtools package:
 <<eval = F>>=
 # download devtools from CRAN
-install.package('devtools')
+install.packages('devtools')
 
 # load devtools
 library(devtools)

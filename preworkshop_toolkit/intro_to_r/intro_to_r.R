@@ -14,7 +14,7 @@ library(ggplot2)
 
 
 # download devtools from CRAN
-install.package('devtools')
+install.packages('devtools')
 
 # load devtools
 library(devtools)
