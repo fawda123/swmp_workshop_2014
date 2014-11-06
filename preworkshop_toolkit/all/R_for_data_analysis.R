@@ -11,7 +11,7 @@ ls()
 # data not loaded, only 'a' from before
 ls() 
 # load data as comma separated, assign to dat
-# make sure you are in the correct working directory
+# make sure you are in the working directory for the toolkit
 # e.g., setwd('C:/my_directory') 
 dat <- read.table('dat_example.txt',sep = ',', header = T)
 ls() 

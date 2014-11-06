@@ -29,7 +29,10 @@ Below is a summary of the content.  Please contact the instructors with any ques
 * R_for_data_analysis.r
     + Accompanying script for the pdf, duplicate R code that can be opened  directly in R
     
-* swmpr_tutorial.pdf
+* dat_example.txt
+    + Example data file that you will load with 'R_for_data_analysis'
+    
+* swmpr_tutorial.pdf (**optional**)
     + A tutorial describing the SWMPr package including installation and overview of functions.  This is not required to complete before the workshop but you should begin familiarizing yourself with the content.  An installation of the package is required prior to the workshop.
     
 What to bring to the workshop:

@@ -1,3 +1,14 @@
+
+Start with basics of starting r session, saving workspace, loading script - for first starting a module
+
+Rstudio quick commands - clear workspace, consol, etc.
+
+
+plotting data - ggplot facet ex
+
+kimberly's script
+
+
 handling missing data w/o using na.approx
 
 <<>>=
@@ -12,6 +23,4 @@ wq_tmp <- wq_dat
 wq_tmp[is.na(wq_tmp$do_mgl), 'do_mgl'] <- mean(wq_tmp$do_mgl, na.rm = T)
 @
 
-plotting data 
 
-kimberly's script
