@@ -313,7 +313,7 @@ dat <- import_local(path, 'cbmipwq')
 dat <-qaqc(dat)
 @
 <<eval = F>>=
-# import all wq data for cbmrr
+# import all wq data for cbmip
 # change path as needed
 path <- 'C:/data/dataset3/'
 dat <- import_local(path, 'cbmipwq')
