@@ -1,4 +1,7 @@
 
+Every time you start a new R session, you will have 
+
+
 Start with basics of starting r session, saving workspace, loading script - for first starting a module
 
 Rstudio quick commands - clear workspace, consol, etc.

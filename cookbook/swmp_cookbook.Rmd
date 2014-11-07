@@ -1,0 +1,284 @@
+---
+title: "SWMP time series analysis cookbook"
+output: 
+  pdf_document:
+    toc: true
+author: Marcus W. Beck, beck.marcus@epa.gov, Todd D. O'Brien, todd.obrien@noaa.gov 
+date: Nov. 17, 2014
+---
+
+# Introduction
+
+This document provides a collection of instructions and scripts that perform specific tasks for working with SWMP data in R.  It provides scripts that use functions from the SWMPr package, as well as many others available in the base or contributed packages available in R.  This cookbook is meant to provide workshop participants with a 'go-to' document that builds on content covered in the workshop.  Much of the content can be a considered a basic approach to time series and we encourage the exploration of alternative, more specific methods that are available in R.  Please see the CRAN task view on [time series](http://cran.r-project.org/web/views/TimeSeries.html) for an idea of what is possible.  The data used in these scripts have been included with the SWMPr package installation or can be downloaded from the workshop website.  Please feel free to contact the instructors with questions regarding this cookbook or general questions about time series analysis in R.  We encourage any feedback regarding these documents or the content of the workshop.
+
+Workshop website: [http://copepod.org/nerrs-swmp-workshop/](http://copepod.org/nerrs-swmp-workshop/)
+
+# Basics of R and RStudio
+
+## What to do when you start a new session
+
+You will need to follow a few simple steps to use data and functions in R if you are starting a new session.  Here is a basic workflow of these steps.
+
+- Open a new or saved script that you will use to type code (.r file extension).  This is under the File menu on the top for both the basic R install and RStudio.
+
+- Load R packages that you will use.  The functions in a package will not be avialable unless the package is loaded.  The package must also be previously installed.  You can put the packages you are using at the top of your script.
+
+- Set the working directory.  This is where R will load and save files.
+
+- Load any workspace that you were using previously.  This an R specific file format that saves any and all objects that are in a workspace.  Ideally, you will have saved a workspace from your previous session.
+
+Here is a sample script of this workflow.
+
+```{r eval = F}
+# my startup script
+
+# load any packages
+library(SWMPr)
+library(ggplot2)
+
+# set the working directory
+setwd('C:/my_files')
+
+# load your previous workspace if you saved one
+# this must be in the working directory
+load(file = 'my_workspace.RData')
+
+# check what you loaded
+ls()
+
+```
+
+Data of specific formats can also be loaded in R.  Flat text files or comma-separated files are commonly used, although R can import many other types.  Use these functions to import data.  Don't forget to assign your data to an object.
+
+```{r eval = F}
+# import data and assign
+# data are in the working directory, or use a full path
+
+# import a csv file
+dat <- read.csv('my_data.csv', header = T)
+
+# importa a text file, separated by commas
+dat <- read.table('my_data.txt', header = T, sep = ',')
+```
+
+## What to do when you close a session
+
+Make sure you save your work when you close a session!  Save the script you're working with using the menu at the top.  You will also want to save your data.  Just as data of different types can be imported, data can also be saved in different formats.  You will either want to save the whole workspace or individual parts (e.g., a data frame).  
+
+```{r eval = F}
+# save the whole workspace as a .RData file
+save(list = ls(), file = 'my_workspace.RData')
+
+# save one object as a .RData file
+save(dat, file = 'my_data.RData')
+
+# save as .csv
+write.csv(dat, 'my_data.csv')
+
+# save as text file
+write.table(dat, 'my_data.txt', sep = ',', row.names = F, quote = F)
+
+```
+
+## Installing packages
+
+R installs and loads packages from its library on your computer.  You can see where your library is with `.libPaths()`.  Packages that you install from CRAN or elsewhere will go in this library.  R will also look here when you load a library.  The standard location for downloading packages are on CRAN, although you can also download packages on Github or BioConductor.  In the latter case, you will have to first download and load the devtools package off CRAN.  Again, you will have to load a package every time you start R if you want to use its functions.  You should only have to download a package once, unless you want to install the latest version.  Here are some basics to installing and loading a package.   
+
+```{r eval = F}
+# install a package from CRAN
+install.packages('ggplot2')
+
+# install packages from Github
+install.packages('devtools')
+library(devtools)
+install_github('fawda123/SWMPr')
+library(SWMPr)
+```
+
+## Keyboard shortcuts
+
+You can view all the keyboard shortcuts in RStudio by clicking on Help, then keyboard shortcuts on the top menu.  Also view page 12 on this short intro to R for a list of common shorcuts: [R intro](http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf).
+
+## Getting help
+
+If all else fails, a Google search will usually point you in the right direction. All of the documentation that comes with R and its packages are available online.  A quick search for a function or package will lead you to the documentation. You can also access the help files on your computer in R.
+
+```{r eval = F}
+# access a help file for a function
+help(mean)
+
+# or do this
+?mean
+
+# run the examples in the help file
+example(mean)
+
+```
+
+# Using the SWMPr package
+
+## A quick workflow for retrieving and organizing
+
+Each of the functions in the SWMPr package usually have default values for the arguments to increase ease of use.  However, be cautious that the default values may not be applicable for your specific dataset.  Always consult the help documentation to determine the best options for importing and organizing your data.  Also see the [SWMPr tutorial](https://github.com/fawda123/SWMPr/blob/master/README.md) for more details on each function.  The following examples provide  generic workflows for importing and organizing data that you have downloaded from CDMO.  The `import_local` function is meant to work with data from the [Zip Downloads](http://cdmo.baruch.sc.edu/aqs/zips.cfm) service from the CDMO.  For the purpose of this document, data included with the SWMPr installation are also shown.      
+
+### Single file
+
+This shows how to import and organize a single file that you downloaded.  
+
+```{r eval = F}
+# import data for apaebmet that you downloaded
+
+# this is an example path with the csv files, change as needed
+path <- 'C:/my_path/'
+
+# import, qaqc, subset to remove empty columns
+dat <- import_local(path, 'apaebmet'))
+dat <- subset(qaqc(dat), rem_cols = T)
+
+```
+
+For the next example, the `import_local` function is used to load data included with the SWMPr distribution.  To use it, set the path variable using the `system.file` command shown below (you can see this full path by executing `path` at the command line).  Execute both lines to import the data.
+
+```{r eval = F, results = 'hide'}
+# import data for apaebmet that comes with SWMPr
+
+# this is the path for csv example files
+path <- system.file('zip_ex', package = 'SWMPr')
+
+# import, qaqc, subset to remove empty columns
+dat <- import_local(path, 'apaebmet'))
+dat <- subset(qaqc(dat), rem_cols = T)
+```
+
+### Multiple files
+
+This shows how to import and organize multiple files that you downloaded. 
+
+```{r eval = F}
+# import data for multiple stations
+
+# this is an example path with the csv files, change as needed
+path <- 'C:/my_path/'
+
+# import, combine, qaqc, subset to remove empty columns
+wq_dat <- import_local(path, 'apacpwq')
+nut_dat <- import_local(path, 'apacpnut')
+met_dat <- import_local(path, 'apaebmet')
+dat <- comb(wq_dat, nut_dat, met_dat)
+dat <- subset(qaqc(dat), rem_cols = T)
+```
+
+The remainder of this cookcook will use data from muliple files that were imported and organized in this script.
+
+```{r echo = F, message = F, results = 'hide'}
+devtools::load_all('M:/docs/SWMPr')
+```
+```{r eval = T, cache = T}
+# import data for multiple stations that comes with swmpr
+
+# this is the path for csv example files
+path <- system.file('zip_ex', package = 'SWMPr')
+
+# import, combine, qaqc, subset to remove empty columns
+wq_dat <- import_local(path, 'apacpwq')
+nut_dat <- import_local(path, 'apacpnut')
+met_dat <- import_local(path, 'apaebmet')
+dat <- comb(wq_dat, nut_dat, met_dat)
+dat <- subset(qaqc(dat), rem_cols = T)
+```
+
+## Viewing the attributes and subsets of the data
+
+The imported SWMPr data have descriptive attributes.
+
+```{r eval = F}
+# names of the attributes
+names(attributes(dat))
+
+# retrieving an attribute
+attr(dat, 'date_rng')
+
+```
+
+Viewing the whole dataset is often impractical.  Here are some functions for viewing subsets.
+
+```{r eval = F}
+# View the first 1000 rows
+View(dat)
+
+# first six rows, last six rows
+head(dat)
+tail(dat)
+
+# first n rows, last n rows
+head(dat, 30)
+tail(dat, 30)
+
+# single variables
+dat$do_mgl
+dat[, 'do_mgl']
+
+# dimenions
+dim(dat)
+nrow(dat)
+ncol(dat)
+
+# column 1
+dat[, 1]
+
+# row 1
+dat[1, ]
+
+# row 1, column 1
+dat[1, 1]
+```
+
+## Simple numerical summaries
+
+Numerical summaries of the data can be obtained for the entire dataset or single variables.  In some cases, you will have to explicitly specify how missing data are handled.
+
+```{r eval = F}
+# whole dataset
+summary(dat)
+
+# individual variables
+summary(dat$do_mgl)
+
+# mean, range, var, etc.
+# note use of na.rm
+
+mean(dat$do_mgl, na.rm = T)
+range(dat$do_mgl, na.rm = T)
+var(dat$do_mgl, na.rm = T)
+min(dat$do_mgl, na.rm = T)
+max(dat$do_mgl, na.rm = T)
+
+# how many missing values?
+sum(is.na(dat$do_mgl))
+
+```
+
+## Aggregating or reducing data volume
+
+The SWMPr package provides several function for reducing the volume of data.  This is useful for not only making the data more manageable, but also providing summary statistics that describe trends.
+
+```{r eval = F}
+subset
+
+setstep
+
+aggregate
+
+smoother
+```
+## Dealing with missing data
+
+```{r eval = F}
+replace with mean
+na.omit
+na.approx
+```
+
+# Graphics
+
+
