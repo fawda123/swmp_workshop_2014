@@ -1,0 +1,143 @@
+\documentclass[xcolor=svgnames]{beamer}
+\usetheme{Boadilla}
+\usecolortheme[named=SeaGreen]{structure}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usetikzlibrary{shadows,arrows,positioning}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
+\usepackage{pgfpages}
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+\begin{document}
+
+\title[Group Activity]{Group Activity}
+
+\author[M. Beck, T. O'Brien]{Marcus W. Beck\inst{1} \and Todd D. O'Brien\inst{2}}
+
+\date{}
+
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS COPEPOD Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
+
+% knitr setup
+<<setup, include = F, cache = F>>=
+add_lib <- 'C:\\Users\\mbeck\\R\\library'
+if(file.exists(add_lib)) .libPaths(add_lib)
+rm('add_lib')
+library(knitr)
+
+# set global chunk options
+opts_chunk$set(fig.align='center', fig.show='hold',message=F,dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size= 'scriptsize', cache = T)
+options(replace.assign=TRUE,width=80,digits=2)
+@
+
+% load SWMPr from local
+<<swmpr, eval = T, echo = F, cache = F, message = F>>=
+devtools::load_all('M:/docs/SWMPr')
+@
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\titlepage
+\end{frame}
+
+%%%%%%
+\begin{frame}{Objectives and agenda}
+\begin{itemize}
+\item Objectives \\~\\
+\begin{itemize}
+\item Participants should be comfortable retrieving, organizing, and analyzing a SWMP dataset \\~\\
+\item Understand the questions and use appropriate methods\\~\\
+\end{itemize}
+\item Agenda \\~\\
+\begin{itemize}
+\item Dataset description and questions \\~\\
+\item Group activity
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Dataset description}
+Hurricane Sandy
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{itemize}
+\item Largest Altantic hurricane on record (by  diameter)
+\item Second costliest US hurricane
+\item US landfall October 29\textsuperscript{th}, 2012
+\item Cat 2 on landfall
+\item Rainfall exceeding 12 inches, 13 foot storm surge in some areas
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\centerline{\includegraphics[width = 0.9\textwidth]{Sandy_Oct_28_2012.jpg}}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Dataset description}
+Several NERRS reserves were impacted, landfall directly over Jacques Cousteau
+\centerline{\includegraphics[width = 0.7\textwidth]{mid_atlantic.jpg}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Dataset description}
+We will look at the water quality, nutrients, and weather data for 2012 and 2013 for Jacques Cousteau -- `dataset4' folder \\~\\
+\begin{block}{Overall question}
+How did the hurricane impact the reserve?
+\end{block}
+\vspace{0.1in}
+Specific questions
+\begin{itemize}
+\item Are there noticeable changes in the time series? Which parameters?
+\item Are the long-term means different before and after landfall?
+\item Can the effects be detected prior to landfall?
+\item How long did the effects persist after the storm?
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Dataset description}
+Specific questions
+\begin{itemize}
+\item Are there noticeable changes in the time series? Which parameters?
+\item Are the long-term means different before and after landfall?
+\item Can the effects be detected prior to landfall?
+\item How long did the effects persist after the storm? \\~\\
+\end{itemize}
+How will you address these questions?
+\begin{itemize}
+\item What parameters or stations will you consider?
+\item How will you subset, combine, aggregate?
+\item What plots will you create?
+\item How will you interpret your results? \\~\\
+\end{itemize}
+Resources - cookbook, SWMPr tutorial, instructors, your table buddies!
+\end{frame}
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\vspace{0.5in}
+\Large
+\centerline{\Bigtxt{Questions??}}
+\end{frame}
+
+\end{document}
