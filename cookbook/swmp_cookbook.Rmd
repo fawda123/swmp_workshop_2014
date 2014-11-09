@@ -3,9 +3,15 @@ title: "SWMP time series analysis cookbook"
 output: 
   pdf_document:
     toc: true
+    latex_engine: pdflatex
 author: Marcus W. Beck, beck.marcus@epa.gov, Todd D. O'Brien, todd.obrien@noaa.gov 
 date: Nov. 17, 2014
 ---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(dev = 'pdf', fig.path = 'figures/')
+```
 
 # Introduction
 
@@ -97,7 +103,22 @@ library(SWMPr)
 
 ## Keyboard shortcuts
 
-You can view all the keyboard shortcuts in RStudio by clicking on Help, then keyboard shortcuts on the top menu.  Also view page 12 on this short intro to R for a list of common shorcuts: [R intro](http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf).
+You can view all the keyboard shortcuts in RStudio by clicking on Help, then keyboard shortcuts on the top menu.  Here are some common shortcuts for Windows/Linux (* denotes RSTudio only). 
+
+\texttt{CTRL+ENTER} \hfill run selection * \newline
+\texttt{CTRL+R} \hfill run selection \newline
+\texttt{CTRL+L} \hfill clear console \newline
+\texttt{CTRL+A} \hfill select all \newline
+\texttt{CTRL+C} \hfill copy \newline
+\texttt{CTRL+X} \hfill cut \newline
+\texttt{CTRL+V} \hfill paste \newline
+\texttt{CTRL+O} \hfill open document \newline
+\texttt{CTRL+S} \hfill save document \newline
+\texttt{CTRL+1} \hfill switch to source * \newline
+\texttt{CTRL+2} \hfill switch to console * \newline
+\texttt{ESC} \hfill stop current execution \newline
+\texttt{HOME} \hfill skip to beginning of line \newline
+\texttt{END} \hfill skip to end of line
 
 ## Getting help
 
@@ -119,7 +140,7 @@ example(mean)
 
 ## A quick workflow for retrieving and organizing
 
-Each of the functions in the SWMPr package usually have default values for the arguments to increase ease of use.  However, be cautious that the default values may not be applicable for your specific dataset.  Always consult the help documentation to determine the best options for importing and organizing your data.  Also see the [SWMPr tutorial](https://github.com/fawda123/SWMPr/blob/master/README.md) for more details on each function.  The following examples provide  generic workflows for importing and organizing data that you have downloaded from CDMO.  The `import_local` function is meant to work with data from the [Zip Downloads](http://cdmo.baruch.sc.edu/aqs/zips.cfm) service from the CDMO.  For the purpose of this document, data included with the SWMPr installation are also shown.      
+Each of the functions in the SWMPr package usually have default values for the arguments to make their use easier.  However, be cautious since the default values may not be applicable for your specific dataset.  Always consult the help documentation to determine the best options for importing and organizing your data.  Also see the [SWMPr tutorial](https://github.com/fawda123/SWMPr/blob/master/README.md) for more details on each function.  The following examples provide  generic workflows for importing and organizing data that you have downloaded from CDMO.  The `import_local` function is meant to work with data from the [Zip Downloads](http://cdmo.baruch.sc.edu/aqs/zips.cfm) service from the CDMO.  For the purpose of this document, data included with the SWMPr installation are used.  Also note that you must assign the data to an existing or new object to save results returned from functions.      
 
 ### Single file
 
@@ -137,7 +158,7 @@ dat <- subset(qaqc(dat), rem_cols = T)
 
 ```
 
-For the next example, the `import_local` function is used to load data included with the SWMPr distribution.  To use it, set the path variable using the `system.file` command shown below (you can see this full path by executing `path` at the command line).  Execute both lines to import the data.
+For the next example, the `import_local` function is used to load data included with the SWMPr distribution.  These date are only useful for demonstrations.  To use, set the path variable using the `system.file` command shown below (you can see this full path by executing `path` at the command line).  Execute both lines to import the data.
 
 ```{r eval = F, results = 'hide'}
 # import data for apaebmet that comes with SWMPr
@@ -168,7 +189,7 @@ dat <- comb(wq_dat, nut_dat, met_dat)
 dat <- subset(qaqc(dat), rem_cols = T)
 ```
 
-The remainder of this cookcook will use data from muliple files that were imported and organized in this script.
+The remainder of this cookcook will use data from muliple files that were imported and organized in the following script.  These are the example data included with the SWMPr package.
 
 ```{r echo = F, message = F, results = 'hide'}
 devtools::load_all('M:/docs/SWMPr')
@@ -192,12 +213,15 @@ dat <- subset(qaqc(dat), rem_cols = T)
 The imported SWMPr data have descriptive attributes.
 
 ```{r eval = F}
-# names of the attributes
+# names of all the attributes
 names(attributes(dat))
 
-# retrieving an attribute
+# retrieving attributes
+attr(dat, 'station')
+attr(dat, 'parameters')
+attr(dat, 'qaqc_cols')
 attr(dat, 'date_rng')
-
+attr(dat, 'timezone')
 ```
 
 Viewing the whole dataset is often impractical.  Here are some functions for viewing subsets.
@@ -218,11 +242,6 @@ tail(dat, 30)
 dat$do_mgl
 dat[, 'do_mgl']
 
-# dimenions
-dim(dat)
-nrow(dat)
-ncol(dat)
-
 # column 1
 dat[, 1]
 
@@ -231,11 +250,17 @@ dat[1, ]
 
 # row 1, column 1
 dat[1, 1]
+
+# dimenions
+dim(dat)
+nrow(dat)
+ncol(dat)
+length(dat)
 ```
 
 ## Simple numerical summaries
 
-Numerical summaries of the data can be obtained for the entire dataset or single variables.  In some cases, you will have to explicitly specify how missing data are handled.
+Numerical summaries of the data can be obtained for the entire dataset or single variables.  In some cases, you will have to explicitly specify how missing data are handled.  For example, the default behavior of many functions is to return \texttt{NA} if missing value are in the data.
 
 ```{r eval = F}
 # whole dataset
@@ -246,39 +271,268 @@ summary(dat$do_mgl)
 
 # mean, range, var, etc.
 # note use of na.rm
-
 mean(dat$do_mgl, na.rm = T)
 range(dat$do_mgl, na.rm = T)
 var(dat$do_mgl, na.rm = T)
+sd(dat$do_mgl, na.rm = T)
 min(dat$do_mgl, na.rm = T)
 max(dat$do_mgl, na.rm = T)
 
 # how many missing values?
 sum(is.na(dat$do_mgl))
-
 ```
 
 ## Aggregating or reducing data volume
 
 The SWMPr package provides several function for reducing the volume of data.  This is useful for not only making the data more manageable, but also providing summary statistics that describe trends.
 
+The subset function lets you select columns or rows of interest.
+
 ```{r eval = F}
-subset
+# select two parameters from dat
+subset(dat, select = c('rh', 'bp'))
 
-setstep
+# subset records greater than or equal to a date
+subset(dat, subset = '2013-01-01 0:00', operator = '>=')
 
-aggregate
+# subset records within a date range
+subset(dat, subset = c('2012-07-01 6:00', '2012-08-01 18:15'))
 
-smoother
+# subset records within a date range, select two parameters
+subset(dat, subset = c('2012-07-01 6:00', '2012-08-01 18:15'),
+  select = c('atemp', 'temp'))
+
+# remove rows/columns that do not contain data
+subset(dat, rem_rows = T, rem_cols = T)
 ```
+
+The setstep lets you change the time step of your data.
+
+```{r eval = F}
+# change to two hour steps
+setstep(dat, timestep = 120)
+```
+
+Aggregate is used to summarize data by set periods of observations.
+
+```{r eval = F}
+# aggregate the data by mean
+aggregate(dat, by = 'quarters', params = c('do_mgl'))
+
+# change the default function, aggregate by months
+fun_in <- function(x) var(x, na.rm = T)
+aggregate(dat, by = 'months', FUN = fun_in, params = c('do_mgl'))
+```
+
+The smoother function is a simple moving window average that can be used to reduce the variance in a parameter.  This may help better characterize a trend.
+
+```{r eval = T, fig.height = 3}
+# subset the data to smooth
+sub_dat <- subset(dat, subset = c('2012-07-09 00:00', '2012-07-24 00:00'))
+
+# smooth
+smooth_dat <- smoother(sub_dat, window = 50, params = 'do_mgl')
+
+```
+
 ## Dealing with missing data
 
+Missing data can be handled several ways depending on the needs of an analysis.
+
 ```{r eval = F}
-replace with mean
-na.omit
-na.approx
+# subset for the example
+sub_dat <- subset(dat, subset = c('2013-01-22 00:00', '2013-01-26 00:00'))
+
+## replace with mean
+
+# a temporary object so we don't overwrite wq_dat
+wq_tmp <- sub_dat
+
+# replace with the mean
+wq_tmp <- wq_dat
+wq_tmp[is.na(wq_tmp$do_mgl), 'do_mgl'] <- mean(wq_tmp$do_mgl, na.rm = T)
+
+## remove missing values
+
+# using subset function
+wq_tmp <- subset(wq_tmp, rem_rows = T)
+
+# use na.omit
+wq_tmp <- na.omit(wq_tmp)
+
+## linearly interpolate using na.approx
+
+# interpolate, maxgap of 10 records
+wq_tmp <- na.approx(sub_dat, params = 'do_mgl', maxgap = 10)
+
+# interpolate maxgap of 30 records
+wq_tmp <- na.approx(sub_dat, params = 'do_mgl', maxgap = 30)
 ```
 
 # Graphics
 
+Graphics are virtually limitless in R.  The base installation provides several functions that will suit most of your needs.  The ggplot2 package is also very useful for plotting multiple variables.  The following are simple scripts showing how various plots can be made using base graphics and ggplot2.  We have also uploaded some graphics scripts and [instructions](http://copepod.org/nerrs-swmp-workshop/images/documents/How_to_use_WQgraphscript_step-by-step.docx) to the website provided by [Kimberly Cressman](mailto:Kimberly.Cressman@dmr.ms.gov), SWMP coordinator at Grand Bay.  
 
+## Base graphics
+
+Simple time series plots.
+
+```{r fig.height = 4}
+# subset dat for the example
+sub_dat <-  subset(dat, subset = c('2012-07-09 00:00', '2012-07-24 00:00'))
+
+# points
+plot(do_mgl ~ datetimestamp, data = sub_dat)
+
+# lines
+plot(do_mgl ~ datetimestamp, data = sub_dat, type = 'l')
+
+# changing the default arguments, lines and add points to graph
+plot(do_mgl ~ datetimestamp, data = sub_dat, type = 'l', col = 
+    'orange', xlab = '', ylab = 'Dissolved oxygen (mg/L)',
+  cex.axis = 0.8, bty = 'n')
+points(sub_dat$datetimestamp, sub_dat$do_mgl, pch = 16, cex = 0.5)
+```
+
+Multiple plots in the same window.
+
+```{r fig.height = 7}
+# it is often useful to open a new plot window, uncomment and run the next line
+# windows()
+
+# create three plots
+# 3 rows one column in window, use mfrow argument with par
+par(mfrow = c(3, 1))
+plot(do_mgl ~ datetimestamp, data = sub_dat, type = 'l')
+plot(temp ~ datetimestamp, data = sub_dat, type = 'l')
+plot(atemp ~ datetimestamp, data = sub_dat, type = 'l')
+```
+
+Diagnostics plots.
+```{r echo = F, message = F, results = 'hide'}
+# subset for the example
+sub_dat <- subset(dat, select = c('po4f', 'nh4f', 'no23f'))
+
+pdf('figures/diag_plots.pdf', height = 6)
+pairs(sub_dat)
+dev.off()
+
+pdf('figures/hist.pdf', height = 5)
+hist(sub_dat$po4f, xlab = 'Phosphate', main = 'Histogram')
+dev.off()
+
+pdf('figures/box.pdf', height = 5)
+to_plo <- data.frame(sub_dat)[, -1]
+boxplot(to_plo)
+dev.off()
+```
+```{r eval = F}
+# subset for the example
+sub_dat <- subset(dat, select = c('po4f', 'nh4f', 'no23f'))
+
+## pairs plot
+# a pairs plot is a matrix of bivariate scatterplots
+# caution, this plot may take a while to load if using the whole time series
+pairs(sub_dat)
+```
+\centerline{\includegraphics[width = \textwidth]{figures/diag_plots.pdf}}
+```{r eval = F}
+## histograms
+hist(sub_dat$po4f, xlab = 'Phosphate', main = 'Histogram')
+```
+\centerline{\includegraphics[width = 0.6\textwidth]{figures/hist.pdf}}
+```{r eval = F}
+## boxplots
+# remove datetimestamp
+to_plo <- data.frame(sub_dat)[, -1]
+boxplot(to_plo)
+```
+\centerline{\includegraphics[width = 0.6\textwidth]{figures/box.pdf}}
+
+## Plotting with ggplot2
+
+The ggplot2 package offers many plotting features that are incredibly useful .  We presents some examples here to illustrate plotting multiple variables on the same scale.
+
+```{r eval = F}
+# install ggplot2, should be installed with SWMPr
+install.packages('ggplot2')
+
+# install the reshape2 package for formatting data to plot
+install.packages('reshape2')
+```
+
+A multivariate time series plot with ggplot2.
+
+```{r fig.height =6}
+# subset for the example
+sub_dat <-  subset(dat, subset = c('2012-07-09 00:00', '2012-07-24 00:00'),
+  select = c('do_mgl', 'atemp', 'temp'))
+
+# load relevant packages
+library(ggplot2)
+library(reshape2)
+
+# prepare data for plotting
+to_plo <- melt(sub_dat, id.var = 'datetimestamp')
+
+# plot
+p <- ggplot(to_plo, aes(x = datetimestamp, y = value)) +
+  geom_line() + 
+  facet_wrap(~ variable, ncol = 1, scales = 'free_y') + 
+  theme_bw()
+p
+```
+
+Using aggregation and ggplot2 to plot multiple variables.
+
+```{r fig.height = 6, message = F, results = 'hide', warning = F}
+
+# aggregate by season
+agg_dat <- aggregate(dat, by = 'quarters', 
+  params = c('do_mgl', 'temp', 'atemp'), aggs_out = T)
+
+# prepare data for plotting
+to_plo <- melt(agg_dat, id.var = 'datetimestamp')
+
+# plot
+p <- ggplot(to_plo, aes(x = factor(datetimestamp), y = value)) +
+  geom_boxplot() + 
+  facet_wrap(~ variable, ncol = 1, scales = 'free_y') + 
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 5))
+p
+```
+
+## Maps
+
+The `map_reserve` function uses the ggmap package to create a plot of the stations at a reserve.  The ggmap package should load automatically when you install SWMPr. You will have to play with the `zoom` argument as the spatial extent varies at each reserve. 
+
+```{r fig.height = 6, message = F, warning = F, results = 'hide'}
+map_reserve('jac', zoom = 11)
+```
+
+## Saving graphics
+
+A graphic can be saved in different formats using the file menu in the plot window.  You can also save graphics using specific commands that are run in the console.
+
+```{r eval = F}
+# save a pdf graphic, will go to the working directory
+# height, width in inches
+pdf('my_plot.pdf', height = 6, width = 6)
+
+# ggplot graphic from earlier
+p
+
+# turn off the graphics device
+dev.off()
+
+# save a png
+# height, width in pixels, res in ppi
+png('my_plot.png', height = 2400, width = 2400, res = 400)
+
+# ggplot graphic from earlier
+p
+
+# turn off the graphics device
+dev.off()
+```

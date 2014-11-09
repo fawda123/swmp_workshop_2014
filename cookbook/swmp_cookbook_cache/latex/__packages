@@ -1,10 +1,5 @@
 base
-datasets
 ggmap
 ggplot2
-graphics
-grDevices
-methods
-stats
+knitr
 SWMPr
-utils
