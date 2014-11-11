@@ -1,0 +1,151 @@
+\documentclass[xcolor=svgnames]{beamer}
+\usetheme{Boadilla}
+\usecolortheme[named=SeaGreen]{structure}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usetikzlibrary{shadows,arrows,positioning}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
+\usepackage{pgfpages}
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+\begin{document}
+
+\title[R Resources]{List of R Resources}
+
+\author[M. Beck, T. O'Brien]{Marcus W. Beck\inst{1} \and Todd D. O'Brien\inst{2}}
+
+\date{}
+
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} NOAA/NMFS COPEPOD Project\\ Email: \href{todd.obrien@noaa.gov}{todd.obrien@noaa.gov}}
+
+% knitr setup
+<<setup, include = F, cache = F>>=
+add_lib <- 'C:\\Users\\mbeck\\R\\library'
+if(file.exists(add_lib)) .libPaths(add_lib)
+rm('add_lib')
+library(knitr)
+
+# set global chunk options
+opts_chunk$set(fig.align='center', fig.show='hold',message=F,dev='pdf',dev.args=list(family='serif'),fig.pos='!ht',warning=F,size= 'scriptsize', cache = T)
+options(replace.assign=TRUE,width=80,digits=2)
+@
+
+% load SWMPr from local
+<<swmpr, eval = T, echo = F, cache = F, message = F>>=
+devtools::load_all('M:/docs/SWMPr')
+@
+
+%%%%%%
+\begin{frame}
+\vspace{0.3in}
+\centerline{
+\begin{tikzpicture}
+  \node[drop shadow={shadow xshift=0ex,shadow yshift=0ex},fill=white,draw] at (0,0) {\includegraphics[width=0.9\textwidth]{bg_main.jpg}};
+\end{tikzpicture}}
+\titlepage
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{R Resources}
+All of the course material is available on the website: \href{http://copepod.org/nerrs-swmp-workshop/}{http://copepod.org/nerrs-swmp-workshop/}\\~\\
+
+\begin{itemize}
+\item Pre-workshop toolkit
+\item Training modules - presentations, scripts, datasets
+\item SWMP cookbook and supplementary materials \\~\\
+\end{itemize}
+
+The SWMPr package will continue to be developed - eventually submitted to CRAN \\
+~\\
+Check the SWMPr \href{https://github.com/fawda123/SWMPr}{GitHub page} for ongoing development \\~\\
+Feedback, suggestions, bugs, harsh criticism - email Marcus at beck.marcus@epa.gov
+\end{frame}
+
+%%%%%%
+\begin{frame}{R Resources}
+The \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{R reference card}:\\~\\
+\centerline{\includegraphics[width = 0.8\textwidth]{r_ref_card.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{R Resources}
+The \href{http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf}{Short R introduction}:\\~\\
+\vfill
+\centerline{\includegraphics[width = 0.6\textwidth]{r_tutorial.png}}
+\vfill
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{R Resources}
+The \href{http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf}{Short R introduction}:\\~\\
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\centerline{\includegraphics[width = 0.8\textwidth]{err1.png}}
+\end{column}
+\begin{column}{0.5\textwidth}
+\centerline{\includegraphics[width = 0.8\textwidth]{err2.png}}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{R Resources}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Getting data into R 
+\item Accessing variables and subsets
+\item Simple functions
+\item Loops
+\item Graphing
+\item Introduction to the Lattice package
+\item Common mistakes
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\centerline{\includegraphics[width = 0.8\textwidth]{book3.jpeg}}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{R Resources}
+The \href{http://cran.r-project.org/doc/manuals/R-intro.html}{CRAN R tutorial} (detailed):\\~\\
+\vfill
+\centerline{\includegraphics[width = 0.6\textwidth]{cran_intro.png}}
+\vfill
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{R Resources}
+My suggested help workflow: \\~\\
+\begin{enumerate}
+\item Check the help file for a function - usually the syntax is incorrect. \\~\\
+\item Check online - A Google search of the problem will usually return an answer.  Best to use the actual error message as a search term. \\~\\
+\item Ask a real person that knows about R - I try to be as responsive as possible to emails. \\~\\
+\item Post online, e.g., \href{http://stackoverflow.com/}{Stack Overflow} or \href{https://stat.ethz.ch/mailman/listinfo/r-help}{R-help}, usually only after all other options are exhausted.  Make sure you follow posting guidelines.\\~\\
+\item Do not give up!
+\end{enumerate}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{R Resources}
+Final comments about learning R:\\~\\
+\begin{itemize}
+\item R is becoming the de facto statistical analysis program - soon your mom will be using R \\~\\
+\item R will fundamentally change how you work with data \\~\\
+\item You determine the flow of the analysis, not the other way around \\~\\
+\item Time spent banging your head on the wall is time spent learning \\~\\
+\item Initial time investments will have huge returns - you will become more efficient \\~\\
+\item Do not give up!
+\end{itemize}
+\end{frame}
+
+\end{document}
