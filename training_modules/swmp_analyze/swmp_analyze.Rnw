@@ -149,9 +149,9 @@ May not be a true representation but better than some other approaches
 \begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
 The `na.approx' function has only a few arguments\\~\\
 \begin{itemize}
-\item swmpr\_in: input swmpr data \\~\\
-\item params: which parameters to interplate, default is all \\~\\
-\item maxgap: what is the maximum gap size to interpolate?
+\item object: input swmpr data \\~\\
+\item params: which parameters to interpolate, default is all \\~\\
+\item maxgap: what is the maximum gap size to interpolate (units are the timestep)?
 \end{itemize}
 \end{frame}
 
@@ -217,9 +217,9 @@ mean(new_dat$do_mgl, na.rm = T)
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
 \alert{Problem}: trend evaluation is difficult if the data are noisy \\~\\
-Noise can be caused by many factors (e.g., measurement error, process uncertainty), we are usually more concerned with the true signal in a time series \\~\\
-Noise can be addressed by aggregating or smoothing data, both are similar \\~\\
-The \alert{`aggregate.swmpr'} function aggregates a time series by set periods of observation and calculates summary data for a variable \\~\\
+Noise can be caused by many factors (e.g., measurement error, process uncertainty), we are usually more concerned with the `true' signal in a time series \\~\\
+Noise can be addressed by\alert{aggregating} or \alert{smoothing} data, both are similar \\~\\
+The \alert{`aggregate.swmpr'} function aggregates a time series by set periods of observation and calculates summary data for a parameter(s) \\~\\
 The \alert{`smoother.swmpr'} function calculates a moving window average of a time series \\~\\
 \end{frame}
 
@@ -227,9 +227,10 @@ The \alert{`smoother.swmpr'} function calculates a moving window average of a ti
 \begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
 The (relevant) arguments for `aggregate.swmpr':\\~\\
 \begin{itemize}
-\item swmpr\_in: Input data object \\~\\
-\item by: How are the data aggregated - `year', `quarters', `months', `weeks', `days', `hours' \\~\\
-\item FUN: What function is used to aggregate the data? Defaults to mean.
+\item x: Input data object \\~\\
+\item by: How are the data aggregated - `years', `quarters', `months', `weeks', `days', `hours' \\~\\
+\item FUN: What function is used to aggregate the data? Defaults to mean.\\~\\
+\item aggs\_out: T or F, to return the data at an intermediate step for plotting
 \end{itemize}
 <<eval = F>>=
 # see help for all arguments
@@ -243,7 +244,7 @@ The (relevant) arguments for `smoother.swmpr':\\~\\
 \begin{itemize}
 \item swmpr\_in: Input data object \\~\\
 \item window: the size of the smoothing window, defaults to five observations at the current time step \\~\\
-\item sides: what defines the window, centered on an observation (2) or use only the preceding observations (1)  \\~\\
+\item sides: what defines the window, centered on an observation (2, default) or use only the preceding observations (1)  \\~\\
 \end{itemize}
 <<eval = F>>=
 # see help for all arguments
@@ -299,7 +300,7 @@ aggregate(dat, by = 'months')
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
 Numerical summaries, filling missing data, and smoothing improve our ability to describe the data \\~\\
-More often, we are concerned with \alert{long-term trends} over time -- a missing data point here or there or noisy data on short time periods are not very important \\~\\
+More often, we are concerned with \alert{long-term trends} over time -- a missing data point here or there or noisy data on short time periods may not be very important \\~\\
 We need \alert{plots} to characterize long-term trends over time -- both \alert{raw} and \alert{summarized} data \\~\\
 This analysis will show you two ways to evaluate trends by plotting -- we will go through it together
 \end{frame}
@@ -354,13 +355,13 @@ do_smooth <- smoother(new_dat, params = 'do_mgl', window = 5000)
 plot(do_mgl ~ datetimestamp, data = new_dat, type = 'l')
 lines(do_smooth$datetimestamp, do_smooth$do_mgl, col = 'red')
 @
-This is kind of cheating but now we have a time series that primarily shows inter-annual variation
+Now we have a time series that primarily shows annual variation, independent of short-term variation
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
 Finally, we can use the `aggregate.swmpr' function with boxplots for an alternative interpretation \\~\\
-The `aggs_out' argument in the function can be used to return the data with the datetimestamp formatted according to the `by' argument
+The `aggs\_out' argument in the function can be used to return the data with the datetimestamp formatted according to the `by' argument
 <<>>=
 # get reformatted data from aggregate for plotting
 agg_dat <- aggregate(dat, by = 'months', params = 'do_mgl', aggs_out = T)

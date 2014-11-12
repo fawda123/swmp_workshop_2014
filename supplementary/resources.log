@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  11 NOV 2014 14:25
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  11 NOV 2014 18:00
 entering extended mode
 **resources.tex
 (M:\docs\swmp_workshop_2014\supplementary\resources.tex
@@ -1530,77 +1530,86 @@ LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <5> not available
 p_workshop_2014/supplementary/bg_main.jpg>] [2
 
 ]
-<r_ref_card.png, id=95, 767.86874pt x 543.53062pt>
-File: r_ref_card.png Graphic file (type png)
- <use r_ref_card.png>
-Package pdftex.def Info: r_ref_card.png used on input line 113.
-(pdftex.def)             Requested size: 273.83728pt x 193.83798pt.
+<swmpr_manual.png, id=94, 554.82281pt x 418.56375pt>
+File: swmpr_manual.png Graphic file (type png)
+ <use swmpr_manual.png>
+Package pdftex.def Info: swmpr_manual.png used on input line 113.
+(pdftex.def)             Requested size: 239.60567pt x 180.75807pt.
 
 [3
 
+ <M:/docs/swmp_workshop_2014/supplementary/swmpr_manual.png>]
+<r_ref_card.png, id=122, 767.86874pt x 543.53062pt>
+File: r_ref_card.png Graphic file (type png)
+ <use r_ref_card.png>
+Package pdftex.def Info: r_ref_card.png used on input line 119.
+(pdftex.def)             Requested size: 273.83728pt x 193.83798pt.
+
+[4
+
  <M:/docs/swmp_workshop_2014/supplementary/r_ref_card.png>]
-<r_tutorial.png, id=123, 380.17032pt x 264.99pt>
+<r_tutorial.png, id=150, 380.17032pt x 264.99pt>
 File: r_tutorial.png Graphic file (type png)
  <use r_tutorial.png>
-Package pdftex.def Info: r_tutorial.png used on input line 121.
+Package pdftex.def Info: r_tutorial.png used on input line 127.
 (pdftex.def)             Requested size: 205.37926pt x 143.15715pt.
- [4
-
- <M:/docs/swmp_workshop_2014/supplementary/r_tutorial.png>]
-<err1.png, id=151, 248.42813pt x 273.27094pt>
-File: err1.png Graphic file (type png)
- <use err1.png>
-Package pdftex.def Info: err1.png used on input line 134.
-(pdftex.def)             Requested size: 136.91862pt x 150.6122pt.
-
-<err2.png, id=152, 248.42813pt x 287.57437pt>
-File: err2.png Graphic file (type png)
- <use err2.png>
-Package pdftex.def Info: err2.png used on input line 134.
-(pdftex.def)             Requested size: 136.91862pt x 158.49548pt.
  [5
 
+ <M:/docs/swmp_workshop_2014/supplementary/r_tutorial.png>]
+<err1.png, id=178, 248.42813pt x 273.27094pt>
+File: err1.png Graphic file (type png)
+ <use err1.png>
+Package pdftex.def Info: err1.png used on input line 140.
+(pdftex.def)             Requested size: 136.91862pt x 150.6122pt.
+
+<err2.png, id=179, 248.42813pt x 287.57437pt>
+File: err2.png Graphic file (type png)
+ <use err2.png>
+Package pdftex.def Info: err2.png used on input line 140.
+(pdftex.def)             Requested size: 136.91862pt x 158.49548pt.
+ [6
+
  <M:/docs/swmp_workshop_2014/supplementary/err1.png> <M:/docs/swmp_workshop_201
-4/supplementary/err2.png>] <book3.jpeg, id=179, 242.1045pt x 371.58826pt>
+4/supplementary/err2.png>] <book3.jpeg, id=206, 242.1045pt x 371.58826pt>
 File: book3.jpeg Graphic file (type jpg)
  <use book3.jpeg>
-Package pdftex.def Info: book3.jpeg used on input line 154.
+Package pdftex.def Info: book3.jpeg used on input line 161.
 (pdftex.def)             Requested size: 136.91862pt x 210.15187pt.
-
-[6
-
- <M:/docs/swmp_workshop_2014/supplementary/book3.jpeg>]
-<cran_intro.png, id=207, 455.45157pt x 360.59718pt>
-File: cran_intro.png Graphic file (type png)
- <use cran_intro.png>
-Package pdftex.def Info: cran_intro.png used on input line 162.
-(pdftex.def)             Requested size: 205.37926pt x 162.60837pt.
 
 [7
 
- <M:/docs/swmp_workshop_2014/supplementary/cran_intro.png>] [8
+ <M:/docs/swmp_workshop_2014/supplementary/book3.jpeg>]
+<cran_intro.png, id=235, 455.45157pt x 360.59718pt>
+File: cran_intro.png Graphic file (type png)
+ <use cran_intro.png>
+Package pdftex.def Info: cran_intro.png used on input line 169.
+(pdftex.def)             Requested size: 205.37926pt x 162.60837pt.
 
-] [9
+[8
+
+ <M:/docs/swmp_workshop_2014/supplementary/cran_intro.png>] [9
+
+] [10
 
 ]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 189.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 189.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 196.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 196.
 
 (M:\docs\swmp_workshop_2014\supplementary\resources.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 189.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 189.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 196.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 196.
 Package rerunfilecheck Info: File `resources.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 189.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
  ) 
 Here is how much of TeX's memory you used:
- 24970 strings out of 493921
- 477290 string characters out of 3147282
+ 24979 strings out of 493921
+ 477424 string characters out of 3147282
  551225 words of memory out of 3000000
- 27648 multiletter control sequences out of 15000+200000
+ 27654 multiletter control sequences out of 15000+200000
  37007 words of font info for 46 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  56i,16n,69p,481b,709s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1608,9 +1617,9 @@ Here is how much of TeX's memory you used:
 iKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
 ype1/public/lm/lmss12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
 ss8.pfb>
-Output written on resources.pdf (9 pages, 653904 bytes).
+Output written on resources.pdf (10 pages, 714643 bytes).
 PDF statistics:
- 305 PDF objects out of 1000 (max. 8388607)
- 19 named destinations out of 1000 (max. 500000)
- 180 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 332 PDF objects out of 1000 (max. 8388607)
+ 21 named destinations out of 1000 (max. 500000)
+ 185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

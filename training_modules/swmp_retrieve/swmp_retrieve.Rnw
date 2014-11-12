@@ -63,7 +63,7 @@ devtools::load_all('M:/docs/SWMPr')
 \item Objectives \\~\\
 \begin{itemize}
 \item What are the various ways data are obtained from SWMP? \\~\\
-\item What are some issues that need to be addressed before importing into a statistical program to conduct a time series analysis? \\~\\
+\item What are some issues that need to be addressed before importing into a statistical program for time series analysis? \\~\\
 \end{itemize}
 \onslide<+->
 \item Agenda \\~\\
@@ -97,7 +97,7 @@ SWMP - System Wide Monitoring Program, initiated in 1995 to provide continuous m
 
 %%%%%%
 \begin{frame}[t]{Overview of SWMP and available data}
-CDMO is your one-stop shop for retrieving SWMP data \\~\\
+CDMO (\href{http://cdmo.baruch.sc.edu/}{link}) is your one-stop shop for retrieving SWMP data \\~\\
 \centerline{\includegraphics[width = \textwidth]{cdmo_front.png}}
 \end{frame}
 
@@ -108,7 +108,7 @@ Data can be exported from CDMO \href{http://cdmo.baruch.sc.edu/get/landing.cfm}{
 \end{frame}
 
 %%%%%%
-\begin{frame}{Overview of SWMP and avialable data}
+\begin{frame}{Overview of SWMP and available data}
 You can also use the \href{https://github.com/fawda123/SWMPr}{SWMPr} package to retrieve data \\~\\
 Data retrieval functions connect to the CDMO \href{http://cdmo.baruch.sc.edu/webservices.cfm}{web services}, more about this later \\~\\
 \centerline{\includegraphics[width = 0.8\textwidth]{web_serv.png}}
@@ -140,7 +140,7 @@ How to view available data:\\~\\
 \begin{itemize}
 \item Trial-and-error (not recommended) \\~\\
 \item View online: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cdmo.baruch.sc.edu/data/availableOne.cfm}  \\~\\
-\item View after request: `sampling_stations.csv'  \\~\\
+\item View after request: `sampling\_stations.csv'  \\~\\
 \item View after request: year and station specific .doc file  \\~\\
 \item Retrieve from within R (will cover later) \\~\\
 \end{itemize}
@@ -189,7 +189,7 @@ The parameters for a station are specific to the parameter type \\~\\
 \begin{frame}{Format and potential issues with output data}
 Each parameter will also have a QAQC column, with the prefix `f\_' \\~\\
 E.g., `atemp' and `f\_atemp' \\~\\
-Values in these columns describe whether the data passed automated QAQC checks \\~\\
+Values in these columns describe whether the data passed automated QAQC checks: \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{cdmo.baruch.sc.edu/data/qaqc.cfm} \\~\\
 \centerline{\includegraphics[width = 0.9\textwidth]{qaqc_flags.png}}
 \end{frame}
 
@@ -204,7 +204,7 @@ We will learn how to handle QAQC flags in R
 
 %%%%%%
 \begin{frame}{Format and potential issues with output data}
-The final piece of of the puzzle is the DateTimeStamp \\~\\
+The final piece of the puzzle is the DateTimeStamp \\~\\
 Format is month/day/year hours:minutes, based on UTC offset and no daylight savings!\\~\\
 Varies by station and parameter type \\~\\
 \begin{columns}[t]
@@ -280,7 +280,7 @@ Packages can be installed from Github using the `install\_github' function from 
 
 %%%%%%
 \begin{frame}[t, fragile]{Overview of the SWMPr package}
-Your R console should look like this...\\~\\
+Your R console should look something like this...\\~\\
 \centerline{\includegraphics[width = 0.55\textwidth]{swmpr_install.png}}
 \end{frame}
 
@@ -301,6 +301,7 @@ import_local
 \Bigtxt{Organize}
 <<eval = F, results = 'markup'>>=
 qaqc.swmpr
+qaqcchk.swmpr
 subset.swmpr
 setstep.swmpr
 comb.swmpr
@@ -316,6 +317,7 @@ plot.swmpr
 hist.swmpr
 lines.swmpr
 decomp.swmpr
+map_reserve
 @
 \end{column}
 \end{columns}
@@ -325,7 +327,7 @@ Built around the concept of \Bigtxt{object-oriented programming} - retrieval fun
 
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
-To view the help file for any function (including examples):
+To view the help file for any function (including examples for most):
 <<eval = FALSE, results = 'markup'>>=
 ?all_params
 @
@@ -364,7 +366,7 @@ After unzipping, data from \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip dow
 
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
-Use the following to import some data into R... these files are included with the package, otherwise specify the path manually with the commented line for your own data\\~\\
+Use the following to import some data into R... these files are included with the package, otherwise specify the path manually with the commented line for dataset1 \\~\\
 <<eval = F, results = 'markup'>>=
 # get data for apacpwq, all years
 

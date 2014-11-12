@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  5 NOV 2014 13:09
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  11 NOV 2014 15:28
 entering extended mode
 **swmp_retrieve.tex
 (M:\docs\swmp_workshop_2014\training_modules\swmp_retrieve\swmp_retrieve.tex
@@ -1548,7 +1548,7 @@ Package pdftex.def Info: NERRS_locations.png used on input line 134.
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_retrieve/NERRS_locations.png
 >]
-<cdmo_front.png, id=174, 730.22812pt x 406.51875pt>
+<cdmo_front.png, id=175, 730.22812pt x 406.51875pt>
 File: cdmo_front.png Graphic file (type png)
  <use cdmo_front.png>
 Package pdftex.def Info: cdmo_front.png used on input line 140.
@@ -1557,7 +1557,7 @@ Package pdftex.def Info: cdmo_front.png used on input line 140.
 [6
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_retrieve/cdmo_front.png>]
-<get_data.png, id=202, 637.63219pt x 547.2947pt>
+<get_data.png, id=203, 637.63219pt x 547.2947pt>
 File: get_data.png Graphic file (type png)
  <use get_data.png>
 Package pdftex.def Info: get_data.png used on input line 146.
@@ -1565,7 +1565,7 @@ Package pdftex.def Info: get_data.png used on input line 146.
  [7
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_retrieve/get_data.png>]
-<web_serv.png, id=232, 730.98094pt x 410.2828pt>
+<web_serv.png, id=233, 730.98094pt x 410.2828pt>
 File: web_serv.png Graphic file (type png)
  <use web_serv.png>
 Package pdftex.def Info: web_serv.png used on input line 153.
@@ -1575,7 +1575,7 @@ Package pdftex.def Info: web_serv.png used on input line 153.
  <M:/docs/swmp_workshop_2014/training_modules/swmp_retrieve/web_serv.png>] [9
 
 ]
-<avail_dat2.png, id=287, 724.95844pt x 406.51875pt>
+<avail_dat2.png, id=288, 724.95844pt x 406.51875pt>
 File: avail_dat2.png Graphic file (type png)
  <use avail_dat2.png>
 Package pdftex.def Info: avail_dat2.png used on input line 172.
@@ -1603,7 +1603,7 @@ LaTeX Font Info:    Font shape `OT1/lmss/bx/it' in size <10.95> not available
 ] [17
 
 ]
-<qaqc_flags.png, id=501, 488.57532pt x 147.55125pt>
+<qaqc_flags.png, id=503, 488.57532pt x 147.55125pt>
 File: qaqc_flags.png Graphic file (type png)
  <use qaqc_flags.png>
 Package pdftex.def Info: qaqc_flags.png used on input line 232.
@@ -1612,7 +1612,7 @@ Package pdftex.def Info: qaqc_flags.png used on input line 232.
 [18
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_retrieve/qaqc_flags.png>] <q
-aqc_ex.png, id=528, 630.10406pt x 304.13625pt>
+aqc_ex.png, id=530, 630.10406pt x 304.13625pt>
 File: qaqc_ex.png Graphic file (type png)
  <use qaqc_ex.png>
 Package pdftex.def Info: qaqc_ex.png used on input line 241.
@@ -1620,13 +1620,13 @@ Package pdftex.def Info: qaqc_ex.png used on input line 241.
  [19
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_retrieve/qaqc_ex.png>]
-<timestamp_ex1.png, id=556, 197.23688pt x 169.38281pt>
+<timestamp_ex1.png, id=558, 197.23688pt x 169.38281pt>
 File: timestamp_ex1.png Graphic file (type png)
  <use timestamp_ex1.png>
 Package pdftex.def Info: timestamp_ex1.png used on input line 256.
 (pdftex.def)             Requested size: 123.22359pt x 105.82263pt.
 
-<timestamp_ex2.png, id=558, 200.24812pt x 168.63pt>
+<timestamp_ex2.png, id=560, 200.24812pt x 168.63pt>
 File: timestamp_ex2.png Graphic file (type png)
  <use timestamp_ex2.png>
 Package pdftex.def Info: timestamp_ex2.png used on input line 256.
@@ -1657,7 +1657,7 @@ Package pdftex.def Info: timestamp_ex2.png used on input line 256.
 ] [30
 
 ]
-<swmpr_github.png, id=848, 777.65532pt x 472.76625pt>
+<swmpr_github.png, id=850, 777.65532pt x 472.76625pt>
 File: swmpr_github.png Graphic file (type png)
  <use swmpr_github.png>
 Package pdftex.def Info: swmpr_github.png used on input line 297.
@@ -1666,7 +1666,7 @@ Package pdftex.def Info: swmpr_github.png used on input line 297.
 [31
 
  <M:/docs/swmp_workshop_2014/training_modules/swmp_retrieve/swmpr_github.png>] 
-<swmpr_readme.png, id=877, 777.65532pt x 472.76625pt>
+<swmpr_readme.png, id=879, 777.65532pt x 472.76625pt>
 File: swmpr_readme.png Graphic file (type png)
 
 <use swmpr_readme.png>
@@ -1691,7 +1691,7 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 ]
 (M:\docs\swmp_workshop_2014\training_modules\swmp_retrieve\swmp_retrieve.vrb
-<swmpr_install.png, id=934, 408.77719pt x 422.32782pt>
+<swmpr_install.png, id=936, 408.77719pt x 422.32782pt>
 File: swmpr_install.png Graphic file (type png)
  <use swmpr_install.png>
 Package pdftex.def Info: swmpr_install.png used on input line 3.
@@ -1705,7 +1705,7 @@ Package pdftex.def Info: swmpr_install.png used on input line 3.
 
 ]
 (M:\docs\swmp_workshop_2014\training_modules\swmp_retrieve\swmp_retrieve.vrb
-<help_ex.png, id=987, 532.99126pt x 295.85532pt>
+<help_ex.png, id=989, 532.99126pt x 295.85532pt>
 File: help_ex.png Graphic file (type png)
  <use help_ex.png>
 Package pdftex.def Info: help_ex.png used on input line 10.
@@ -1716,10 +1716,10 @@ Package pdftex.def Info: help_ex.png used on input line 10.
 (M:\docs\swmp_workshop_2014\training_modules\swmp_retrieve\swmp_retrieve.vrb)
 [37
 
-] <zips_ex.png, id=1044, 444.15938pt x 270.25969pt>
+] <zips_ex.png, id=1046, 444.15938pt x 270.25969pt>
 File: zips_ex.png Graphic file (type png)
  <use zips_ex.png>
-Package pdftex.def Info: zips_ex.png used on input line 429.
+Package pdftex.def Info: zips_ex.png used on input line 431.
 (pdftex.def)             Requested size: 273.83728pt x 166.62315pt.
 
 [38
@@ -1736,17 +1736,17 @@ Package pdftex.def Info: zips_ex.png used on input line 429.
 (M:\docs\swmp_workshop_2014\training_modules\swmp_retrieve\swmp_retrieve.vrb)
 
 Class beamer Warning: Frame text is shrunk by a factor of 7.90558 percent inste
-ad of 0 percent on input line 510.
+ad of 0 percent on input line 512.
 
 [41
 
 ]
 File: bg_main.jpg Graphic file (type jpg)
  <use bg_main.jpg>
-Package pdftex.def Info: bg_main.jpg used on input line 522.
+Package pdftex.def Info: bg_main.jpg used on input line 524.
 (pdftex.def)             Requested size: 308.06367pt x 53.75914pt.
 LaTeX Font Info:    Font shape `OT1/lmss/bx/it' in size <14.4> not available
-(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 522
+(Font)              Font shape `OT1/lmss/bx/sl' tried instead on input line 524
 .
  [42
 
@@ -1754,15 +1754,15 @@ LaTeX Font Info:    Font shape `OT1/lmss/bx/it' in size <14.4> not available
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 524.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 524.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 526.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 526.
 
 (M:\docs\swmp_workshop_2014\training_modules\swmp_retrieve\swmp_retrieve.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 524.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 524.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 526.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 526.
 Package rerunfilecheck Info: File `swmp_retrieve.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 524.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 526.
  ) 
 Here is how much of TeX's memory you used:
  25255 strings out of 493921
@@ -1783,9 +1783,9 @@ c/lm/lmsso10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsso12.pfb
 s/MiKTeX 2.9/fonts/type1/public/lm/lmtt8.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/public/lm/lmtti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
 sfonts/symbols/msam7.pfb>
-Output written on swmp_retrieve.pdf (42 pages, 3145996 bytes).
+Output written on swmp_retrieve.pdf (42 pages, 3146503 bytes).
 PDF statistics:
- 1234 PDF objects out of 1440 (max. 8388607)
+ 1236 PDF objects out of 1440 (max. 8388607)
  85 named destinations out of 1000 (max. 500000)
  220 words of extra memory for PDF output out of 10000 (max. 10000000)
 

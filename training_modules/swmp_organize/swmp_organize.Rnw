@@ -86,8 +86,8 @@ You can follow along in this module: \\~\\
 %%%%%%
 \begin{frame}{Retrieve SWMP data}
 We learned how to import SWMP data in the previous session \\~\\
-To review, the easiest approach is to download the data outside of R, then import using the `import_local' function \\~\\
-Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature from CDMO - the `import_local' functions works best with these data \\~\\
+To review, the easiest approach is to download the data outside of R, then import using the `import\_local' function \\~\\
+Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip downloads} feature from CDMO - the `import\_local' functions works best with these data \\~\\
 \centerline{\includegraphics[width = 0.8\textwidth]{adv_query.png}}
 \end{frame}
 
@@ -103,7 +103,7 @@ For future access, it may be best to download all the data possible for a reserv
 It may be best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
 \centerline{\includegraphics[width = 0.5\textwidth]{zip_eda2.png}}
 Here we've made a request for all stations at Apalachicola Bay (water quality, nutrients, weather) and all available years (1995--2014) \\~\\
-This request will take several minutes to be delivered to your email - the files in `dataset2' are an abbreviate version of these data for this training module
+This request will take several minutes to be delivered to your email - the files in `dataset2' are an abbreviated version of these data
 \end{frame}
 
 %%%%%%
@@ -134,11 +134,11 @@ We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, 
 \begin{frame}[containsverbatim]{Retrieve SWMP data}
 But don't take my word for it, take a look at the data!
 <<>>=
-# what are the dimenions of the water quality data?
+# what are the dimensions of the water quality data?
 dim(wq_dat)
-# what are the dimenions of the nutrient data?
+# what are the dimensons of the nutrient data?
 dim(nut_dat)
-# what are the dimenions of the weather data?
+# what are the dimensions of the weather data?
 dim(met_dat)
 @
 \end{frame}
@@ -182,7 +182,7 @@ The \href{https://github.com/fawda123/SWMPr}{online documentation} describes the
 # what functions/methods work with swmpr objects?
 methods(class = 'swmpr')
 @
-Documentation of each function can be viewed as follows (although currently not complete):
+Documentation of each function can be viewed as follows:
 <<eval = F>>=
 # see help for a swmpr function
 ?aggregate.swmpr
@@ -219,7 +219,7 @@ The \Bigtxt{attributes} are a list of metadata for the imported data
 # what attributes are available for a swmpr object
 names(attributes(met_dat))
 
-# view the parameters
+# view the parameters attribute
 attr(met_dat, 'parameters')
 @
 \end{frame}
@@ -231,7 +231,7 @@ You can also view all the attributes as follows:
 # view all attributes
 attributes(met_dat)
 @
-This is not recommended since they are quite long, e.g., an attribute of the `data.frame' class is the row names (\Sexpr{nrow(wq_dat)} rows for`wq\_dat') \\~\\
+This is not recommended since they are quite long, e.g., an attribute of the `data.frame' class is the row names (\Sexpr{nrow(wq_dat)} rows for `wq\_dat') \\~\\
 Individual attributes are useful for getting a feel for the dataset - what is the date range? what parameters are included? are QAQC columns present? \\~\\
 However, the intended use of attributes is behind the scenes with swmpr functions - they will be used to process the data and updated automatically
 \end{frame}
@@ -267,14 +267,14 @@ Perhaps the first organizational tool you want to use is `qaqc.swmpr'\\~\\
 This function does two things:\\~\\
 \begin{itemize}
 \item Remove observations with a specified QAQC flag value
-\item Remove QAQC columns \\~\\
+\item Remove QAQC columns: \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{Link} to QAQC codes \\~\\
 \end{itemize}
 \centerline{\includegraphics[width = 0.8\textwidth]{qaqc_flags.png}}
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
-Remember, each parameter has a QAQC column preceded by `f_'
+Remember, each parameter has a QAQC column preceded by `f\_'
 <<>>=
 # View the first six rows of the met data
 head(met_dat)
@@ -305,7 +305,6 @@ head(myqaqc)
 # or view all in a separate window
 View(myqaqc)
 @
-\href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{Link} to QAQC codes
 \end{frame}
 
 %%%%%%
@@ -382,7 +381,7 @@ head(met_qaqc) # note the totpar column compared to the last example
 \begin{frame}[containsverbatim]{Organize SWMP data}
 If you're not convinced, try removing only the `0' flag
 <<>>=
-# keep all values
+# keep only zero flags
 to_keep <- c(-5, -4, -3, -2, -1, 1, 2, 3, 4, 5)
 met_qaqc <- qaqc(met_dat, qaqc_keep = to_keep)
 
@@ -441,7 +440,7 @@ The subset.swmpr function has several arguments \\~\\
 \item swmpr\_in: input data (swmpr object)
 \item subset: dates to keep
 \item select: parameters to keep
-\item operator: less than, greater than if only one date in subset
+\item operator: less than, greater than, etc. if only one date in subset
 \item rem\_rows: remove empty rows
 \item rem\_cols: remove empty columns \\~\\
 \end{itemize}
@@ -461,7 +460,7 @@ tmp <- subset(wq_dat, rem_rows = T, rem_cols = T)
 # dimensions after removing empty rows, columns
 dim(tmp)
 @
-About 1000 rows and four columns of missing data!
+About 1000 rows and four columns of missing data!  Note that removing rows may create a discontinuous time step...
 \end{frame}
 
 %%%%%%
@@ -580,7 +579,7 @@ How do we fix these problems??
 Now that we know how to handle QAQC flags and subset the data, what else could we do before we analyze? \\~\\
 What if we want to compare time series from different datasets? \\~\\
 Data are imported separately for water quality, weather, and nutrients... \\~\\
-Sometimes the time step is different...\\~\\
+Sometimes the time step or date range are different...\\~\\
 Use the `comb.swmp' and `setstep.swmp' functions!
 <<>>=
 # help files
@@ -656,7 +655,7 @@ What do the arguments specify? \\~\\
 \begin{itemize}
 \item ... : input swmpr data, separated by comma\\~\\
 \item timestep: minutes defining the standardized time step\\~\\
-\item differ: maximum difference in minutes for matching observations with original time steps to standardized time steps \\`\\
+\item differ: maximum difference in minutes for matching observations with original time steps to standardized time steps \\~\\
 \item method: how the data are combined using the time stamps - union, intersect, or using a station
 \end{itemize}
 \end{frame}
@@ -731,7 +730,7 @@ head(wq_dat$datetimestamp)
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-However, nutrient data may have irregular time stamps since these data are not from `continuous' monitoring station 
+However, nutrient data may have irregular time stamps since these data are not from a `continuous' monitoring station
 <<>>=
 # note irregular time stamps on nutrient data
 head(nut_dat)

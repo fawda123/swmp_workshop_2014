@@ -21,6 +21,8 @@ sum(is.na(wq_dat$do_mgl))
 wq_dat <- subset(wq_dat, subset = c('2012-10-01 0:0', '2012-10-31 0:0'))
 plot(do_mgl ~ datetimestamp, wq_dat, type = 'l')
 
+## analysis 1 - on your own
+
 ## analysis 2 - on your own
 
 ## analysis 3

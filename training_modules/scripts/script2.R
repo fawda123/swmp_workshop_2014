@@ -10,11 +10,11 @@ wq_dat <- import_local(path, 'apacpwq')
 nut_dat <- import_local(path, 'apacpnut')
 met_dat <- import_local(path, 'apaebmet')
 
-# what are the dimenions of the water quality data?
+# what are the dimensions of the water quality data?
 dim(wq_dat)
-# what are the dimenions of the nutrient data?
+# what are the dimensions of the nutrient data?
 dim(nut_dat)
-# what are the dimenions of the weather data?
+# what are the dimensions of the weather data?
 dim(met_dat)
 
 # View the first six rows of the met data
