@@ -29,9 +29,7 @@ dat <- subset(dat, subset = c('2012-10-01 0:0', '2012-10-31 0:0'))
 
 ## analysis 3
 
-# import all wq data for cbmip
-# change path as needed
-path <- 'C:/data/dataset3/'
+# import all wq data for cbmip from the path
 dat <- import_local(path, 'cbmipwq')
 
 # qaqc checks

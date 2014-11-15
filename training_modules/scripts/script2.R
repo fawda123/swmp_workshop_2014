@@ -169,12 +169,7 @@ dim(tmp)
 # note the time step in datetimestamp
 head(tmp, 4)
 
-# note the pre-existing time steps
-head(wq_dat$datetimestamp)
-
-# note irregular time stamps on nutrient data
-head(nut_dat)
-
+# try changing the timestep in the nutrients data
 dim(nut_dat) # initial dimensions
 
 # standardize nutrient time series
@@ -184,6 +179,8 @@ dim(tmp)
 # remove empty rows, columns
 tmp <- subset(tmp, rem_row = T, rem_col = T)
 tmp #only four rows!
+
+## try some other subset examples changing the method argument
 
 # first we subset for the example
 sub1 <- subset(wq_dat, subset = c('2012-07-01 0:0', '2012-07-31 0:0'))
