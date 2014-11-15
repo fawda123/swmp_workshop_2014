@@ -1,0 +1,22 @@
+---
+title: "Flashdrive contents"
+output: 
+  pdf_document
+---
+
+Workshop Website:   http://copepod.org/nerrs-swmp-workshop/ 
+
+The materials on this flashdrive are duplicates of the content on our course website.  They are provided to workshop attendees to facilitate participation and as takehome materials for later review.  In particular, the scripts and datasets in the 'all_modules' folder can be used to follow along in each presentation.  All website content will remain unchanged after Nov. 17th, 2014.  The contents of this flashdrive are in three separate folders:
+
+* preworkshop_toolkit/
+    + All pdf presentations, scripts, and data provided prior to the workshop.
+
+* all_modules/
+    + All pdf presentations, scripts, and data for the workshop training modules that required use of R.
+    
+* all_postworkshop/
+    + Post-workshop resources including SWMP cookbook, plotting scripts, and other miscellaneous items. 
+    
+We encourage all workshop participants to contact the instructors with questions or suggestions regarding this content.  
+
+
