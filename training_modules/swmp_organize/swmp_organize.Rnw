@@ -65,7 +65,7 @@ devtools::load_all('M:/docs/SWMPr')
 \onslide<+->
 \item Agenda \\~\\
 \begin{itemize}
-\item Review of import and handling QAQC flags\\~\\
+\item Handling QAQC flags\\~\\
 \item Appropriate use of data subsets \\~\\
 \item Combining data for comparisons \\~\\
 \end{itemize}
@@ -92,21 +92,6 @@ Be sure that you use only the \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip 
 \end{frame}
 
 %%%%%%
-\begin{frame}[t]{Retrieve SWMP data}
-We have provided data for use with the workshop\\~\\
-For future access, it may be best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
-\centerline{\includegraphics[width = \textwidth]{zip_eda.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}[t]{Retrieve SWMP data}
-It may be best to download all the data possible for a reserve to avoid repeated requests to the server and to centralize the location from which the data are imported into R \\~\\
-\centerline{\includegraphics[width = 0.5\textwidth]{zip_eda2.png}}
-Here we've made a request for all stations at Apalachicola Bay (water quality, nutrients, weather) and all available years (1995--2014) \\~\\
-This request will take several minutes to be delivered to your email - the files in `dataset2' are an abbreviated version of these data
-\end{frame}
-
-%%%%%%
 \begin{frame}[containsverbatim]{Retrieve SWMP data}
 Let's import some data for Apalachicola Bay
 <<cache = T, echo = F>>=
@@ -127,7 +112,7 @@ wq_dat <- import_local(path, 'apacpwq')
 nut_dat <- import_local(path, 'apacpnut')
 met_dat <- import_local(path, 'apaebmet')
 @
-We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, apaebmet) and saved them in our workspace as three separate objects (wq\_dat, nut\_dat, met\_dat)
+We've just imported data from 2011--2014 for three stations (apacpwq, apacpnut, apaebmet) and saved them in our workspace
 \end{frame}
 
 %%%%%%
@@ -148,65 +133,22 @@ dim(met_dat)
 View the first six rows
 <<>>=
 # View the first six rows of the met data
-head(met_dat)
+head(met_dat) # or tail(met_dat) for last
 @
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
-View the last six rows
-<<>>=
-# View the last six rows of the met data
-tail(met_dat)
-@
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
-We'll first work with the water quality records\\~\\
 What class is the data?
 <<>>=
 # class of the data
 class(met_dat)
 @
 This tells us that the data are two different classes - `swmpr' and `data.frame'\\~\\
-The class of an object is important because it defines the types of methods (i.e., functions) that apply\\~\\
-For example, `head' and `tail' functions work for a `data.frame'
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
-The swmpr object class was developed to make your life easier working with SWMP data\\~\\
-The \href{https://github.com/fawda123/SWMPr}{online documentation} describes the functions that work with the swmpr object class, also...
+The swmpr object class was developed to work with specific funcitons
 <<>>=
 # what functions/methods work with swmpr objects?
 methods(class = 'swmpr')
-@
-Documentation of each function can be viewed as follows:
-<<eval = F>>=
-# see help for a swmpr function
-?aggregate.swmpr
-
-# or...
-help('aggregate.swmpr')
-@
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim,shrink]{Retrieve SWMP data}
-A side note about R syntax... the convention `function.class' means that a function applies to a specific class \\~\\
-The `function' is generic, whereas the `function.class' is a method for a class that applies to the generic
-<<>>=
-# view the methods that apply to the generic aggregate
-methods('aggregate')
-@
-A function with a class method can be executed using shorthand...
-<<eval = F>>=
-# shorthand for executing aggregate on a swmpr object
-aggregate(met_dat, by = 'quarters')
-
-# long also works
-aggregate.swmpr(met_dat, by = 'quarters')
 @
 \end{frame}
 
@@ -224,47 +166,10 @@ attr(met_dat, 'parameters')
 @
 \end{frame}
 
-%%%%%
-\begin{frame}[containsverbatim]{Retrieve SWMP data}
-You can also view all the attributes as follows:
-<<eval = F>>=
-# view all attributes
-attributes(met_dat)
-@
-This is not recommended since they are quite long, e.g., an attribute of the `data.frame' class is the row names (\Sexpr{nrow(wq_dat)} rows for `wq\_dat') \\~\\
-Individual attributes are useful for getting a feel for the dataset - what is the date range? what parameters are included? are QAQC columns present? \\~\\
-However, the intended use of attributes is behind the scenes with swmpr functions - they will be used to process the data and updated automatically
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Retrieve SWMP data}
-A summary of the swmpr object class:\\~\\
-\begin{itemize}
-\item Throughout `SWMPr' refers to the \Bigtxt{package}, `swmpr' refers to the object \Bigtxt{class}
-\item \Bigtxt{Methods} aka functions in the SWMPr package are specific for swmpr objects - see the help documentation (`?aggregate.swmpr')
-\item The swmpr object has both \Bigtxt{data} and \Bigtxt{attributes} - the data are in the `data.frame' format, the attributes are in a `list'\\~\\
-\end{itemize}
-These are basic concepts that are fundamental to how the R language works -- you should have a general understanding of their meaning
-\end{frame}
-
 %%%%%%
 \begin{frame}[containsverbatim,shrink]{Organize SWMP data}
 Now that we have a feel for the data, what needs to be done before we can start analyzing the information? \\~\\
-Last module: \\~\\
-\begin{itemize}
-\item How do we handle QAQC data or `bad' observations?
-\item How do we deal with data we don't want?  
-\item How do we combine data for comparison?
-\item How do we handle issues inherent with time series? \\~\\
-\end{itemize}
-Several of these problems are context-dependent - driven by the question or analysis \\~\\
-Others are common to any analysis...
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-Perhaps the first organizational tool you want to use is `qaqc.swmpr'\\~\\
-This function does two things:\\~\\
+Perhaps the first organizational tool you want to use is `qaqc.swmpr':\\~\\
 \begin{itemize}
 \item Remove observations with a specified QAQC flag value
 \item Remove QAQC columns: \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{Link} to QAQC codes \\~\\
@@ -283,17 +188,13 @@ head(met_dat)
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-You will have to decide which \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{values} to keep - be conservative and only keep those that passed QAQC or keep all the data \\~\\
-To help you decide, it may be useful to get an idea of the distribution of QAQC flags in the data, use `qaqcchk'
+You will have to decide which \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{values} to keep \\~\\
+It may be useful to get an idea of the distribution of QAQC flags in the data, use `qaqcchk'
 <<>>=
 # use qaqcchk to view distribution of qaqc flags
 myqaqc <- qaqcchk(met_dat)
 @
-This function returns a data.frame\\~\\
-\begin{itemize}
-\item The first column shows all the QAQC codes in the data
-\item The remaining columns show the counts for each parameter of the observations assigned to each QAQC code
-\end{itemize}
+This function returns a data.frame that summarizes QAQC flags in the data
 \end{frame}
 
 %%%%%%
@@ -309,24 +210,8 @@ View(myqaqc)
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-A plot of the data may also be useful to view QAQC flags, but this is tedious \\~\\
-Here's an example for the `totpar' variable
-<<eval = F>>=
-# select values that did not pass qaqc
-nopass <- grep('0', met_dat$f_totpar, invert = T)
-nopass <- met_dat[nopass, ]
-
-# plot totpar from met_dat
-plot(totpar ~ datetimestamp, met_dat, type = 'l')
-
-# add  points that did not pass qaqc
-points(nopass$datetimestamp, nopass$totpar, col = 'red')
-@
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-Observations in red are those that did not pass QAQC checks - some are obvious, others are not
+A plot of the data may also be useful to view QAQC flags (plot code in script2.R)\\~\\
+Points in red did not pass QAQC
 <<qaqc_ex, fig.height = 3.5, fig.width = 8, results = 'hold', echo = F>>=
 # select values that did not pass qaqc
 nopass <- grep('0', met_dat$f_totpar, invert = T)
@@ -338,18 +223,17 @@ plot(totpar ~ datetimestamp, met_dat, type = 'l')
 # add  points that did not pass qaqc
 points(nopass$datetimestamp, nopass$totpar, col = 'red')
 @
-Does this plot make sense??
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-You should have an idea of how you want to handle QAQC values after viewing the output from qaqcchk or plotting - or you already knew \\~\\
+You should have an idea of how you want to handle QAQC values \\~\\
 Next, use the `qaqc' function...
 <<>>=
 # filter observations by qaqc flags, remove qaqc columns
 met_qaqc <- qaqc(met_dat)
 @
-The default behavior for this function is to keep only observations with a `0' QAQC flag - data that passed initial checks\\~\\
+The default is to keep only observations with a `0' QAQC flag\\~\\
 See the help documentation for the function
 <<eval = F>>=
 # view help file
@@ -397,10 +281,7 @@ We'll continue by using values that passed the QAQC checks
 # continue with qaqc processed data
 
 # water quality
-# note the column number before/after qaqc processing
-dim(wq_dat)
 wq_dat <- qaqc(wq_dat)
-dim(wq_dat)
 
 # nutrients
 nut_dat <- qaqc(nut_dat)
@@ -414,22 +295,10 @@ met_dat <- qaqc(met_dat)
 \begin{frame}[containsverbatim]{Organize SWMP data}
 What is the next logical step after dealing with QAQC values? \\~\\
 How would we further want to organize the data? \\~\\
-Maybe we want to subset the data... \\~\\
-For example, we don't want all the data columns or we only want to work with a specific date range \\~\\
-Use the subset function...
+Maybe we want to subset the data...
 <<>>=
 # view help file
 ?subset.swmpr
-@
-Note that R has a generic subset function, subset.swmpr is a method for swmpr objects
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-The subset.swmpr function has several arguments
-<<>>=
-# view the arguments for subset.swmpr
-formals(subset.swmpr)
 @
 \end{frame}
 
@@ -444,12 +313,11 @@ The subset.swmpr function has several arguments \\~\\
 \item rem\_rows: remove empty rows
 \item rem\_cols: remove empty columns \\~\\
 \end{itemize}
-We'll go through examples that use the function with different arguments
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-The simplest use of `subset.swmpr' is to remove empty rows and columns -- this is typically not a major issue but it's convenient if you're a compulsive data cleaner
+The simplest use of `subset.swmpr' is to remove empty rows and columns
 <<>>=
 # rows, columns in wq_dat
 dim(wq_dat)
@@ -471,7 +339,6 @@ The `select' argument of `subset.swmpr' is used to select parameters of interest
 tmp <- subset(wq_dat, select = 'do_mgl')
 head(tmp)
 @
-Note that the datetimestamp is retained, this column will always be included in a subset
 \end{frame}
 
 %%%%%%
@@ -482,12 +349,7 @@ The `select' argument of `subset.swmpr' is used to select parameters of interest
 tmp <- subset(wq_dat, select = c('do_mgl', 'sal'))
 head(tmp)
 @
-Note the use of the concatenate function `c'\\~\\
-Try this...
-<<>>=
-# incorrect syntax
-subset(wq_dat, select = 'do_mgl', 'sal')
-@
+Note the use of the concatenate function `c'
 \end{frame}
 
 %%%%%%
@@ -499,21 +361,6 @@ The dates must have a specific format - `YYYY-mm-dd HH:MM'
 dates <- c('2012-07-01 12:00', '2012-07-31 6:30')
 tmp <- subset(wq_dat, subset = dates)
 head(tmp) # view first six rows
-@
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-You can also verify the subset by checking the attributes of the swmpr object
-<<>>=
-# check the date_rng attribute
-class(tmp) # a swmpr object?
-
-# what are the attributes?
-names(attributes(tmp))
-
-# get the date range
-attr(tmp, 'date_rng')
 @
 \end{frame}
 
@@ -560,32 +407,15 @@ plot(temp ~ datetimestamp, data = tmp, type = 'l')
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-Common problems with `subset.swmpr'...
-<<>>=
-# incorrect subset argument format, no time
-subset(wq_dat, subset = c('2012-01-01', '2012-01-31'))
-
-# forgot to include operator
-subset(wq_dat, subset = '2012-01-31 00:00')
-
-# incorrect parameter names
-subset(wq_dat, select = 'DO')
-@
-How do we fix these problems??
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-Now that we know how to handle QAQC flags and subset the data, what else could we do before we analyze? \\~\\
+Now that we know how to handle QAQC flags and subset, what else could we do before we analyze? \\~\\
 What if we want to compare time series from different datasets? \\~\\
-Data are imported separately for water quality, weather, and nutrients... \\~\\
-Sometimes the time step or date range are different...\\~\\
 Use the `comb.swmp' and `setstep.swmp' functions!
 <<>>=
 # help files
 ?comb.swmpr
 ?setstep.swmpr
 @
+Currently, only data from the same reserve can be combined
 \end{frame}
 
 %%%%%%
@@ -608,23 +438,6 @@ head(tmp, 3) # first three rows
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-What happened?  Check the attributes of the combined object...
-<<>>=
-# attributes of combined object
-
-# stations 
-attr(tmp, 'station')
-
-# date ranges, same as before
-attr(tmp, 'date_rng')
-
-# parameters, both wq and met
-attr(tmp, 'parameters')
-@
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
 We now have a swmpr object with data from two stations, why do we want this? Easier plotting...
 <<comb_plo, fig.height = 3, fig.width = 7, out.width = '0.7\\textwidth'>>=
 # plot some combined data
@@ -640,18 +453,10 @@ title('Air (red) and water (blue) temperature')
 @
 \end{frame}
 
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-The options for `comb.swmpr' allow flexibility \\~\\
-<<>>=
-# arguments for the function, or ?comb.swmpr
-formals(comb.swmpr)
-@
-\end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
-What do the arguments specify? \\~\\
+Arguments for `comb.swmpr': \\~\\
 \begin{itemize}
 \item ... : input swmpr data, separated by comma\\~\\
 \item timestep: minutes defining the standardized time step\\~\\
@@ -686,56 +491,15 @@ head(tmp, 4)
 \begin{frame}[containsverbatim]{Organize SWMP data}
 \alert{Caution!} Standardizing a time series to a set time step may impose some inaccuracy \\~\\
 Observations are matched as close in time as possible to the standardized time series \\~\\
-For example, if we set the time step at 60 minute intervals and actual observations are taken every 15 and 45 minutes of the hour \\~\\
-Which observations are matched and which are discarded? \\~\\
 By default, `comb.swmpr' matches the closest observation and discards the rest \\~\\
-`Close' is defined by the `differ' argument
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Organize SWMP data}
+`Close' is defined by the `differ' argument\\~\\
 The `differ' argument defines the maximum time difference for matching observations to the standardized time step \\~\\
 The maximum allowed value for `differ' is one half the time step -- values beyond this window will create duplicates in your data \\~\\
-For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm \\~\\
-\begin{columns}[T]
-\begin{column}{0.45\textwidth}
-\alert{wrong!}\\
-\begin{itemize}
-\item `differ' is 40 minutes
-\item observation will be duplicated at 6pm and 7pm \\~\\
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-\alert{right!}
-\begin{itemize}
-\item `differ' is 30 minutes
-\item observation is matched only to 7pm \\~\\
-\end{itemize}
-\end{column}
-\end{columns}
-Again, default behavior of `comb.swmpr' prevents duplication
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-Consider the alternative scenario of a using a conservative value for `differ'\\~\\
-For example, set a 60 minute time step -- 5pm, 6pm, 7pm, etc., consider an observation at 635pm\\~\\
-If `differ' is five minutes, there will be no data in the standardized time series! \\~\\
-Fortunately, most SWMP data already follow a standard 15 minute time step
-<<>>=
-# note the pre-existing time steps
-head(wq_dat$datetimestamp)
-@
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Organize SWMP data}
-However, nutrient data may have irregular time stamps since these data are not from a `continuous' monitoring station
-<<>>=
-# note irregular time stamps on nutrient data
-head(nut_dat)
-@
-Use caution if combining these data or standardizing the time step - there is potential for data omission or extrapolation
+Also be careful using small values for differ -- data will be lost
 \end{frame}
 
 %%%%%%
@@ -770,7 +534,7 @@ The `method' argument of `comb.swmpr' allows flexibility under different scenari
 \begin{frame}{Organize SWMP data}
 \onslide<+->
 \alert{Scenario 1}: Time ranges are the same \\~\\
-Don't worry about changing the `method' argument - it will have no effect\\~\\
+Don't worry about changing `method' - it will have no effect\\~\\
 Our previous examples represent scenario 1 \\~\\
 \onslide<+->
 \alert{Scenario 2}: Time ranges are not the same, but there is overlap \\~\\
@@ -840,11 +604,11 @@ attr(tmp, 'date_rng')
 Now you have an idea of how to organize SWMP data for analysis!\\~\\
 Here's what we did:\\~\\
 \begin{itemize}
-\item Evaluate QAQC flags in the data and handle accordingly \\~\\
-\item Subsetting the data to remove empty rows/columns or to select variables or time ranges of interest \\~\\
-\item Combining data for comparison or data simplification \\~\\
+\item Evaluate and \alert{handle QAQC} flags in the data \\~\\
+\item \alert{Subsetting} the data to remove empty rows/columns or to select variables or time ranges of interest \\~\\
+\item \alert{Combining} data for comparison or data simplification \\~\\
 \end{itemize}
-Consult the SWMPr cookboook for an example workflow! \\~\\
+Consult the SWMP cookboook for an example workflow! \\~\\
 After lunch... what are some basic ways we can analyze the data?
 \end{frame}
 

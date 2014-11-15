@@ -141,19 +141,6 @@ CDMO (\href{http://cdmo.baruch.sc.edu/}{link}) is your one-stop shop for retriev
 
 %%%%%%
 \begin{frame}{Overview of SWMP and available data}
-Data can be exported from CDMO \href{http://cdmo.baruch.sc.edu/get/landing.cfm}{several ways}:\\~\\
-\centerline{\includegraphics[width = 0.6\textwidth]{get_data.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Overview of SWMP and available data}
-You can also use the \href{https://github.com/fawda123/SWMPr}{SWMPr} package to retrieve data \\~\\
-Data retrieval functions connect to the CDMO \href{http://cdmo.baruch.sc.edu/webservices.cfm}{web services}, more about this later \\~\\
-\centerline{\includegraphics[width = 0.8\textwidth]{web_serv.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Overview of SWMP and available data}
 A wide range of data can be requested... a few records for one site to all records for multiple sites \\~\\
 Requests can return a lot of data so make sure you have clear objectives \\~\\
 Check the \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{available data} before making a request! \\~\\
@@ -163,27 +150,6 @@ Check the \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{available data}
 \item date ranges \\~\\
 \item parameters \\~\\
 \end{itemize}
-\end{frame}
-
-%%%%%%
-\begin{frame}[t]{Overview of SWMP and available data}
-Available data: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cdmo.baruch.sc.edu/data/availableOne.cfm}\\~\\
-\centerline{\includegraphics[width = 0.9\textwidth]{avail_dat2.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Overview of SWMP and available data}
-\onslide<+->
-How to view available data:\\~\\
-\begin{itemize}
-\item Trial-and-error (not recommended) \\~\\
-\item View online: \href{http://cdmo.baruch.sc.edu/data/availableOne.cfm}{http://cdmo.baruch.sc.edu/data/availableOne.cfm}  \\~\\
-\item View after request: `sampling\_stations.csv'  \\~\\
-\item View after request: year and station specific .doc file  \\~\\
-\item Retrieve from within R (will cover later) \\~\\
-\end{itemize}
-\onslide<+->
-\centerline{\emph{Now that you have the data, what do they look like?}} 
 \end{frame}
 
 %%%%%%
@@ -225,34 +191,8 @@ atemp, rh, bp, wspd, maxwspd, wdir, sdwdir, totpar, totprcp, cumprcp, totsorad \
 
 %%%%%%
 \begin{frame}{Format and potential issues with output data}
-Each parameter will also have a QAQC column, with the prefix `f\_' \\~\\
-E.g., `atemp' and `f\_atemp' \\~\\
-Values in these columns describe whether the data passed automated QAQC checks: \href{http://cdmo.baruch.sc.edu/data/qaqc.cfm}{cdmo.baruch.sc.edu/data/qaqc.cfm} \\~\\
-\centerline{\includegraphics[width = 0.9\textwidth]{qaqc_flags.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Format and potential issues with output data}
-You will have to decide how to handle QAQC...\\~\\
-\centerline{\includegraphics[width = 0.8\textwidth]{qaqc_ex.png}}
-\vspace{0.2in}
-CDMO has limited export options for dealing with bad QAQC flags \\~\\
-We will learn how to handle QAQC flags in R
-\end{frame}
-
-%%%%%%
-\begin{frame}{Format and potential issues with output data}
-The final piece of the puzzle is the DateTimeStamp \\~\\
-Format is month/day/year hours:minutes, based on UTC offset and no daylight savings!\\~\\
-Varies by station and parameter type \\~\\
-\begin{columns}[t]
-\begin{column}{0.4\textwidth}
-\centerline{\includegraphics[width = 0.9\textwidth]{timestamp_ex1.png}}
-\end{column}
-\begin{column}{0.4\textwidth}
-\centerline{\includegraphics[width = 0.9\textwidth]{timestamp_ex2.png}}
-\end{column}
-\end{columns}
+The raw data will look like this...\\~\\
+\centerline{\includegraphics[width = 0.9\textwidth]{qaqc_ex.png}}
 \end{frame}
 
 %%%%%%
@@ -280,12 +220,12 @@ What are the challenges for evaluating SWMP data?? \\~\\
 \onslide<+->
 \textbf{\emph{What}}: An R package for retrieving, organizing and analyzing SWMP data \\~\\
 \onslide<+->
-\Bigtxt{Why}: There are many challenges for working with SWMP data... a toolkit for addressing these challenges using an open-source format will be useful (I hope!) \\~\\
+\Bigtxt{Why}: There are many challenges for working with SWMP data... a toolkit for addressing these challenges will be useful (I hope!) \\~\\
 \onslide<+->
 \Bigtxt{How}: \\~\\
 \begin{itemize}
-\item Install R/RStudio on your computer (done already?) \\~\\
-\item Install the SWMPr package \\~\\
+\item Install R/RStudio on your computer (done already!) \\~\\
+\item Install the SWMPr package (dont already!) \\~\\
 \item Use the SWMPr functions to \Bigtxt{retrieve}, \Bigtxt{organize}, and \Bigtxt{analyze} SWMP data 
 \end{itemize}
 \end{frame}
@@ -294,36 +234,6 @@ What are the challenges for evaluating SWMP data?? \\~\\
 \begin{frame}{Overview of the SWMPr package}
 This is where SWMPr lives - \href{https://github.com/fawda123/SWMPr}{https://github.com/fawda123/SWMPr}\\~\\
 \centerline{\includegraphics[width = 0.9\textwidth]{swmpr_github.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}{Overview of the SWMPr package}
-Scroll down the page to view the \href{https://github.com/fawda123/SWMPr/blob/master/README.md}{README} file, all instructions here...\\~\\
-\centerline{\includegraphics[width = 0.9\textwidth]{swmpr_readme.png}}
-\end{frame}
-
-%%%%%%
-\begin{frame}[t, fragile]{Overview of the SWMPr package}
-Installation instructions are in the \href{https://github.com/fawda123/SWMPr/blob/master/README.md}{README} \\~\\
-Run these four lines to install the package
-\begin{knitrout}\scriptsize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{install.packages}\hlstd{(}\hlstr{'devtools'}\hlstd{)}
-\hlkwd{library}\hlstd{(devtools)}
-\hlkwd{install_github}\hlstd{(}\hlstr{'fawda123/SWMPr'}\hlstd{)}
-\hlkwd{library}\hlstd{(SWMPr)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-What is it doing? \\~\\
-Packages can be installed from Github using the `install\_github' function from the devtools package
-\end{frame}
-
-%%%%%%
-\begin{frame}[t, fragile]{Overview of the SWMPr package}
-Your R console should look something like this...\\~\\
-\centerline{\includegraphics[width = 0.55\textwidth]{swmpr_install.png}}
 \end{frame}
 
 %%%%%%
@@ -408,7 +318,7 @@ Import data directly from the CDMO:
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-These functions require \href{http://cdmo.baruch.sc.edu/webservices.cfm}{registering your IP address}  with CDMO, data are also rate-limited
+These functions require \href{http://cdmo.baruch.sc.edu/webservices.cfm}{registering your IP address}  with CDMO
 \end{column}
 \begin{column}{0.4\textwidth}
 Import data from a local path:
@@ -432,47 +342,23 @@ After unzipping, data from \href{http://cdmo.baruch.sc.edu/aqs/zips.cfm}{zip dow
 
 %%%%%%
 \begin{frame}[fragile]{Overview of the SWMPr package}
-Use the following to import some data into R... these files are included with the package, otherwise specify the path manually with the commented line for dataset1 \\~\\
+Use the following to import some data into R... \\~\\
+Open script1.R, change the path to where you have the folder `dataset1'
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# get data for apacpwq, all years}
 
 \hlcom{# location of data}
-\hlcom{# mypath <- 'C:/data/dataset1'}
-\hlstd{mypath} \hlkwb{<-} \hlkwd{system.file}\hlstd{(}\hlstr{'zip_ex'}\hlstd{,} \hlkwc{package} \hlstd{=} \hlstr{'SWMPr'}\hlstd{)}
+\hlstd{mypath} \hlkwb{<-} \hlstr{'C:/data/dataset1'}
 
 \hlcom{# import and assign to 'dat'}
 \hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(mypath,} \hlstr{'apacpwq'}\hlstd{,} \hlkwc{trace} \hlstd{= T)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-\end{frame}
 
-%%%%%%
-\begin{frame}[fragile]{Overview of the SWMPr package}
-Your console should look something like this:\\~\\
-\begin{knitrout}\scriptsize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# get data for apacpwq, all years}
-
-\hlcom{# location of data}
-\hlcom{# mypath <- 'C:/data/dataset1'}
-\hlstd{mypath} \hlkwb{<-} \hlkwd{system.file}\hlstd{(}\hlstr{'zip_ex'}\hlstd{,} \hlkwc{package} \hlstd{=} \hlstr{'SWMPr'}\hlstd{)}
-
-\hlcom{# import and assign to 'dat'}
-\hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(mypath,} \hlstr{'apacpwq'}\hlstd{,} \hlkwc{trace} \hlstd{= T)}
-\end{alltt}
-\begin{verbatim}
-## Loading files...
-## 
-## apacpwq2011.csv 	apacpwq2012.csv 	apacpwq2013.csv 	
-## 
-## Data imported...
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+The console will return some informative text...
 \end{frame}
 
 %%%%%%

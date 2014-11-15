@@ -1,13 +1,7 @@
 ## script 1, NERRS training workshop 2014
 
-## install SWMPr using the devtools package
-install.packages('devtools')
-library(devtools)
-install_github('fawda123/SWMPr')
+## load the SWMPr package, you must have it installed
 library(SWMPr)
-
-## view a help file
-?all_params
 
 ## get data for apacpwq, all years
 

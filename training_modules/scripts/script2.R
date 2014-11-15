@@ -29,29 +29,11 @@ class(met_dat)
 # what functions/methods work with swmpr objects?
 methods(class = 'swmpr')
 
-# see help for a swmpr function
-?aggregate.swmpr
-
-# or...
-help('aggregate.swmpr')
-
-# view the methods that apply to the generic aggregate
-methods('aggregate')
-
-# shorthand for executing aggregate on a swmpr object
-aggregate(met_dat, by = 'quarters')
-
-# long also works
-aggregate.swmpr(met_dat, by = 'quarters')
-
 # what attributes are available for a swmpr object
 names(attributes(met_dat))
 
-# view the parameters
+# view the parameters attribute
 attr(met_dat, 'parameters')
-
-# view all attributes
-attributes(met_dat)
 
 # View the first six rows of the met data
 head(met_dat)
@@ -64,6 +46,9 @@ head(myqaqc)
 
 # or view all in a separate window
 View(myqaqc)
+
+##
+# plot data, points in red did not pass QAQC
 
 # select values that did not pass qaqc
 nopass <- grep('0', met_dat$f_totpar, invert = T)
@@ -99,10 +84,7 @@ head(met_qaqc)
 # continue with qaqc processed data
 
 # water quality
-# note the column number before/after qaqc processing
-dim(wq_dat)
 wq_dat <- qaqc(wq_dat)
-dim(wq_dat)
 
 # nutrients
 nut_dat <- qaqc(nut_dat)
@@ -133,22 +115,10 @@ head(tmp)
 tmp <- subset(wq_dat, select = c('do_mgl', 'sal'))
 head(tmp)
 
-# incorrect syntax
-subset(wq_dat, select = 'do_mgl', 'sal')
-
 # select a date range, July 2012
 dates <- c('2012-07-01 12:00', '2012-07-31 6:30')
 tmp <- subset(wq_dat, subset = dates)
 head(tmp) # view first six rows
-
-# check the date_rng attribute
-class(tmp) # a swmpr object?
-
-# what are the attributes?
-names(attributes(tmp))
-
-# get the date range
-attr(tmp, 'date_rng')
 
 # get observations for 2013
 dates <- '2013-01-01 00:00'
@@ -167,15 +137,6 @@ head(tmp)
 plot(do_mgl ~ datetimestamp, data = tmp, type = 'l')
 plot(temp ~ datetimestamp, data = tmp, type = 'l')
 
-# incorrect subset argument format, no time
-subset(wq_dat, subset = c('2012-01-01', '2012-01-31'))
-
-# forgot to include operator
-subset(wq_dat, subset = '2012-01-31 00:00')
-
-# incorrect parameter names
-subset(wq_dat, select = 'DO')
-
 # help files
 ?comb.swmpr
 ?setstep.swmpr
@@ -183,17 +144,6 @@ subset(wq_dat, select = 'DO')
 # combine water quality and weather data in the same object
 tmp <- comb(wq_dat, met_dat)
 head(tmp, 3) # first three rows
-
-# attributes of combined object
-
-# stations 
-attr(tmp, 'station')
-
-# date ranges, same as before
-attr(tmp, 'date_rng')
-
-# parameters, both wq and met
-attr(tmp, 'parameters')
 
 # plot some combined data
 

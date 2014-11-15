@@ -86,15 +86,7 @@ You can follow along in this module: \\~\\
 \begin{frame}{What is exploratory data analysis (EDA)?}
 A general term that describes preliminary evaluation of a variable or multiple variables in a dataset to assess quantitative properties for further analysis or hypothesis generation\\~\\
 EDA can inform you of the \alert{types} of variables (categorical, continuous), \alert{distribution} of variables (central tendency, spread), \alert{correlations} between variables, and presence of \alert{outliers} \\~\\
-You may decide to omit variables or specific observations, transform, standardize, etc.\\~\\
-Many of the same principles that apply to standard data analysis apply to time series analysis
-\end{frame}
-
-%%%%%%
-\begin{frame}{What is exploratory data analysis (EDA)?}
 R has many functions available for EDA - see the \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{R reference card} and the cookbook for some ideas\\~\\
-We will cover a few basic techniques but keep in mind EDA is a general term and much of what we have already covered, and will cover, can be considered exploratory \\~\\
-A quick google search of `exploratory data analysis in r' will point you in the right direction for generic approaches you might consider \\~\\
 For now, we will focus on some tasks that have specific relevance to SWMP
 \end{frame}
 
@@ -104,21 +96,21 @@ Time series will usually include missing data - you will have to decide how to h
 Let's import some wq data
 <<echo = F, cache = F>>=
 path <- 'M:/docs/swmp_workshop_2014/training_modules/data/dataset3/' 
-wq_dat <- import_local(path, 'cbmmcwq2012')
+dat <- import_local(path, 'cbmmcwq2012')
 @
 <<eval = F>>=
 # import data, qaqc, and subset
 # change this path for the flash drive
 path <- 'C:/data/dataset3'
-wq_dat <- import_local(path, 'cbmmcwq2012')
+dat <- import_local(path, 'cbmmcwq2012')
 @
 <<cache = F>>=
 # qaqc and subset do_mgl
-wq_dat <- qaqc(wq_dat)
-wq_dat <- subset(wq_dat, select = 'do_mgl')
+dat <- qaqc(dat)
+dat <- subset(dat, select = 'do_mgl')
 
 # how many missing values?
-sum(is.na(wq_dat$do_mgl))
+sum(is.na(dat$do_mgl))
 @
 \end{frame}
 
@@ -141,18 +133,22 @@ Here's what the time series looks like after using `na.approx'
 wq_dat <- na.approx(wq_dat, maxgap = 100)
 plot(do_mgl ~ datetimestamp, wq_dat, type = 'l')
 @
-The missing values have been linearly interpolated - a simple function that predicts missing values based on the starting and ending values in gaps\\~\\
-May not be a true representation but better than some other approaches
+The missing values have been linearly interpolated - a simple function that predicts missing values based on the starting and ending values in gaps
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
-The `na.approx' function has only a few arguments\\~\\
+The `na.approx.swmpr' function has only a few arguments\\~\\
 \begin{itemize}
 \item object: input swmpr data \\~\\
 \item params: which parameters to interpolate, default is all \\~\\
 \item maxgap: what is the maximum gap size to interpolate (units are the timestep)?
 \end{itemize}
+See the help file for moreinfo
+<<eval = F>>=
+# see the help file
+?na.approx.swmpr
+@
 \end{frame}
 
 %%%%%%
@@ -168,56 +164,8 @@ Now you try an analysis! Open a new script and try the following: \\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
-<<eval = F>>=
-# the analysis should start like this
-
-# change path as needed
-path <- 'C:/data/dataset3'
-dat <- import_local(path, 'cbmmcwq2012')
-
-# qaqc and subset imported data
-dat <- qaqc(dat)
-dat <- subset(dat, subset = c('2012-10-01 00:00', '2012-10-31 00:00'))
-
-# plot
-plot(do_mgl ~ datetimestamp, data = dat, type = 'l')
-@
-Now use na.approx using the data and an appropriate gap size (try 50) \\~\\
-Save the results to a new object and plot again \\~\\
-Try different gap values, how does this affect the plot or mean DO?
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
-<<echo = F>>=
-# the analysis should start like this
-
-# change path as needed
-path <- 'M:/docs/swmp_workshop_2014/training_modules/data/dataset3'
-dat <- import_local(path, 'cbmmcwq2012')
-
-# qaqc and subset imported data
-dat <- qaqc(dat)
-dat <- subset(dat, subset = c('2012-10-01 00:00', '2012-10-31 00:00'))
-@
-<<fig.height = 2, cache = F, fig.width = 6, out.width = '0.7\\textwidth', echo = T>>=
-new_dat <- na.approx(dat, maxgap = 50) # try different maxgaps
-
-# plot
-par(mar = c(4.1, 4.1, 0.5, 0.5))
-plot(do_mgl ~ datetimestamp, data = new_dat, type = 'l')
-@
-<<cache = F>>=
-mean(dat$do_mgl, na.rm = T)
-mean(new_dat$do_mgl, na.rm = T)
-@
-\end{frame}
-
-%%%%%%
 \begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
 \alert{Problem}: trend evaluation is difficult if the data are noisy \\~\\
-Noise can be caused by many factors (e.g., measurement error, process uncertainty), we are usually more concerned with the `true' signal in a time series \\~\\
 Noise can be addressed by\alert{aggregating} or \alert{smoothing} data, both are similar \\~\\
 The \alert{`aggregate.swmpr'} function aggregates a time series by set periods of observation and calculates summary data for a parameter(s) \\~\\
 The \alert{`smoother.swmpr'} function calculates a moving window average of a time series \\~\\
@@ -267,8 +215,10 @@ Now you try an analysis! Open a new script and try the following: \\~\\
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
 <<eval = F>>=
-# use the same data as in analysis 1
-
+# use the same data as in analysis 1 but...
+# subset by these date ranges
+dat <- subset(dat, subset = c('2012-10-01 0:0', '2012-10-31 0:0'))
+  
 # smooth 
 new_dat <- smoother.swmpr(dat, window = 40)
 
@@ -277,6 +227,7 @@ plot(do_mgl ~ datetimestamp, data = dat, type = 'l')
 plot(do_mgl ~ datetimestamp, data = new_dat, type = 'l')
 @
 <<echo = F, cache = F, fig.height = 3.5, fig.width = 6, out.width = '0.7\\textwidth'>>=
+dat <- subset(dat, subset = c('2012-10-01 0:0', '2012-10-31 0:0'))
 # smooth 
 new_dat <- smoother.swmpr(dat, window = 40)
 # plot
@@ -299,10 +250,9 @@ aggregate(dat, by = 'months')
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
-Numerical summaries, filling missing data, and smoothing improve our ability to describe the data \\~\\
 More often, we are concerned with \alert{long-term trends} over time -- a missing data point here or there or noisy data on short time periods may not be very important \\~\\
 We need \alert{plots} to characterize long-term trends over time -- both \alert{raw} and \alert{summarized} data \\~\\
-This analysis will show you two ways to evaluate trends by plotting -- we will go through it together
+This analysis will show you two ways to evaluate trends by plotting
 \end{frame}
 
 %%%%%%
@@ -322,7 +272,7 @@ dat <- import_local(path, 'cbmipwq')
 # qaqc checks
 dat <- qaqc(dat)
 @
-What are the dissolved oxygen dynamics over the last four years?  Can we characterize trends, both seasonal and annual?
+\alert{Our questions}: What are the dissolved oxygen dynamics over the last four years?  Can we characterize trends, both seasonal and annual?
 \end{frame}
 
 %%%%%%
@@ -336,12 +286,12 @@ plot(do_mgl ~ datetimestamp, data = dat, type = 'l')
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
-If we are concerned with long-term trends, we want to reduce the noise related to intra-annual variability...  we can use the smoother function
+If we are concerned with long-term trends, we want to reduce the noise related to annual variability...  we can use the smoother function
 <<fig.height = 3, fig.width = 8, out.width = '\\textwidth'>>=
-# smoother using a large window 
+# smoother using a large window (5000 steps ~ 52 days)
 do_smooth <- smoother(dat, params = 'do_mgl', window = 5000)
 plot(do_mgl ~ datetimestamp, data = dat, type = 'l')
-lines(do_smooth$datetimestamp, do_smooth$do_mgl, col = 'red')
+lines(do_smooth$datetimestamp, do_smooth$do_mgl, col = 'red', lwd = 2)
 @
 \end{frame}
 
@@ -353,7 +303,7 @@ Try it again but use `na.approx' first to fill gaps
 new_dat <- na.approx(dat, param = 'do_mgl', maxgap = 3000)
 do_smooth <- smoother(new_dat, params = 'do_mgl', window = 5000)
 plot(do_mgl ~ datetimestamp, data = new_dat, type = 'l')
-lines(do_smooth$datetimestamp, do_smooth$do_mgl, col = 'red')
+lines(do_smooth$datetimestamp, do_smooth$do_mgl, col = 'red', lwd = 2)
 @
 Now we have a time series that primarily shows annual variation, independent of short-term variation
 \end{frame}
@@ -361,7 +311,7 @@ Now we have a time series that primarily shows annual variation, independent of 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
 Finally, we can use the `aggregate.swmpr' function with boxplots for an alternative interpretation \\~\\
-The `aggs\_out' argument in the function can be used to return the data with the datetimestamp formatted according to the `by' argument
+The `aggs\_out' argument can be used...
 <<>>=
 # get reformatted data from aggregate for plotting
 agg_dat <- aggregate(dat, by = 'months', params = 'do_mgl', aggs_out = T)

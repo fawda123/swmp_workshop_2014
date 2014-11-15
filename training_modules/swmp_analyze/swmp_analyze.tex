@@ -124,15 +124,7 @@ You can follow along in this module: \\~\\
 \begin{frame}{What is exploratory data analysis (EDA)?}
 A general term that describes preliminary evaluation of a variable or multiple variables in a dataset to assess quantitative properties for further analysis or hypothesis generation\\~\\
 EDA can inform you of the \alert{types} of variables (categorical, continuous), \alert{distribution} of variables (central tendency, spread), \alert{correlations} between variables, and presence of \alert{outliers} \\~\\
-You may decide to omit variables or specific observations, transform, standardize, etc.\\~\\
-Many of the same principles that apply to standard data analysis apply to time series analysis
-\end{frame}
-
-%%%%%%
-\begin{frame}{What is exploratory data analysis (EDA)?}
 R has many functions available for EDA - see the \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{R reference card} and the cookbook for some ideas\\~\\
-We will cover a few basic techniques but keep in mind EDA is a general term and much of what we have already covered, and will cover, can be considered exploratory \\~\\
-A quick google search of `exploratory data analysis in r' will point you in the right direction for generic approaches you might consider \\~\\
 For now, we will focus on some tasks that have specific relevance to SWMP
 \end{frame}
 
@@ -147,7 +139,7 @@ Let's import some wq data
 \hlcom{# import data, qaqc, and subset}
 \hlcom{# change this path for the flash drive}
 \hlstd{path} \hlkwb{<-} \hlstr{'C:/data/dataset3'}
-\hlstd{wq_dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(path,} \hlstr{'cbmmcwq2012'}\hlstd{)}
+\hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(path,} \hlstr{'cbmmcwq2012'}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -155,11 +147,11 @@ Let's import some wq data
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# qaqc and subset do_mgl}
-\hlstd{wq_dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(wq_dat)}
-\hlstd{wq_dat} \hlkwb{<-} \hlkwd{subset}\hlstd{(wq_dat,} \hlkwc{select} \hlstd{=} \hlstr{'do_mgl'}\hlstd{)}
+\hlstd{dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(dat)}
+\hlstd{dat} \hlkwb{<-} \hlkwd{subset}\hlstd{(dat,} \hlkwc{select} \hlstd{=} \hlstr{'do_mgl'}\hlstd{)}
 
 \hlcom{# how many missing values?}
-\hlkwd{sum}\hlstd{(}\hlkwd{is.na}\hlstd{(wq_dat}\hlopt{$}\hlstd{do_mgl))}
+\hlkwd{sum}\hlstd{(}\hlkwd{is.na}\hlstd{(dat}\hlopt{$}\hlstd{do_mgl))}
 \end{alltt}
 \begin{verbatim}
 ## [1] 419
@@ -203,18 +195,26 @@ Here's what the time series looks like after using `na.approx'
 
 
 \end{knitrout}
-The missing values have been linearly interpolated - a simple function that predicts missing values based on the starting and ending values in gaps\\~\\
-May not be a true representation but better than some other approaches
+The missing values have been linearly interpolated - a simple function that predicts missing values based on the starting and ending values in gaps
 \end{frame}
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
-The `na.approx' function has only a few arguments\\~\\
+The `na.approx.swmpr' function has only a few arguments\\~\\
 \begin{itemize}
 \item object: input swmpr data \\~\\
 \item params: which parameters to interpolate, default is all \\~\\
 \item maxgap: what is the maximum gap size to interpolate (units are the timestep)?
 \end{itemize}
+See the help file for moreinfo
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# see the help file}
+\hlopt{?}\hlstd{na.approx.swmpr}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 \end{frame}
 
 %%%%%%
@@ -230,73 +230,8 @@ Now you try an analysis! Open a new script and try the following: \\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
-\begin{knitrout}\scriptsize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# the analysis should start like this}
-
-\hlcom{# change path as needed}
-\hlstd{path} \hlkwb{<-} \hlstr{'C:/data/dataset3'}
-\hlstd{dat} \hlkwb{<-} \hlkwd{import_local}\hlstd{(path,} \hlstr{'cbmmcwq2012'}\hlstd{)}
-
-\hlcom{# qaqc and subset imported data}
-\hlstd{dat} \hlkwb{<-} \hlkwd{qaqc}\hlstd{(dat)}
-\hlstd{dat} \hlkwb{<-} \hlkwd{subset}\hlstd{(dat,} \hlkwc{subset} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'2012-10-01 00:00'}\hlstd{,} \hlstr{'2012-10-31 00:00'}\hlstd{))}
-
-\hlcom{# plot}
-\hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-Now use na.approx using the data and an appropriate gap size (try 50) \\~\\
-Save the results to a new object and plot again \\~\\
-Try different gap values, how does this affect the plot or mean DO?
-\end{frame}
-
-%%%%%%
-\begin{frame}[containsverbatim]{Analysis 1 - Missing data and interpolation}
-
-\begin{knitrout}\scriptsize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{new_dat} \hlkwb{<-} \hlkwd{na.approx}\hlstd{(dat,} \hlkwc{maxgap} \hlstd{=} \hlnum{50}\hlstd{)} \hlcom{# try different maxgaps}
-
-\hlcom{# plot}
-\hlkwd{par}\hlstd{(}\hlkwc{mar} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{4.1}\hlstd{,} \hlnum{4.1}\hlstd{,} \hlnum{0.5}\hlstd{,} \hlnum{0.5}\hlstd{))}
-\hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= new_dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
-\end{alltt}
-\end{kframe}
-
-{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-8} 
-
-}
-
-
-
-\end{knitrout}
-\begin{knitrout}\scriptsize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{mean}\hlstd{(dat}\hlopt{$}\hlstd{do_mgl,} \hlkwc{na.rm} \hlstd{= T)}
-\end{alltt}
-\begin{verbatim}
-## [1] 5.8
-\end{verbatim}
-\begin{alltt}
-\hlkwd{mean}\hlstd{(new_dat}\hlopt{$}\hlstd{do_mgl,} \hlkwc{na.rm} \hlstd{= T)}
-\end{alltt}
-\begin{verbatim}
-## [1] 5.9
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-\end{frame}
-
-%%%%%%
 \begin{frame}[containsverbatim]{Analysis 2 - Smoothing and aggregation}
 \alert{Problem}: trend evaluation is difficult if the data are noisy \\~\\
-Noise can be caused by many factors (e.g., measurement error, process uncertainty), we are usually more concerned with the `true' signal in a time series \\~\\
 Noise can be addressed by\alert{aggregating} or \alert{smoothing} data, both are similar \\~\\
 The \alert{`aggregate.swmpr'} function aggregates a time series by set periods of observation and calculates summary data for a parameter(s) \\~\\
 The \alert{`smoother.swmpr'} function calculates a moving window average of a time series \\~\\
@@ -356,7 +291,9 @@ Now you try an analysis! Open a new script and try the following: \\~\\
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# use the same data as in analysis 1}
+\hlcom{# use the same data as in analysis 1 but...}
+\hlcom{# subset by these date ranges}
+\hlstd{dat} \hlkwb{<-} \hlkwd{subset}\hlstd{(dat,} \hlkwc{subset} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'2012-10-01 0:0'}\hlstd{,} \hlstr{'2012-10-31 0:0'}\hlstd{))}
 
 \hlcom{# smooth }
 \hlstd{new_dat} \hlkwb{<-} \hlkwd{smoother.swmpr}\hlstd{(dat,} \hlkwc{window} \hlstd{=} \hlnum{40}\hlstd{)}
@@ -370,7 +307,7 @@ Now you try an analysis! Open a new script and try the following: \\~\\
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-13} 
+{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-10} 
 
 }
 
@@ -388,28 +325,20 @@ Now you try an analysis! Open a new script and try the following: \\~\\
 \hlkwd{aggregate}\hlstd{(dat,} \hlkwc{by} \hlstd{=} \hlstr{'weeks'}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##   datetimestamp temp spcond  sal do_pct do_mgl depth cdepth level clevel  ph
-## 1    2012-09-30   21   0.75 0.36     61    5.4  0.47    NaN   NaN    NaN 6.5
-## 2    2012-10-07   16   0.67 0.33     65    6.4  0.51    NaN   NaN    NaN 6.6
-## 3    2012-10-14   15   0.70 0.34     67    6.6  0.51    NaN   NaN    NaN 6.8
-## 4    2012-10-21   16   0.71 0.35     46    4.5  0.52    NaN   NaN    NaN 6.8
-## 5    2012-10-28   14   0.57 0.29     59    6.2  0.64    NaN   NaN    NaN 6.7
-##   turb chlfluor
-## 1   22       23
-## 2   34       23
-## 3   35       20
-## 4   31       14
-## 5   88       14
+##   datetimestamp do_mgl
+## 1    2012-09-30    5.4
+## 2    2012-10-07    6.4
+## 3    2012-10-14    6.6
+## 4    2012-10-21    4.5
+## 5    2012-10-28    6.2
 \end{verbatim}
 \begin{alltt}
 \hlcom{# try an aggregation by 'months'}
 \hlkwd{aggregate}\hlstd{(dat,} \hlkwc{by} \hlstd{=} \hlstr{'months'}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##   datetimestamp temp spcond  sal do_pct do_mgl depth cdepth level clevel  ph
-## 1    2012-10-01   16   0.69 0.33     59    5.8  0.52    NaN   NaN    NaN 6.7
-##   turb chlfluor
-## 1   39       19
+##   datetimestamp do_mgl
+## 1    2012-10-01    5.8
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -417,10 +346,9 @@ Now you try an analysis! Open a new script and try the following: \\~\\
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
-Numerical summaries, filling missing data, and smoothing improve our ability to describe the data \\~\\
 More often, we are concerned with \alert{long-term trends} over time -- a missing data point here or there or noisy data on short time periods may not be very important \\~\\
 We need \alert{plots} to characterize long-term trends over time -- both \alert{raw} and \alert{summarized} data \\~\\
-This analysis will show you two ways to evaluate trends by plotting -- we will go through it together
+This analysis will show you two ways to evaluate trends by plotting
 \end{frame}
 
 %%%%%%
@@ -440,7 +368,7 @@ Start by importing all the water quality data for the `Iron Pot Landing' station
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-What are the dissolved oxygen dynamics over the last four years?  Can we characterize trends, both seasonal and annual?
+\alert{Our questions}: What are the dissolved oxygen dynamics over the last four years?  Can we characterize trends, both seasonal and annual?
 \end{frame}
 
 %%%%%%
@@ -454,7 +382,7 @@ First a simple plot...
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-17} 
+{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-14} 
 
 }
 
@@ -465,18 +393,18 @@ First a simple plot...
 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
-If we are concerned with long-term trends, we want to reduce the noise related to intra-annual variability...  we can use the smoother function
+If we are concerned with long-term trends, we want to reduce the noise related to annual variability...  we can use the smoother function
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# smoother using a large window }
+\hlcom{# smoother using a large window (5000 steps ~ 52 days)}
 \hlstd{do_smooth} \hlkwb{<-} \hlkwd{smoother}\hlstd{(dat,} \hlkwc{params} \hlstd{=} \hlstr{'do_mgl'}\hlstd{,} \hlkwc{window} \hlstd{=} \hlnum{5000}\hlstd{)}
 \hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
-\hlkwd{lines}\hlstd{(do_smooth}\hlopt{$}\hlstd{datetimestamp, do_smooth}\hlopt{$}\hlstd{do_mgl,} \hlkwc{col} \hlstd{=} \hlstr{'red'}\hlstd{)}
+\hlkwd{lines}\hlstd{(do_smooth}\hlopt{$}\hlstd{datetimestamp, do_smooth}\hlopt{$}\hlstd{do_mgl,} \hlkwc{col} \hlstd{=} \hlstr{'red'}\hlstd{,} \hlkwc{lwd} \hlstd{=} \hlnum{2}\hlstd{)}
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-18} 
+{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-15} 
 
 }
 
@@ -495,11 +423,11 @@ Try it again but use `na.approx' first to fill gaps
 \hlstd{new_dat} \hlkwb{<-} \hlkwd{na.approx}\hlstd{(dat,} \hlkwc{param} \hlstd{=} \hlstr{'do_mgl'}\hlstd{,} \hlkwc{maxgap} \hlstd{=} \hlnum{3000}\hlstd{)}
 \hlstd{do_smooth} \hlkwb{<-} \hlkwd{smoother}\hlstd{(new_dat,} \hlkwc{params} \hlstd{=} \hlstr{'do_mgl'}\hlstd{,} \hlkwc{window} \hlstd{=} \hlnum{5000}\hlstd{)}
 \hlkwd{plot}\hlstd{(do_mgl} \hlopt{~} \hlstd{datetimestamp,} \hlkwc{data} \hlstd{= new_dat,} \hlkwc{type} \hlstd{=} \hlstr{'l'}\hlstd{)}
-\hlkwd{lines}\hlstd{(do_smooth}\hlopt{$}\hlstd{datetimestamp, do_smooth}\hlopt{$}\hlstd{do_mgl,} \hlkwc{col} \hlstd{=} \hlstr{'red'}\hlstd{)}
+\hlkwd{lines}\hlstd{(do_smooth}\hlopt{$}\hlstd{datetimestamp, do_smooth}\hlopt{$}\hlstd{do_mgl,} \hlkwc{col} \hlstd{=} \hlstr{'red'}\hlstd{,} \hlkwc{lwd} \hlstd{=} \hlnum{2}\hlstd{)}
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-19} 
+{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-16} 
 
 }
 
@@ -512,7 +440,7 @@ Now we have a time series that primarily shows annual variation, independent of 
 %%%%%%
 \begin{frame}[containsverbatim]{Analysis 3 - Basic trend analysis}
 Finally, we can use the `aggregate.swmpr' function with boxplots for an alternative interpretation \\~\\
-The `aggs\_out' argument in the function can be used to return the data with the datetimestamp formatted according to the `by' argument
+The `aggs\_out' argument can be used...
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -557,7 +485,7 @@ Plot the aggregated data
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-21} 
+{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-18} 
 
 }
 
@@ -578,7 +506,7 @@ This can be repeated for different time steps...
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-22} 
+{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-19} 
 
 }
 
@@ -599,7 +527,7 @@ This can be repeated for different time steps...
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-23} 
+{\centering \includegraphics[width=\textwidth]{figure/unnamed-chunk-20} 
 
 }
 
